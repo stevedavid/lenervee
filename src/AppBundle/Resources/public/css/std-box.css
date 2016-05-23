@@ -1,0 +1,45 @@
+.dgd_stb_box, .dgd_stb_tab {
+    z-index:100000;
+    /*display: none;*/
+    position:fixed;
+    right: -350px;
+    bottom: 25px;
+    width: 300px;
+    padding: 10px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.dgd_stb_box {
+    background-image: url('../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.dgd_stb_box_close {
+    display: inline-block; 
+    position: absolute; 
+    cursor: pointer;
+    top: 15px; right: 15px; 
+}
+
+.dgd_stb_box_close_button {
+    cursor: pointer;
+}
+
+.dgd_stb_box_x { font-weight: 900; font-size: 2em }
+.dgd_stb_box_x::before { content: "\00D7" }
+
+.dgd_stb_box #scrolltriggered1 { 
+    display: block !important; 
+    bottom: none !important; 
+    z-index: auto !important; 
+    position: static !important;
+}
+
+.dgd_stb_tab {
+    cursor: pointer;
+}

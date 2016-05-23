@@ -1,0 +1,12 @@
+.login .form-title,
+.login .content .mt-checkbox {
+    color: #161a1e !important;
+}
+.login .form-subtitle,
+.login .content .forget-password {
+    color: #292b31 !important;
+}
+
+.login .content .form-control:active, .login .content .form-control:focus {
+    border: none;
+}

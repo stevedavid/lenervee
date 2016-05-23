@@ -1,0 +1,12 @@
+<aside id="customfieldlist-3" class="widget customfieldlist">
+    <h3 class="widget-title">Courriers avec réponse</h3>
+    <ul id="customfieldlist_mainlist_3">
+        {% for courrier in courriers %}
+            <li class="customfieldlistelements_3_0">
+                <a rel="popover" title="{{ courrier.name}}<br/><span>{{ courrier.envoi|date('d/m/Y') }}</span>" data-content="<img src='{{ asset(courrier.image) }}'/><br/>{{ courrier.intro }}" href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}">
+                    {{ courrier.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul><!-- ul end -->
+</aside>

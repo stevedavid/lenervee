@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block courrier_heading %}
+    <div class="alt-heading">
+        <h1 class="page-title">{{ categorie.name }}</h1>
+        <p class="heading-intro">{{ categorie.description }}</p>
+    </div>
+{% endblock %}
+
+{% block inner_body %}
+    {% for courrier in courriers %}
+        {{ render(controller('AppBundle:Courrier:apercu', {id: courrier.id})) }}
+    {% endfor %}
+{% endblock %}

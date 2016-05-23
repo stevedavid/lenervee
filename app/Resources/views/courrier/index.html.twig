@@ -1,0 +1,73 @@
+{% extends '::base.html.twig' %}
+
+{% block inner_body %}
+    {% for courrier in courriers %}
+        {{ render(controller('AppBundle:Courrier:apercu', {id: courrier.id})) }}
+    {% endfor %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            $(document).ajaxComplete(function(){
+                try{
+                    FB.XFBML.parse();
+                }catch(ex){}
+            });
+
+            window.pending = true;
+
+            $(window).on('scroll', function(e) {
+
+                var $lastPost = $('[id^=post-]').last()
+                , offset = $lastPost.position().top
+                , scroll = $(document).scrollTop()
+                ;
+
+
+                console.log(offset);
+                console.log(scroll);
+
+                if(scroll > offset && window.pending) {
+                    window.pending = false;
+                    $.ajax({
+                        url: '{{ path('courrier_apercu') }}',
+                        method: 'post',
+                        data: {id: $lastPost.attr('id')},
+                        beforeSend: function() {
+                            $loading = $('<img />').attr({
+                                id: 'loading-spinner',
+                                src: '{{ asset('img/loading_spinner.gif') }}'
+                            }).css({
+                                'width': '400px',
+                                'position': 'relative',
+                                'bottom': 0,
+                                'margin-left': '-200px',
+                                'left': '50%'
+                            });
+                            $loading.appendTo($lastPost.parent())
+                        },
+                        success: function(html) {
+                            $('#loading-spinner').remove();
+                            $(html).appendTo($lastPost.parent()).hide().fadeIn(function() {
+                                    if(html.indexOf('img') == -1) {
+                                        window.pending = false;
+                                    } else {
+                                        window.pending = true;
+                                    }
+                            }).css('margin-bottom', '20px');
+                            twttr.widgets.load();
+                        },
+                        error: function() {
+                        }
+                    });
+
+                }
+
+
+            });
+
+        });
+    </script>
+{% endblock %}

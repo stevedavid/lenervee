@@ -1,0 +1,56 @@
+<div class="col-xs-12">
+    <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-microphone font-dark hide"></i>
+                <span class="caption-subject bold font-dark uppercase"> Derniers courriers</span>
+                <span class="caption-helper">parmi d'autres...</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                {% for courrier in courriers %}
+                <div class="col-md-3">
+                    <div class="mt-widget-2" style="min-height: 500px;">
+                        <div class="mt-head" style="background-image: url({{ asset(courrier.image) }});">
+                            <div class="mt-head-label">
+                                <button type="button" class="btn btn-success">{{ courrier.categorie.name }}</button>
+                            </div>
+                            <div class="mt-head-user">
+                                <div class="mt-head-user-img">
+                                    <img src="" style="width: 0px !important;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-body">
+                            <h3 class="mt-body-title"> {{ courrier.name }} </h3>
+                            <p class="mt-body-description" style="min-height: 75px;"> {{ courrier.intro }}</p>
+                            <ul class="mt-body-stats">
+                                <li class="font-green">
+                                    <i class="fa fa-facebook"></i> {{ courrier.likeCount }}</li>
+                                <li class="font-yellow">
+                                    {% if courrier.published %}
+                                        <i class="fa fa-check font-green"></i>
+                                    {% else %}
+                                        <i class="fa fa-times-circle font-red"></i>
+                                    {% endif %}
+                                </li>
+                                <li class="font-red">
+                                    <i class="  icon-bubbles"></i> {{ courrier.reactions|length }}</li>
+                            </ul>
+                            <div class="mt-body-actions">
+                                <div class="btn-group btn-group btn-group-justified">
+                                    <a href="{{ path('admin_courrier_rediger', {id: courrier.id}) }}" class="btn">
+                                        <i class="fa fa-pencil"></i> Modifier </a>
+                                    <a href="javascript:;" class="btn {% if courrier.published == true %}disabled{% endif %}">
+                                        <i class="fa fa-share"></i> Publier </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

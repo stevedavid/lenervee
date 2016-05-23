@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block courrier_heading %}
+    <div class="alt-heading">
+        <h1 class="page-title">
+            {% if courriers|length == 1 %}
+              {{ courriers|length }} courrier trouvé
+            {% elseif courriers|length == 0 %}
+                Aucun courrier trouvé
+            {% else %}
+                {{ courriers|length }} courriers trouvés
+            {% endif %}
+        </h1>
+        <p class="heading-intro">« {{ query_string }} »</p>
+    </div>
+{% endblock %}
+
+{% block inner_body %}
+    {% for courrier in courriers %}
+        {{ render(controller('AppBundle:Courrier:apercu', {id: courrier.id})) }}
+    {% endfor %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            $('.post-title').each(function(i, el) {
+                var title = $(this).text();
+                var queryString = '{{ query_string }}';
+                var regex = new RegExp(queryString, 'gi');
+                $(this).find('a').html(title.replace(regex, "<span class='highlight-search'>$&</span>"));
+            });
+
+        });
+    </script>
+{% endblock %}

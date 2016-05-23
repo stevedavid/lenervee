@@ -1,0 +1,58 @@
+
+<div class="col-md-6 col-sm-6">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-share font-dark hide"></i>
+                <span class="caption-subject font-dark bold uppercase">
+                    <i class="fa fa-line-chart"></i>
+                    Activité récente
+                </span>
+            </div>
+            <div class="actions">
+                <div class="btn-group">
+                    <a class="btn btn-sm blue btn-outline btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> Filtrer
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right" id="filter-activity">
+                        <label class="mt-checkbox mt-checkbox-outline">
+                            <input type="checkbox" checked="checked" data-activity="courriers" /> Courriers
+                            <span></span>
+                        </label>
+                        <label class="mt-checkbox mt-checkbox-outline">
+                            <input type="checkbox" checked="checked" data-activity="reactions"/> Réactions
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="scroller" style="height: 300px;" data-always-visible="1" data-rail-visible="0">
+                <ul class="feeds">
+                    {% for date, element in elements %}
+                    <li class="feed-{{ element.icon }}">
+                        <div class="col1" style="max-width: 90%;">
+                            <div class="cont">
+                                <div class="cont-col1">
+                                    <div class="label label-sm label-{{ element.class }}">
+                                        <i class="fa fa-{{ element.icon }}"></i>
+                                    </div>
+                                </div>
+                                <div class="cont-col2">
+                                    <div class="desc">
+                                        {{ element.label|raw }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col2 text-right" style="min-width: 125px;">
+                            <div class="date"> {{ date|ago }}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

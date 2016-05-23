@@ -1,0 +1,114 @@
+@media screen and (max-width: 782px) {
+    #header {
+        margin-top: 46px!important;
+    }
+    #header.slide-down #navigation {
+        top: 46px;
+    }
+}
+body {
+    font-family: 'Noto Serif'
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+#logo h1,
+.post-title,
+.sub-title,
+.pagination-counter,
+#footer .back-top,
+#mixer .infobox strong,
+.dropcap,
+.bw-not-found,
+#peliegro-search .search-field,
+#peliegro-search .search-submit,
+.mfp-counter .js-unit,
+.mfp-counter .js-gallery-slides-total,
+.post-blocks.blocks-5 .block-info h3,
+#mixer .item-featured blockquote {
+    font-family: 'Roboto Slab'
+}
+body {
+    background: #f4f4f4;}.widget .widget-title:after {content:'';position:absolute;left:50%;bottom:15px;height:30px;width:300px;margin-left:-150px;background:transparent url('http://peliegro.bwdesk.com/demo-content/wp-content/uploads/2014/11/widget-footer-titles.png') no-repeat center center;}#footer .widget .widget-title:after {content:'';position:absolute;left:0;bottom:15px;height:30px;width:300px;background:transparent url('http://peliegro.bwdesk.com/demo-content/wp-content/uploads/2014/11/widget-footer-titles.png') no-repeat center center;}
+/* background color */
+.bw-button:hover, .widget_tag_cloud a, .bargraph li span strong, .post-categories > a:hover, .pace .pace-progress, .post-more:hover, .post-link:hover, .footer-social li a:hover, .footer-widgets input[type='submit']:hover, #peliegro-search button:hover, .bw-not-found .search-form .search-submit, .journal-link:hover, .post-categories li a {
+    background-color: #5f85b0
+}
+/* color */
+.post table thead th,
+.page table thead th,
+a,
+.page-links a,
+#footer .footer-widgets .widget a:hover,
+.alt-heading .active,
+.the-author .the-author-content h4,
+.mfp-counter .control-item .js-unit,
+.the-author .author-list li a:hover,
+.post table th,
+.page table th,
+.post-author .author-list li a:hover,
+.post-author a,
+#footer .copyright-text a,
+#footer .right-part-menu ul li a:hover,
+#footer .back-top:hover,
+#footer a:hover,
+.section-header .sub-title,
+#peliegro-search .bw-close,
+.section-header .sub-title {
+    color: #5f85b0
+}
+/* border color */
+.bw-button:hover,
+.post-more:hover,
+.footer-social li a:hover {
+    border-color: #5f85b0
+}
+/* arrow border */
+.bargraph li span strong:after {
+    border-color: #5f85b0 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+}
+/* svg */
+.ip-header .ip-logo svg path {
+    fill: #5f85b0
+}
+.ip-header .ip-loader svg path.ip-loader-circle {
+    stroke: #5f85b0
+}
+/* pregress preloader */
+.pace .pace-progress-inner {
+    box-shadow: 0 0 10px #5f85b0, 0 0 5px #5f85b0;
+}
+.pace .pace-activity {
+    border-top-color: #5f85b0;
+    border-left-color: #5f85b0
+}
+#header {
+    height: 341px
+}
+#logo {
+    height: 280px
+}
+#navigation {
+    margin-top: 280px
+}
+.row {
+    width: 1100px
+}
+#header.go-sticky #navigation {
+    border: 0;
+    max-width: 1098px;
+    left: 50%;
+    margin-left: -549px;
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+}
+.bw-line.line-1 {
+    left: 365.8536px
+}
+.bw-line.line-2 {
+    left: 731.0408px
+}

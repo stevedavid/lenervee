@@ -1,0 +1,244 @@
+article.post div.post-heading ul li a,
+.bw-current ul.post-categories a,
+.ta-prev.show ul.post-categories li a,
+.ta-next.show ul.post-categories li a {
+    font-size: 1.5em !important;
+}
+hr {
+    border: 1px;
+    border-top: 1px dashed #dbdbdd;
+}
+#peliegro-search {
+    background-image: url("../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#logo a img {
+    width: 200px;
+    margin-bottom: -30px;
+    margin-top: -10px;
+}
+#logo-mobile {
+    width: 100%;
+}
+#logo-mobile img {
+    margin-top: -25px;
+}
+#header #logo-mobile h1 {
+    font-family: "Amatic SC" !important;
+    font-size: 3em;
+    color: #5F85B0;
+    line-height: 70px;
+    height: 70px;
+    display: inline-block;
+}
+#header #logo-mobile span#logo-baseline-mobile {
+    font-family: "Amatic SC" !important;
+    font-size: 2em;
+    line-height: 70px;
+    height: 70px;
+    display: inline-block;
+    color: #888;
+}
+header {
+    background-image: url('../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#header .menu li a {
+    font-family: "Amatic SC" !important;
+    font-size: 30px !important;
+}
+#header .menu li a:hover {
+    color: #5F85B0;
+}
+#header:not(.go-sticky) #navigation {
+    background-color: white;
+}
+#header.go-sticky #navigation {
+    background-image: url('../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom: 1px solid #D4D4D4;
+}
+#header.go-sticky #navigation ul {
+    margin-left: -55px;
+}
+#header.go-sticky #navigation ul li:nth-child(3) {
+    margin-right: 70px;
+}
+#header #logo h1 {
+    width: 100%;
+    text-align: center;
+    font-family: "Amatic SC" !important;
+    font-size: 56px;
+    color: #5F85B0;
+    display: block;
+}
+#header #logo span#logo-baseline {
+    font-family: "Amatic SC" !important;
+    font-size: 38px;
+    color: #888;
+    margin-top: -20px;
+    display: block;
+}
+.post-categories li a:hover,
+.post-categories li a:active {
+    background-color: #888 !important;
+}
+.pad.round {
+    background-color: #5f85b0;
+}
+div.post-featured {
+    background-color: white;
+}
+.related-image img {} body.home .post-heading {
+                          border-bottom: none;
+                      }
+blockquote {
+    color: #494949;
+    font-size: 13px;
+    border-left: 2px solid #5f85b0;
+    border-right: 1px solid #888;
+    position: relative;
+    padding: 30px 20px 30px 30px;
+    z-index: 1;
+}
+blockquote:before {
+    font-size: 48px;
+}
+blockquote.reponse:before {
+    content: "\f10d";
+    right: 31px;
+    left: auto;
+}
+blockquote::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: none;
+    background-image: url('../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg');
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
+    filter: alpha(opacity=35);
+    filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0.35);
+    z-index: -1;
+    color: auto;
+    font-style: auto;
+    font-family: auto;
+}
+blockquote.reponse {
+    border-right: 2px solid #5f85b0;
+    border-left: 1px solid #888;
+}
+blockquote p:not(:first-child) {
+    text-indent: 15px;
+}
+aside.widget_tag_cloud div.tagcloud a {
+    background-color: transparent;
+    float: none;
+}
+aside.widget_tag_cloud div.tagcloud a:hover {
+    background-color: #5f85b0 !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+.testimonials-widget-testimonials blockquote {
+    padding: 15px;
+}
+.testimonials-widget-testimonials blockquote:before,
+.testimonials-widget-testimonials blockquote:after {
+    content: none;
+}
+#footer a:visited,
+#footer a:link {
+    color: #888 !important;
+}
+#footer a:active,
+#footer a:hover {
+    color: white !important;
+}
+#footer p {
+    color: white !important;
+}
+#footer .top-bar {
+    background-image: url('../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+    height: 390px;
+}
+#footer #blogroll li {
+    list-style-type: circle;
+}
+#footer .back-top {
+    color: #39506A;
+    background-color: #39506A !important;
+}
+#footer .back-top:hover {
+    color: #364e6d;
+}
+#footer .back-top::after {
+    top: 70px !important;
+}
+#footer .top-bar img {
+    max-width: 300px;
+    margin-bottom: 0;
+}
+.footer-widgets {
+    background-color: #39506a !important;
+}
+aside.widget ul.footer-social {
+    text-align: center;
+}
+aside.widget ul.footer-social a {
+    color: white !important;
+    background-color: white;
+}
+aside.widget ul.footer-social a:hover {
+    color: black !important;
+    background-color: #888;
+}
+.bottom-bar {
+    background-color: #8b9bac !important;
+}
+#footer .bottom-bar ul.menu li a:link,
+#footer .bottom-bar ul.menu li a:visited {
+    color: white !important;
+}
+#footer .bottom-bar ul.menu li a:hover,
+#footer .bottom-bar ul.menu li a:active {
+    color: #888 !important;
+}
+.dgd_stb_box {
+    border-left: 2px solid #5F85B0;
+    border-right: 1px solid #888;
+}
+.dgd_stb_box:before {
+    content: "";
+    font-style: normal;
+    font-family: "FontAwesome";
+    position: absolute;
+    font-size: 16px;
+    left: 5px;
+    top: 5px;
+    color: #666
+}
+.dgd_stb_box h5 {
+    display: inline-block;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+.dgd_stb_box .dgd_stb_box_close {
+    display: inline-block;
+    margin-top: -15px;
+    margin-left: 5px;
+    text-decoration: none;
+}
+.bj-fbpp-list {
+    list-style-type: none;
+}

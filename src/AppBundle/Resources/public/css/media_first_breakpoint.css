@@ -1,0 +1,110 @@
+
+/*-------------------------------------------------------*/
+/*	media css for first breakpoint ( < $container_width )
+/*-------------------------------------------------------*/
+
+#header {height:70px;padding-bottom:0;background-color:#f4f4f4;}
+#header .social-holder {display:none;}
+#header .header-search i {display:none;}
+
+#logo-mobile {display:block;}
+
+#header, .section-header, .journal-content, .post-blocks, #content {border:0;}
+
+.row {width:100%;}
+
+#logo {display:none;}
+#logo-mobile .bw-table {position:static;padding-left:20px;}
+#logo-mobile img {display:inline-block;vertical-align:middle;height:auto;}
+
+#mobile-toggle, #mobile-search {display:block;}
+
+#peliegro-search {display:none;}
+
+.post-blocks-holder {padding:30px;border:0;}
+.journal-wrap, .page-content {padding-left:30px;padding-right:30px;}
+.post-excerpt, .post-link-holder {padding-left:0;padding-right:0;}
+
+#container {overflow:hidden;}
+#sidebar.go-sticky .sidebar-inner {position:static!important;}
+
+#content {border-top:1px solid #d4d4d4;}
+#content .page-inner {padding-left:0;}
+
+#sidebar .widget {padding-right:0;}
+
+#wrapper, body, html {z-index:1;background-color:#fff;}
+
+#header #navigation {
+    padding:30px;
+    display:none;
+    z-index:-1;
+    width:75%;
+    position:fixed!important;
+    top:0;right:0!important;
+    left:auto!important;
+    margin:0!important;
+    height:100%!important;
+    background-image: url("http://lenervee.com/wp-content/uploads/2015/04/crumpled-white-paper-texture-melemel-jpeg_260159.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:100%;
+    border:0;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+#header #navigation li a {
+    color: black;
+}
+
+#header #navigation li a:hover {
+    color: #5F85B0;
+}
+
+#navigation .menu li a {font-family:'Open Sans'!important;}
+#navigation .sub-menu {position:static!important;visibility:visible;opacity:1;left:0;margin-left:0;}
+#navigation .sub-menu:after {content:none;}
+#navigation .sub-menu li a {color:#ccc!important;}
+#navigation .sub-menu {width:100%!important;}
+
+body.mobile-expand-menu #wrapper {position:absolute;right:75%;left:auto;width:100%;}
+body.mobile-expand-menu #header #navigation {display:block;top:0;right:0;position:fixed;}
+
+#sticky-logo {display:none!important;}
+
+.bw-line {display:none;}
+
+#navigation .menu li {width:100%;display:block;}
+#navigation .menu li a {width:100%;display:block;color:#fff;padding:5px 10px 5px 0;}
+#navigation .sub-menu {display:block!important;background-color:transparent;position:static!important;padding-left:30px;}
+#navigation .menu .sub-menu li a {padding:10px 20px 10px 0;}
+
+#mixer.cols-3 .mix-item {width:50%;}
+
+#footer .widget .widget-title:after {display:none!important;}
+
+.post-heading.inner {padding:0;}
+.post-heading-nav {display:none;}
+
+/* font size */
+.section-header h2 {font-size:35px;}
+.section-header .sub-title {font-size:20px;}
+.post-title {font-size:30px;}
+.post-heading .sub-info .sub-content > span:before, .post-heading .sub-info .sub-content > span:after {content:none;}
+.post-excerpt {font-size:14px;}
+.pagination-counter .current {font-size:60px;}
+.pagination-counter .total {top:0;}
+.section-header {padding-top:50px;padding-bottom:45px;}
+.section-header h2 {line-height:normal;}
+.page-inner h1 {font-size:36px;}.page-inner h2 {font-size:32px;}.page-inner h3 {font-size:28px;}.page-inner h4 {font-size:24px;}.page-inner h5 {font-size:20px;}.page-inner h6 {font-size:16px;}
+
+@-webkit-keyframes animLoadedLogo {
+    to {opacity:1;-webkit-transform:translate3d(0,100%,0) translate3d(0,-400px,0) scale3d(1,1,1)!important; }
+}
+@keyframes animLoadedLogo {
+    to {
+        transform:translate3d(0,100%,0) translate3d(0,-400px,0) scale3d(1,1,1)!important;
+        -webkit-transform:translate3d(0,100%,0) translate3d(0,-400px,0) scale3d(1,1,1)!important;
+    }
+}

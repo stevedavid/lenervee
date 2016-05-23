@@ -1,0 +1,185 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+    {% stylesheets
+        'bundles/app/admin/global/plugins/morris/morris.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Tableau de bord', sub_level: null}) }}
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 blue" href="{{ path('admin_reaction_lister') }}">
+                <div class="visual">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{ blocks_header.reactions }}">{{ blocks_header.reactions }}</span>
+                    </div>
+                    <div class="desc"> réactions </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 red" href="{{ path('admin_courrier_lister') }}">
+                <div class="visual">
+                    <i class="fa fa-envelope-o"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{ blocks_header.courriers }}">{{ blocks_header.courriers }}</span>
+                    </div>
+                    <div class="desc"> courriers </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 green" href="{{ path('admin_categorie_lister') }}">
+                <div class="visual">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{ blocks_header.categories|length }}">{{ blocks_header.categories|length }}</span>
+                    </div>
+                    <div class="desc"> catégories </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 purple" href="{{ path('admin_tag_lister') }}">
+                <div class="visual">
+                    <i class="fa fa-tags"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{ blocks_header.tags }}">{{ blocks_header.tags }}</span>
+                    </div>
+                    <div class="desc"> tags </div>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        {{ render(controller('AppBundle:Admin/Index:latestsReactions')) }}
+        {{ render(controller('AppBundle:Admin/Index:lastActivity')) }}
+
+
+    </div>
+
+    <div class="row">
+
+        {{ render(controller('AppBundle:Admin/Index:latestsCourriers')) }}
+
+
+    </div>
+
+    <div class="row">
+
+        {{ render(controller('AppBundle:Admin/Index:categoriesStats')) }}
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    {% javascripts
+        '@AppBundle/Resources/public/admin/global/plugins/moment.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/morris/morris.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/morris/raphael-min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/counterup/jquery.waypoints.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/counterup/jquery.counterup.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/amcharts.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/serial.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/pie.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/radar.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/themes/light.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/themes/patterns.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amcharts/themes/chalk.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/ammap/ammap.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/ammap/maps/js/worldLow.js'
+        '@AppBundle/Resources/public/admin/global/plugins/amcharts/amstockcharts/amstock.js'
+        '@AppBundle/Resources/public/admin/global/plugins/fullcalendar/fullcalendar.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/horizontal-timeline/horozontal-timeline.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/flot/jquery.flot.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/flot/jquery.flot.resize.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/flot/jquery.flot.categories.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jquery.sparkline.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/jquery.vmap.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js'
+        '@AppBundle/Resources/public/admin/global/plugins/morris/raphael-min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/morris/morris.min.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+    <script>
+
+        jQuery(function($) {
+
+            /**
+             * Filtrage disponible sur le bloc "Activité récente"
+             */
+            $('#filter-activity').find('input').on('change', function() {
+                var isChecked = $(this).is(':checked');
+                var entity = $(this).data('activity');
+
+                $('ul.feeds').find('li').each(function() {
+                    if(entity == 'courriers' && $(this).hasClass('feed-envelope-o')) {
+                        isChecked ? $(this).removeClass('hidden') : $(this).addClass('hidden');
+                    } else if(entity == 'reactions' && $(this).hasClass('feed-comments')) {
+                        isChecked ? $(this).removeClass('hidden') : $(this).addClass('hidden');
+                    }
+                });
+
+            });
+
+            /**
+             * Statistiques des catégories
+             */
+            var values = $('#dashboard_amchart_4').data('value');
+            var chart = AmCharts.makeChart("dashboard_amchart_4", {
+                "type": "pie",
+                "theme": "light",
+                "path": "{{ asset('admin/global/plugins/amcharts/ammap/images/') }}",
+                "dataProvider": [
+                    {% for categorie in blocks_header.categories %}
+                    {
+                        country: '{{ categorie.name }}',
+                        value: {{ categorie.courriers|length }}
+                    }{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                ],
+                "valueField": "value",
+                "titleField": "country",
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                "angle": 30,
+                "export": {
+                    "enabled": true
+                }
+            });
+
+        });
+    </script>
+
+{% endblock %}

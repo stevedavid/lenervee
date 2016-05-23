@@ -1,0 +1,133 @@
+/*==========================================================================================
+	
+Media CSS File
+This file contains all styles for responsive layout
+
+==========================================================================================*/
+
+
+
+/*----------------------------------------------------*/
+/*	1.	> 1280px
+/*----------------------------------------------------*/
+@media only screen and (min-width: 1281px) {
+	
+}
+
+/*----------------------------------------------------*/
+/*	2.	lower that 1280px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 1280px) {
+    
+}
+
+/*----------------------------------------------------*/
+/*	2.5.	lower that 1100px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 1100px) {
+    .post-author .thumb img {margin-right:30px;}
+}
+
+/*----------------------------------------------------*/
+/*	3.	lower that 1024px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 1024px) {
+    .post-heading {padding-left:10px;padding-right:10px;}
+    
+    .col.span_1,.col.span_2,.col.span_3,.col.span_4,.col.span_5,.col.span_6,.col.span_8,.col.span_9,.col.span_10 {width:100%!important;}
+}
+
+/*----------------------------------------------------*/
+/*	4.	lower that 768px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 768px) {
+	.post-blocks {height:350px;}
+    #footer .bw-col {width:100%;padding:0!important;margin-bottom:50px;}
+    #footer .bottom-bar {height:auto;padding:20px 0;}
+    #footer .copyright-text, #footer .right-part-menu {width:100%;text-align:center;padding:0;}
+    #footer .copyright-text, #footer .right-part-menu ul li a {line-height:30px;}
+    
+    #sidebar, .mixer-holder.layout-sidebar, .journal-content, .page-inner.layout-right {width:100%!important;}
+    .journal-content, #content .page-inner {border:0!important;min-height:0!important;}
+    #sidebar {padding:0!important;}
+    #content .page-inner {padding-right:0;}
+    
+    .post-author .thumb, .post-author .cont {display:block;width:100%;}
+    .post-author .thumb img {margin-bottom:20px;}
+    .post-author {padding:70px 0;}
+    
+    .the-author-avatar img {margin-right:50px;}
+    
+    .post-blocks.blocks-5 {height:400px;}
+    
+    .post-blocks.blocks-5 .block-small-5 .block-info h3 {font-size:16px;line-height:normal;}
+    .post-blocks.blocks-5 .block-small-5 .post-categories {padding-bottom:2px;}
+    .post-blocks.blocks-5 .block-small-5 span {padding-top:2px;}
+    
+    .post-blocks.blocks-5 .block-large-5 .block-info h3 {font-size:20px;line-height:normal;}
+    .post-blocks.blocks-5 .block-large-5 .post-categories {padding-bottom:5px;}
+    .post-blocks.blocks-5 .block-large-5 span {padding-top:5px;}
+    
+}
+
+/*----------------------------------------------------*/
+/*	5.	lower that 640px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 640px) {
+    .post-blocks {height:auto!important;}
+    .post-blocks .post-block-item, .post-blocks .post-block-item .block-image .block-image-liquify {position:relative;}
+    .post-blocks .post-block-item, .post-blocks .post-block-item .block-image img {display:block!important;}
+    .post-blocks .post-block-item.block-small, .post-blocks .post-block-item.block-large {width:100%!important;text-align:center;}
+    .post-blocks .block-info {text-align:left;}
+    .post-blocks .block-large .block-info h3 {font-size:18px;}
+    .post-blocks .block-info span {display:none;}
+    
+    .post-blocks .post-block-item {width:100%!important;height:auto!important;margin-bottom:20px;position:relative;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;}
+    .post-blocks .post-block-item .block-info h3 {font-size:20px!important;}
+    
+    .pagination-counter .pag-prev {left:0;}
+    .pagination-counter .pag-next {right:0;}
+    
+    #mixer.cols-3 .mix-item, #mixer.cols-2 .mix-item {width:100%!important;}
+    
+    .the-author-avatar {margin-bottom:40px;}
+    .the-author-avatar img {margin:0;}
+    .the-author .the-author-avatar, .the-author .the-author-content {display:block;width:100%;}
+    
+    /* font size */
+    .section-header h2 {font-size:25px!important;}
+    .section-header .sub-title {font-size:15px!important;}
+    .post-title {font-size:25px!important;}
+    .post-excerpt {font-size:13px!important;}
+    .pagination-counter .current {font-size:40px!important;}
+    .pagination-counter .total {top:0!important;}
+    
+    .post-heading {padding-top:25px;padding-bottom:35px;}
+    .section-header {padding-top:45px;padding-bottom:25px;padding-left:20px;padding-right:20px;}
+    
+    .page-inner h1 {font-size:25px!important;}
+    .page-inner h2 {font-size:22px!important;}
+    .page-inner h3 {font-size:20px!important;}
+    .page-inner h4 {font-size:18px!important;}
+    .page-inner h5 {font-size:16px!important;}
+    .page-inner h6 {font-size:14px!important;}
+    
+	#related-articles .related-item {padding-right:0!important}
+    
+}
+
+/*----------------------------------------------------*/
+/*	6.	lower that 480px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 480px) {
+}
+
+/*----------------------------------------------------*/
+/*	7.	== 320px
+/*----------------------------------------------------*/
+@media only screen and (max-width: 320px) {
+    
+}
+
+
+

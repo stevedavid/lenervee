@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block full_width %}content{% endblock %}
+{% block sidebar %}{% endblock %}
+
+{% block body %}
+    <div class="bw-not-found">
+        <strong>404</strong>
+        <p>Oops ! Nous n'avons pas pu trouver ce que vous cherchiez...</p>
+        <form role="search" method="get" class="search-form" action="{{ path('courrier_rechercher') }}">
+            <div>
+                <label class="screen-reader-text">Search for:</label>
+                <input type="text" class="search-field" value="" placeholder="Je vous écoute..." name="s" autocomplete="off">
+                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

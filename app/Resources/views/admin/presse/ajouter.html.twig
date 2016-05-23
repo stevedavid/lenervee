@@ -1,0 +1,177 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+    {% stylesheets
+    'bundles/app/admin/global/css/components-md.css'
+    'bundles/app/admin/global/css/plugins-md.min.css'
+    'bundles/app/admin/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+    'bundles/app/admin/global/plugins/custom-fileinputs/components.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Extraits de presse', sub_level: 'Ajouter un nouvel extrait'}) }}
+    {{ form_start(presse_form, {'attr': {'role': 'form'}}) }}
+    {{ form_errors(presse_form) }}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-green-haze">
+                                <i class="icon-settings font-green-haze"></i>
+                                <span class="caption-subject bold uppercase"> Informations principales</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="form-body">
+
+
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    {{ form_widget(presse_form.nom) }}
+                                    {{ form_label(presse_form.nom) }}
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label">
+                                {{ form_widget(presse_form.entreprise) }}
+                                {{ form_label(presse_form.entreprise) }}
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    {{ form_widget(presse_form.titre) }}
+                                    {{ form_label(presse_form.titre) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-green-haze">
+                                <i class="icon-settings font-green-haze"></i>
+                                <span class="caption-subject bold uppercase"> Extrait</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="form-body">
+
+
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    {{ form_widget(presse_form.texte) }}
+                                    {{ form_label(presse_form.texte) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-green-haze">
+                                <i class="icon-settings font-green-haze"></i>
+                                <span class="caption-subject bold uppercase"> URL</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="form-body">
+
+
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    {{ form_widget(presse_form.url) }}
+                                    {{ form_label(presse_form.url) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-center" style="padding-top: 10%;">
+                    {{ form_widget(presse_form.submit) }}
+                </div>
+                <div class="col-md-6">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-red-sunglo">
+                                <i class="icon-settings font-red-sunglo"></i>
+                                <span class="caption-subject bold uppercase"> Date de publication</span>
+                            </div>
+                        </div>
+                        <div id="presse-form-date" class="portlet-body form">
+                            {{ form_widget(presse_form.date) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{  form_end(presse_form) }}
+
+{% endblock %}
+
+{% block js %}
+    {% javascripts
+    '@AppBundle/Resources/public/admin/global/plugins/select2/js/select2.full.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/jquery-ui/jquery-ui.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/html5-file-upload/js/jquery.filedrop.js'
+    '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        jQuery(function($) {
+            /**
+             * Initialiser le datetime picker
+             * http://www.malot.fr/bootstrap-datetimepicker/
+             */
+            $('#presse-form-date').datetimepicker({
+                language: 'fr',
+                inline: true,
+                minuteStep: 15,
+                format: 'YYYY/MM/DD',
+            });
+
+            /**
+             * Mettre à jour le champ DateType de Symfony lorsqu'on change le datetime picker.
+             */
+            $('#presse-form-date').on('changeDate', function(date) {
+                $('#presse_date_date_month').val(parseInt(date.date.getMonth()) + 1);
+                $('#presse_date_date_year').val(date.date.getFullYear());
+                $('#presse_date_date_day').val(date.date.getDate());
+                $('#presse_date_time_hour').val(date.date.getHours());
+                $('#presse_date_time_minute').val(date.date.getMinutes());
+            });
+
+            /**
+             * Mettre à jour le datetime picker en fonction du DateType de SF on load.
+             */
+            var date = new Date(
+                    $('#presse_date_date_year').val(),
+                    $('#presse_date_date_month').val() - 1,
+                    $('#presse_date_date_day').val(),
+                    $('#presse_date_time_hour').val(),
+                    $('#presse_date_time_minute').val()
+            );
+            console.log(date);
+            $('#presse-form-date').datetimepicker('setDate', date.getFullYear() > 2000 ? date : new Date());
+
+
+
+        });
+    </script>
+{% endblock %}

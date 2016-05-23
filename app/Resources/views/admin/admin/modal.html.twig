@@ -1,0 +1,35 @@
+<div class="modal fade draggable-modal ui-draggable" id="draggable" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ui-draggable-handle">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    {% if type == 'error' %}
+                        <i class="fa fa-exclamation-triangle"></i>
+                        Une erreur s'est produite !
+                    {% elseif type == 'success' %}
+                        <i class="fa fa-check"></i>
+                        Opération réussie !
+                    {% elseif type == 'idle' %}
+                        <i class="fa fa-timer"></i>
+                        Inactivité detectée !
+                    {% else %}
+
+                            ...
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="modal-body"> {{ message|raw }} </div>
+            <div class="modal-footer">
+                {% if type == 'idle' %}
+                    <button class="btn btn-outline" data-dismiss="modal">Me déconnecter</button>
+                    <button class="btn dark btn-outline" data-dismiss="modal">Garder ma session</button>
+                {% else %}
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">J'ai compris !</button>
+                {% endif %}
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

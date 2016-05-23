@@ -1,0 +1,12 @@
+<aside id="bj_fbpp_widget-2" class="widget widget_bj_fbpp_widget">
+    <h3 class="widget-title">Les plus populaires</h3>
+    <ol class="bj-fbpp-list">
+        {% for courrier in courriers %}
+        <li class="bj-fbpp-item">
+            <a rel="popover" title="{{ courrier.name}}<br/><span>{{ courrier.envoi|date('d/m/Y') }}</span>" data-content="<img src='{{ asset(courrier.image) }}'/><br/>{{ courrier.intro }}" href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" class="bj-fbpp-link">
+                <span class="bj-fbpp-title">{{ courrier.name }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ol>
+</aside>

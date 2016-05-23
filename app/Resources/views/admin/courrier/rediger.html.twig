@@ -1,0 +1,422 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+    {% stylesheets
+        'bundles/app/admin/global/css/components-md.css'
+        'bundles/app/admin/global/css/plugins-md.min.css'
+        'bundles/app/admin/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+        'bundles/app/admin/global/plugins/custom-fileinputs/components.css'
+        'bundles/app/admin/global/plugins/select2/css/select2.min.css'
+        'bundles/app/admin/global/plugins/select2/css/select2-bootstrap.min.css'
+        'bundles/app/admin/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
+    %}
+        <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Courriers', sub_level: 'Rédiger un nouveau courrier'}) }}
+    {{ form_start(courrier_form, {'attr': {'role': 'form', 'id': 'fileupload'}}) }}
+    {% if courrier_form.vars.errors.count() > 0 %}
+        <div class="alert alert-danger">{{ form_errors(courrier_form) }}</div>
+    {% endif %}
+
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-green-haze">
+                            <i class="icon-settings font-green-haze"></i>
+                            <span class="caption-subject bold uppercase"> Informations principales</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                            <div class="form-body">
+
+
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    {{ form_widget(courrier_form.name) }}
+                                    {{ form_label(courrier_form.name) }}
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label">
+                                {{ form_widget(courrier_form.categorie) }}
+                                {{ form_label(courrier_form.categorie) }}
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    {{ form_widget(courrier_form.slug) }}
+                                    {{ form_label(courrier_form.slug) }}
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label">
+                                {{ form_widget(courrier_form.intro) }}
+                                {{ form_label(courrier_form.intro) }}
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+                <div class="portlet light bordered" style="min-height: 1271px;">
+                    <div class="portlet-title">
+                        <div class="caption font-red-sunglo">
+                            <i class="icon-settings font-red-sunglo"></i>
+                            <span class="caption-subject bold uppercase"> Courrier</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <div id="wysihtml5-toolbar">
+                                <!-- User can define the link's href: -->
+                                    <span class="btn-group" >
+                                      <a data-wysihtml5-command="insertHTML" data-wysihtml5-command-value="<p>foobar</p>">&lt;/p&gt;</a>
+                                      <a data-wysihtml5-command="bold" title="Bold" class="btn btn-default" ><span class="icon-darkGray txt18" ><b>B</b></span></a>
+                                      <a data-wysihtml5-command="italic" title="Italics" class="btn" ><span class="icon-darkGray txt18" style="font-style:italic">I</span></a>
+                                      <a data-wysihtml5-command="underline" title="Underline" class="btn" ><span class="icon-darkGray txt18" style="text-decoration:underline">U</span></a>
+                                    </span>
+                                    <div class="bootstrap-wysihtml5-insert-link-modal modal hide fade">
+                                        <div class="modal-header">
+                                            <a class="close" data-dismiss="modal">×</a>
+                                            <h3>Insert Link</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input value="http://" class="bootstrap-wysihtml5-insert-link-url input-xlarge"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+                                            <a href="#" class="btn btn-primary" data-dismiss="modal">Insert link</a>
+                                        </div>
+                                    </div>
+                                    <a class="btn" data-wysihtml5-command="createLink" title="Link">
+                                        <i class="icon-share"></i>
+                                    </a>
+                            </div>
+                            {{ form_widget(courrier_form.courrier) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-green-haze">
+                            <i class="icon-settings font-green-haze"></i>
+                            <span class="caption-subject bold uppercase"> Image</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form text-center">
+                        <div class="form-body js" id="file-upload">
+                            <div class="input-icon">
+                                <i class="fa fa-upload"></i>
+                                {{ form_widget(courrier_form.image.path) }} </div>
+                            <div>
+
+                            </div>
+                            <div>
+                                {{ form_widget(courrier_form.image.file) }}
+                                <br/>
+                                {{ form_label(courrier_form.image.file) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-red-sunglo">
+                            <i class="icon-settings font-red-sunglo"></i>
+                            <span class="caption-subject bold uppercase"> Date de publication</span>
+                        </div>
+                    </div>
+                    <div id="courrier-form-envoi" class="portlet-body form">
+                        {{ form_widget(courrier_form.envoi) }}
+                    </div>
+                </div>
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-red-sunglo">
+                            <i class="icon-settings font-red-sunglo"></i>
+                            <span class="caption-subject bold uppercase"> Date de la réponse</span>
+                        </div>
+                    </div>
+                    <div id="courrier-form-recu" class="portlet-body form">
+                        {{ form_widget(courrier_form.recu) }}
+                    </div>
+                </div>
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-red-sunglo">
+                            <i class="icon-settings font-red-sunglo"></i>
+                            <span class="caption-subject bold uppercase"> Tags associés</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        {{ form_widget(courrier_form.tags) }}
+                    </div>
+                </div>
+
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-red-sunglo">
+                            <i class="icon-settings font-red-sunglo"></i>
+                            <span class="caption-subject bold uppercase"> Publier</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <div class="form-group form-md-line-input form-md-floating-label" style="">
+                            <div class="md-checkbox"  style="zoom: 3;margin-left: -10px; left: 50%; margin-top: -4px;margin-bottom: -12px;">
+                                {{ form_widget(courrier_form.published) }}
+                                <label for="courrier_published">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box" ></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+                <div class="portlet light bordered" style="min-height: 1271px;">
+                    <div class="portlet-title">
+                        <div class="caption font-red-sunglo">
+                            <i class="icon-settings font-red-sunglo"></i>
+                            <span class="caption-subject bold uppercase"> Reponse</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            {{ form_widget(courrier_form.reponse) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-offset-md-4 col-md-3">
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                    {{ form_row(courrier_form.submit) }}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {{  form_end(courrier_form) }}
+
+{% endblock %}
+
+{% block js %}
+    {% javascripts
+        '@AppBundle/Resources/public/admin/global/plugins/select2/js/select2.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/select2/js/select2.full.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/jquery-ui/jquery-ui.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/html5-file-upload/js/jquery.filedrop.js'
+        '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
+        '@AppBundle/Resources/public/admin/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        jQuery(function($) {
+            /**
+             * Initialiser le datetime picker
+             * http://www.malot.fr/bootstrap-datetimepicker/
+             */
+            $('#courrier-form-envoi, #courrier-form-recu').datetimepicker({
+                language: 'fr',
+                inline: true,
+                minuteStep: 15,
+                format: 'HH:00',
+            });
+
+            /**
+             * Mettre à jour le champ DateType de Symfony lorsqu'on change le datetime picker.
+             */
+            $('#courrier-form-envoi').on('changeDate', function(date) {
+                $('#courrier_envoi_date_month').val(parseInt(date.date.getMonth()) + 1);
+                $('#courrier_envoi_date_year').val(date.date.getFullYear());
+                $('#courrier_envoi_date_day').val(date.date.getDate());
+                $('#courrier_envoi_time_hour').val(date.date.getHours());
+                $('#courrier_envoi_time_minute').val(date.date.getMinutes());
+            });
+
+            /**
+             * Mettre à jour le datetime picker en fonction du DateType de SF on load.
+             */
+            var date = new Date(
+                    $('#courrier_envoi_date_year').val(),
+                    $('#courrier_envoi_date_month').val() - 1,
+                    $('#courrier_envoi_date_day').val(),
+                    $('#courrier_envoi_time_hour').val(),
+                    $('#courrier_envoi_time_minute').val()
+            );
+            $('#courrier-form-envoi').datetimepicker('setDate', date.getFullYear() > 2000 ? date : new Date());
+
+
+            /**
+             * Upload d'image
+             */
+            var $fileButton = $('label.btn.green');
+            var label = $fileButton.text();
+            var $img = $fileButton.closest('.form-body').find('.mt-overlay-6 > img');
+            var oldSrc = $fileButton.closest('.form-body').find('.mt-overlay-6 > img').attr('src');
+            var $innerButton = $img.next('.mt-overlay').find('a.btn');
+            var oldFilePath = $innerButton.text();
+            $fileButton.closest('.form-body').find('input[type=file]').on('change', function(e) {
+                if(e.target.files[0]) {
+                    var file = this.files[0];
+                    var name = file.name;
+                    var formData = new FormData($('#fileupload')[0]);
+                    $.ajax({
+                        url: '{{ path('admin_courrier_upload') }}',
+                        method: 'post',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        xhr: function() {  // Custom XMLHttpRequest
+                            var myXhr = $.ajaxSettings.xhr();
+                            if(myXhr.upload){ // Check if upload property exists
+                                myXhr.upload.addEventListener('progress', function(e) {
+                                    if(e.lengthComputable){
+                                        $('progress').attr({value:e.loaded,max:e.total});
+                                    }
+                                }, false); // For handling the progress of the upload
+                            }
+                            return myXhr;
+                        },
+                        success: function(r) {
+                            $('#courrier_image_path').val(r.path);
+                            $fileButton.html('<i class="fa fa-upload"></i> En attente de validation');
+                            $img.css('opacity', 0.5).attr({
+                                'src': '/' + r.path
+                            });
+                            $innerButton.html('<i class="fa fa-cog fa-spin fa-fw"></i> ' + e.target.files[0].name)
+                        },
+                        error: function(error) {
+                            $.get('{{ path('admin_admin_modal') }}', {
+                                type: 'error',
+                                message: 'Une erreur est survenue lors de la sauvegarde de l\'image : "' + $.parseJSON(error.responseText) + '".'
+                            }, function(modal) {
+                                $(modal).modal('show');
+                            });
+                        },
+
+                    });
+                } else {
+                    $fileButton.text(label);
+                    $img.css('opacity', 1).attr({
+                        'src': oldSrc,
+                    });
+                    $('#courrier_image_path').val(oldSrc);
+                    $innerButton.text(oldFilePath);
+
+                }
+            });
+
+            /**
+             * Select2 pour les tags
+             */
+            $('#courrier_tags').select2({
+                tags: 'true',
+                width: '100%',
+                tokenSeparator: ','
+            }).on("change", function(e) {
+                var $newTag = $(this).find('[data-select2-tag="true"]');
+                if($newTag.length){
+                    $.ajax({
+                        url: '{{ path('admin_tag_ajouter') }}',
+                        method: 'post',
+                        data: {tag: $newTag.val()},
+                        success: function(r) {
+                            $newTag.replaceWith('<option selected value="' + r.id + '">'+$newTag.val()+'</option>');
+                        }
+                    });
+                }
+            });
+
+            $('#courrier_courrier').each(function(){
+                var textareaid = $(this).attr('id');
+
+                var editor = new wysihtml5.Editor(textareaid, {
+                    parserRules: {
+                        "tags": {
+                            "a": {
+                                "check_attributes": {
+                                    "href": "url"
+                                },
+                                "set_attributes": {
+                                    "rel": "nofollow",
+                                    "target": "_blank"
+                                }
+                            },
+                            "b": {},
+                            "br": {},
+                            "div": {},
+                            "em": {},
+                            "i": {},
+                            "li": {},
+                            "ol": {},
+                            "p": {remove: 0},
+                            "span": {},
+                            "strong": {},
+                            "ul": {},
+                            "u": {}
+                        }
+                    },
+                    locale: 'fr-FR',
+                    toolbar: 'wysihtml5-toolbar',
+                    "stylesheets": ["{{ asset('admin/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]
+                });
+            })
+
+            {#$('#courrier_reponse').wysihtml5({#}
+                {#toolbar: {#}
+                    {#html : function() {#}
+                        {#return "<li>" +#}
+                                {#"<div class='btn-group'>" +#}
+                                {#"<a class='btn' data-wysihtml5-action='change_view' title='Editer HTML'>HTML</a>" +#}
+                                {#"</div>" +#}
+                                {#"</li>";#}
+                    {#},#}
+                    {#"font-styles": false,#}
+                {#},#}
+                {#"stylesheets": ["{{ asset('admin/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]#}
+            {#});#}
+            {#}).on('select2:select', function(e) {#}
+                {#if(e.params.data.id == e.params.data.text) {#}
+                    {#var data = {#}
+                        {#name: e.params.data.text#}
+                    {#};#}
+
+                    {#$.ajax({#}
+                        {#url: '{{ path('admin_tag_ajouter') }}',#}
+                        {#method: 'post',#}
+                        {#data: data,#}
+                        {#success: function() {},#}
+                        {#error: function() {}#}
+                    {#});#}
+                {#}#}
+            {#});#}
+
+            $('#courrier_categorie').select2({
+                placeholder: 'Sélectionnez une catégorie',
+            });
+        });
+    </script>
+{% endblock %}

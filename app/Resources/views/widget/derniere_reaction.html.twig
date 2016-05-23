@@ -1,0 +1,18 @@
+<aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Dernière réaction</h3>
+    <ul id="recentcomments" class="bw-sidebar-posts">
+        <li class="recentcomments">
+            <div class="thumb">
+                <a href="{{ path('courrier_voir', {slugCourrier: reaction.courrier.slug, slugCategorie: reaction.courrier.categorie.slug}) }}">
+                    <img alt="" src="http://2.gravatar.com/avatar/?s=110&amp;d=mm&amp;r=g" data-lazy-type="image" data-lazy-src="http://2.gravatar.com/avatar/?s=110&amp;d=mm&amp;r=g" data-lazy-srcset="http://2.gravatar.com/avatar/?s=220&amp;d=mm&amp;r=g 2x" class="lazy avatar avatar-110 photo avatar-default" height="110" width="110">
+                    <noscript>&lt;img alt='' src='http://2.gravatar.com/avatar/?s=110&amp;#038;d=mm&amp;#038;r=g' srcset='http://2.gravatar.com/avatar/?s=220&amp;amp;d=mm&amp;amp;r=g 2x' class='avatar avatar-110 photo avatar-default' height='110' width='110' /&gt;</noscript>
+                </a>
+            </div>
+            <div class="cont">
+                <a href="{{ path('courrier_voir', {slugCourrier: reaction.courrier.slug, slugCategorie: reaction.courrier.categorie.slug}) }}#comment-{{ reaction.id }}">
+                    {{ reaction.name }}
+                </a>
+                <p>{{ reaction.reaction|slice(0, 15) }}...</p>
+            </div>
+        </li>
+    </ul>
+</aside>

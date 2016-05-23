@@ -1,0 +1,12 @@
+<aside id="text-3" class="widget widget_text widget_tag_cloud">
+    <h3 class="widget-title">Mots-clés</h3>
+    <div class="textwidget">
+        <div class="utcw-13a2b7l tagcloud">
+            {% for tag, nbCourriers in tags %}
+                <a rel="tooltip" class="tag-link-120 utcw-tag utcw-tag-alcool" href="{{ path('tag_voir', {slug: tag}) }}" style="font-size: {{ sizes[tag] }}px;color: {{ colors[random(3)] }}" title="{{ nbCourriers }} courriers">
+                    {{ tag }}
+                </a>
+           {% endfor %}
+        </div>
+    </div>
+</aside>

@@ -1,0 +1,459 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+    {% stylesheets
+    'bundles/app/admin/global/plugins/datatables/datatables.min.css'
+    'bundles/app/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css'
+    'bundles/app/admin/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css'
+    filter='cssrewrite' %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    {% if action == 'corbeille' %}
+        {% set sub_level = 'Corbeille' %}
+    {% elseif action == 'lister' %}
+        {% set sub_level = 'Liste des réactions' %}
+    {% endif %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Réactions', sub_level: sub_level}) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="fa fa-{% if action == 'corbeille' %}trash-o{% else %}eye{% endif %} font-dark"></i>
+                        <span class="caption-subject bold uppercase">
+                            {{ sub_level }}
+                            {% if courrier is defined and courrier is not null %}
+                                sur le courrier « {{ courrier }} »
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <label class="btn btn-transparent dark btn-outline btn-circle btn-sm" id="reactions-reset">Réinitialiser le tableau</label>
+                            {#<label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">#}
+                                {#<input type="radio" name="options" class="toggle" id="option1">Actions</label>#}
+                            {#<label class="btn btn-transparent dark btn-outline btn-circle btn-sm">#}
+                                {#<input type="radio" name="options" class="toggle" id="option2">Settings</label>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    {% if action == 'lister' %}
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group pull-right">
+                                        <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Statuts
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu lefty pull-right" id="status-filter">
+                                            {% for status in statuses %}
+                                                <li data-status="{{ constant(status, reactions[0]) }}">
+                                                    <a href="#">
+                                                        <i class="fa fa-{{ labels[constant(status, reactions[0])]['icon'] }}"></i>
+                                                        {{ labels[constant(status, reactions[0])]['label'] }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <table id="reactions-table" class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th class="no-sort">
+                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                    <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                                    <span></span>
+                                </label>
+                            </th>
+                            <th class="no-sort"> # </th>
+                            {% if courrier is defined and courrier is null %}
+                                <th> Courrier </th>
+                            {% endif %}
+                            <th> Auteur </th>
+                            <th> URL </th>
+                            <th> Email </th>
+                            <th> Date </th>
+                            <th> Réaction </th>
+                            <th> I.P. </th>
+                            {% if action == 'lister' %}
+                                <th> Statut </th>
+                            {% endif %}
+                            <th style="width: 150px;" class="no-sort"> Actions </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reaction in reactions %}
+                            <tr class="" id="reaction-{{ reaction.id }}" data-id="{{ reaction.id }}">
+                                <td>
+                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                        <input type="checkbox" class="checkboxes" value="1" />
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td> {{ reaction.id }}</td>
+                                {% if courrier is defined and courrier is null %}
+                                    <td> {{ reaction.courrier.name }} </td>
+                                {% endif %}
+                                <td> {{ reaction.name }} </td>
+                                <td style="word-wrap: break-word; max-width: 100px;">
+                                    <span>
+                                        {{ reaction.url }}
+                                    </span>
+                                    {% if reaction.url %}
+                                        <div class="text-center">
+                                            <label style="margin-top: 10px;" rel="tooltip" title="Supprimer l'URL" class="editable-url btn btn-transparent dark btn-outline btn-circle btn-xs">
+                                                <i class="fa fa-times-circle"></i>
+                                            </label>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td> {{ reaction.email }} </td>
+                                <td class="not-sortable"> {{ reaction.date|date('d/m/Y à H:i:s') }} </td>
+                                <td>
+                                    <span class="table-editable" data-id="{{ reaction.id }}">{{ reaction.reaction|nl2br }}</span>
+                                </td>
+                                <td> {{ reaction.ip }} </td>
+                                {% if action == 'lister' %}
+                                    <td class="text-center" data-search="{{ reaction.status }}">
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs dropdown-toggle {{ labels[reaction.status]['class'] }}" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                <span>{{ labels[reaction.status]['label'] }}</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu editable-status" role="menu">
+                                                <li class="text-center dropdown-header">Modifier le statut</li>
+                                                <li role="separator" class="divider"></li>
+                                                {% for status in statuses %}
+                                                    <li class="text-center {% if reaction.status == constant(status, reaction) %}hidden{% endif %}" data-status="{{ constant(status, reaction) }}">
+                                                        <a href="javascript:;">
+                                                            {{ labels[constant(status, reaction)]['label'] }}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li class="dropdown-see-comment {% if reaction.status != constant('STATUS_ACCEPTED', reaction) %}hidden{% endif %}">
+                                                <a href="{{ path('courrier_voir', {slugCategorie: reaction.courrier.categorie.slug, slugCourrier: reaction.courrier.slug}) }}#div-comment-{{ reaction.id }}" target="_blank">
+                                                    <i class="fa fa-eye"></i> Voir le commentaire </a>
+                                            </li>
+                                            <li>
+                                                <a href="http://whatismyipaddress.com/ip/{{ reaction.ip }}" target="_blank">
+                                                    <i class="fa fa-search"></i> Informations sur l'IP </a>
+                                            </li>
+                                            {% if reaction.url != '' %}
+                                            <li>
+                                                <a href="{{ reaction.url }}" target="_blank">
+                                                    <i class="fa fa-at"></i> Voir le site joint </a>
+                                            </li>
+                                            {% endif %}
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="#" class="delete-reaction" data-toggle="confirmation" data-btn-ok-label="Oui" data-btn-cancel-label="Non" data-placement="left" title="Confirmation">
+                                                    <i class="fa fa-times-circle"></i> Supprimer définitivement
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% javascripts
+    '@AppBundle/Resources/public/admin/pages/scripts/ui-blockui.min.js'
+    '@AppBundle/Resources/public/admin/global/scripts/datatable.js'
+    '@AppBundle/Resources/public/admin/global/plugins/datatables/datatables.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js'
+    '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js'
+    %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+    <script>
+        jQuery(function($) {
+            /**
+             * Initialisation du tableau
+             */
+            var $table = $('#reactions-table');
+            var reactions = $table.dataTable({
+                "order": [],
+                "columnDefs": [ {
+                    "targets"  : 'no-sort',
+                    "orderable": false,
+                }],
+                "language": {
+                    "url": "/admin/global/plugins/datatables/datatables.fr.json"
+                }
+            });
+
+            /**
+             * Pour annuler la modification de la réaction
+             */
+            $('body').on('click', function(e) {
+                var targetClass = $(e.target).attr('class');
+                if(typeof targetClass !== 'undefined') {
+                    targetClass = targetClass.split(' ');
+                    if($.inArray('editable-submit', targetClass) < 0 && $.inArray('editable-textarea', targetClass) < 0) {
+                        $('.table-editable').each(function(i, el) {
+                            if($(el).is(':hidden')) {
+                                $(el).show().parent().find('.editable-wrapper').remove();
+
+                            }
+                        });
+                    }
+                }
+
+            });
+
+            /**
+             * Lorsqu'on souhaite modifier la réaction
+             */
+            window.editing = false;
+            $('.table-editable').on('click', function() {
+                if(!window.editing) {
+                    window.editing = true;
+                    var id = $(this).closest('tr').data('id');
+                    var content = $(this).text();
+                    var $wrapper = $('<div/>').attr('class', 'editable-wrapper');
+                    var $textarea = $('<textarea/>')
+                            .attr({
+                                'class': 'editable-textarea',
+                            })
+                            .val(content)
+                            .css({
+                                'width': $(this).parent().width() * 1.1 + 'px',
+                                'height': $(this).parent().height() * 1.025 + 'px',
+                            }).focus().appendTo($wrapper);
+                    $('<button/>')
+                            .attr({
+                                'class': 'btn btn-xs green editable-submit',
+                            })
+                            .css({
+                                'width': $(this).parent().width() * 1.1 + 'px',
+                            })
+                            .data('id', id)
+                            .text('Modifier')
+                            .appendTo($wrapper);
+                    $(this).fadeOut('fast', function() {
+                        $(this).parent().append($wrapper).hide().fadeIn('fast', function() {
+                            window.editing = false;
+                            $textarea.focus();
+                        });
+                    });
+                }
+
+            });
+
+            /**
+             * Lorsqu'on valide la modification de la réaction
+             */
+            $('body').on('click', '.editable-submit', function(e) {
+                var data = {
+                    'id': $(this).data('id'),
+                    'value': $(this).prev('.editable-textarea').val(),
+                    'type': 'content'
+                }
+                var $button = $(this);
+                $.ajax({
+                    url: '{{ path('admin_reaction_editer') }}',
+                    method: 'post',
+                    data: data,
+                    beforeSend: function() {
+                        $button.attr('disabled', 'disabled').html('<i class="fa fa-cog fa-spin fa-fw"></i>');
+                    },
+                    success: function() {
+                        $('.editable-wrapper').fadeOut('fast', function() {
+                            $wrapper = $(this);
+                            $wrapper.prev('.table-editable').html(data.value.replace(/\n/g, '<br />')).fadeIn('fast', function() {
+                                $wrapper.remove();
+                            });
+                        });
+                    },
+                    error: function(error) {
+                        $.get('{{ path('admin_admin_modal') }}', {
+                            type: 'error',
+                            message: 'Une erreur est survenue lors de la sauvegarde de la réaction : "' + error + '".'
+                        }, function(modal) {
+                            $(modal).modal('show');
+                        });
+                        $('body').trigger('click');
+                    }
+                });
+            });
+
+
+            /**
+             * Lorsqu'on souhaite supprimer la réaction
+             */
+            $('.delete-reaction').on('click', function(e) {
+                e.preventDefault();
+                var $td = $(this).closest('td');
+                var $tr = $(this).closest('tr');
+                var data = {
+                    id: $tr.data('id'),
+                };
+
+                $.ajax({
+                    url: '{{ path('admin_reaction_supprimer') }}',
+                    method: 'post',
+                    data: data,
+                    beforeSend: function() {
+                        App.blockUI({
+                            target: '#reaction-' + data.id + ' > td',
+                            animate: true
+                        });
+                    },
+                    success: function() {
+                        $tr.fadeOut('slow').slideUp('slow');
+                    },
+                    error: function(error) {
+                        $.get('{{ path('admin_admin_modal') }}', {
+                            type: 'error',
+                            message: 'Une erreur est survenue lors de la suppression de la réaction : "' + error + '".'
+                        }, function(modal) {
+                            $(modal).modal('show');
+                        });
+                    },
+
+                });
+            })
+
+            /**
+             * Lorsqu'on souhaite supprimer l'URL
+             */
+            $('.editable-url').on('click', function() {
+                var data = {
+                    id: $(this).closest('tr').data('id')
+                };
+                var $button = $(this);
+                var $td = $(this).closest('td');
+
+                $.ajax({
+                    url: '{{ path('admin_reaction_remove_url') }}',
+                    method: 'post',
+                    data: data,
+                    beforeSend: function() {
+                        $button
+                                .html('<i class="fa fa-cog fa-spin fa-fw"></i>')
+                                .attr('disabled', 'disabled');
+                    },
+                    success: function() {
+                        $td.children().fadeOut('slow');
+                    },
+                    error: function(error) {
+                        $.get('{{ path('admin_admin_modal') }}', {
+                            type: 'error',
+                            message: 'Une erreur est survenue lors de la suppression du lien : "' + error + '".'
+                        }, function(modal) {
+                            $(modal).modal('show');
+                        });
+                    },
+                });
+            });
+            /**
+             * Lorsqu'on souhaite changer le statut
+             */
+            $('.editable-status').find('li').on('click', function() {
+                var data = {
+                    'value': $(this).data('status'),
+                    'id': $(this).closest('tr').data('id'),
+                    'type': 'status',
+                }
+                var $label = $(this).closest('.dropdown').find('button');
+                var $lis = $(this).closest('.dropdown-menu').find('> li[data-status]');
+                var reversedConstants = {};
+
+
+                $.ajax({
+                    url: '{{ path('admin_reaction_editer') }}',
+                    method: 'post',
+                    data: data,
+                    beforeSend: function() {
+                        $label
+                                .attr('disabled', 'disabled')
+                                .find('> span')
+                                .html('<i class="fa fa-cog fa-spin fa-fw"></i>')
+                    },
+                    success: function(retour) {
+                        var constants = retour.constants;
+                        var labels = retour.labels;
+                        delete constants[data.value];
+                        constants.splice(data.value, 1);
+                        $(constants).each(function(i, el) {
+                            reversedConstants[el] = i;
+                        });
+                        $lis.removeClass('hidden');
+                        if ($.inArray(data.value, reversedConstants) === -1) {
+                            var $toDelete = $lis.filter(function() {
+                                return $(this).data('status') == data.value;
+                            });
+                            $toDelete.addClass('hidden');
+                        }
+                        $label
+                                .removeAttr('disabled')
+                                .removeClass('green yellow red default')
+                                .addClass(labels[data.value]['class'])
+                                .find('> span')
+                                .text(labels[data.value]['label']);
+
+                    },
+                    error: function(error) {
+                        $.get('{{ path('admin_admin_modal') }}', {
+                            type: 'error',
+                            message: 'Une erreur est survenue lors de la sauvegarde du statut : "<i>' + $.parseJSON(error.responseText).error + '</i>".'
+                        }, function(modal) {
+                            $(modal).modal('show');
+                        });
+                        $label.fadeOut('slow');
+                    },
+                });
+
+            });
+
+            /**
+             * Lorsqu'on réinitialise le tableau
+             */
+            $('#reactions-reset').on('click', function() {
+                var oSettings = reactions.fnSettings();
+                for (var iCol = 0; iCol < oSettings.aoPreSearchCols.length; iCol++) {
+                    oSettings.aoPreSearchCols[iCol].sSearch = '';
+                }
+                reactions.fnDraw();
+            });
+
+            /**
+             * Lorsqu'on souhaite filtrer par statut
+             */
+            $('#status-filter').find('> li').on('click', function(e) {
+                reactions.fnFilter($(this).data('status'), $table.find('th').length - 2);
+            });
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,9 @@
+<div class="menu-categories-container">
+    <ul id="menu-categories" class="menu">
+        {% for categorie in categories %}
+            <li id="menu-item-241" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-241">
+                <a title="{{ categorie.name }}" href="{{ path('categorie_voir', {slug: categorie.slug}) }}">{{ categorie.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

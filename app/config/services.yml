@@ -1,0 +1,21 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    # FOSUserBundle
+    fos_user.doctrine_registry:
+        alias: doctrine
+
+    # L'énervée
+    nrv.image_type_extension:
+        class: AppBundle\Form\Extension\ImageTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: AppBundle\Form\Admin\ImageType }
+
+    nrv.session_idle:
+            class: AppBundle\Handler\SessionIdleHandler
+            arguments: ["@session", "@security.context", "@router", %session_max_idle_time%]
+            tags:
+                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

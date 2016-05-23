@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Erreur 404 (page non trouvée){% endblock %}
+
+{% block full_width %}content{% endblock %}
+{% block sidebar %}{% endblock %}
+
+
+{% block body %}
+    <div class="bw-not-found">
+        <strong>Erreur</strong>
+        <p>Oops ! Une erreur inconnue est survenue...</p>
+        <form role="search" method="get" class="search-form" action="{{ path('courrier_rechercher') }}">
+            <div>
+                <label class="screen-reader-text">Search for:</label>
+                <input type="text" class="search-field" value="" placeholder="Je vous écoute..." name="s" autocomplete="off">
+                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

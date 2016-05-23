@@ -1,0 +1,13 @@
+<aside id="text-8" class="widget widget_text"><h3 class="widget-title">Blogroll</h3>
+    <div class="textwidget">
+        <ul>
+            {% for lien in liens %}
+                <li>
+                    <a href="{{ lien.href }}" onclick="_gaq.push(['_trackEvent', 'outbound-widget', '{{ lien.href }}', '{{ lien.name }}']);" title="{{ lien.title }}" target="_blank">
+                        {{ lien.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>

@@ -1,0 +1,217 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ courrier.name }}
+{% endblock %}
+
+{% block meta %}
+    {{ render(controller('AppBundle:Blog:meta', {courrier: courrier})) }}
+{% endblock %}
+
+{% block courrier_heading %}
+    <div class="post-heading inner text-center">
+
+        <!-- prev -->
+        {% if prev_courrier is not empty %}
+            <div class="bw-ta ta-prev">
+                <div class="bw-table">
+                    <div class="bw-cell">
+                        <ul class="post-categories"><li><a href="{{ path('categorie_voir', {slug: prev_courrier.categorie.slug}) }}" rel="category tag">{{ prev_courrier.categorie.name }}</a></li></ul>                        <h2 class="post-title">{{ prev_courrier.name }}</h2>
+                        <div class="sub-info is-single">
+                            <div class="sub-content">
+                                <span>{{ prev_courrier.intro }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- next -->
+        {% if next_courrier is not empty %}
+            <div class="bw-ta ta-next">
+                <div class="bw-table">
+                    <div class="bw-cell">
+                        <ul class="post-categories"><li><a href="{{ path('categorie_voir', {slug: next_courrier.categorie.slug}) }}" rel="category tag">{{ next_courrier.categorie.name }}</a></li></ul>
+                        <h2 class="post-title">{{ next_courrier.name }}</h2>
+                        <div class="sub-info is-single">
+                            <div class="sub-content">
+                                <span>{{ next_courrier.intro }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- current -->
+        <div class="bw-current">
+            <div class="bw-table">
+                <div class="bw-cell">
+                    <ul class="post-categories">
+                        <li><a href="{{ path('categorie_voir', {slug: courrier.categorie.slug}) }}" rel="category tag">{{ courrier.categorie.name }}</a>
+                        </li>
+                    </ul>
+                    <h2 class="post-title">
+                        {{ courrier.name }}
+                    </h2>
+                    <div class="sub-info is-single">
+                        <div class="sub-content">
+                            <span>{{ courrier.intro }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- post heading navigation -->
+        {% if prev_courrier is not empty %}
+            <a href="{{ path('courrier_voir', {slugCategorie: prev_courrier.categorie.slug, slugCourrier: prev_courrier.slug}) }}" class="post-heading-nav nav-prev round">
+                <div class="ph-image"><img src="{{ asset(prev_courrier.image) }}" class="attachment-thumbnail wp-post-image" alt="{{ prev_courrier.name }}" /></div>
+            </a>
+        {% else %}
+            <span class="post-heading-nav nav-prev round disabled"></span>
+        {% endif %}
+
+        {% if next_courrier is not empty %}
+            <a href="{{ path('courrier_voir', {slugCategorie: next_courrier.categorie.slug, slugCourrier: next_courrier.slug}) }}" class="post-heading-nav nav-next round">
+                <div class="ph-image"><img src="{{ asset(next_courrier.image) }}" class="attachment-thumbnail wp-post-image" alt="Panier de Yoplait" /></div>
+            </a>
+        {% else %}
+            <span class="post-heading-nav nav-next round disabled"></span>
+        {% endif %}
+
+    </div> <!-- // post-heading -->
+{% endblock %}
+
+{% block inner_body %}
+
+    <article id="post-249" class="post bw-single-post single post-249 type-post status-publish format-standard has-post-thumbnail hentry category-deceptions tag-beurre tag-casser tag-confiture tag-cracotte tag-lu tag-tartiner">
+
+    <div class="post-featured bw-border-bottom">
+
+        <img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="{{ asset(courrier.image) }}" class="lazy lazy-hidden attachment-bw_1100 wp-post-image" alt="Cracotte au froment" /><noscript><img width="350" height="350" src="{{ asset(courrier.image) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /></noscript>
+    </div>
+
+    <div class="post-excerpt relative bw-border-bottom">
+        <blockquote>
+            {{ courrier.courrier|raw }}
+        </blockquote>
+    </div>
+
+    <div class="post-excerpt relative bw-border-bottom">
+        {% if courrier.reponse is not empty %}
+            <blockquote class="reponse" style="margin-bottom: 10px;">
+                {{ courrier.reponse|raw }}
+            </blockquote>
+        {% else %}
+            <p style="font-style: italic; text-align: center">L'énervée est en attente de sa réponse</p>
+        {% endif %}
+
+        <div class="post-categories" style="text-align: center;margin-bottom: 25px;">
+            {% for tag in courrier.tags %}
+                <a href="{{ path('tag_voir', {slug: tag.slug}) }}" rel="tag">{{ tag.name|lower }}</a>
+            {% endfor %}
+        </div>
+        <div id="iframe-share"></div>
+
+
+        {#<div class="addthis-dynamic" data-url="http://lenervee.com/deceptions/biscotte-a-tartiner/">#}
+
+        {{ render(controller('AppBundle:Blog:partage', {courrier: courrier})) }}
+
+
+        {#</div>#}
+
+
+    </div>
+
+    {############ RELATED #############}
+    {{ render(controller('AppBundle:Courrier:slider', {id: courrier.id})) }}
+    {############ REACTIONS #############}
+    <div class="journal-comments bw-border-bottom">
+
+        <div id="comments" class="comments-area" style="margin-top: -50px;">
+
+
+            {% if courrier.reactions|length > 0 %}
+
+                <h2 class="comments-title">
+                    {% if courrier.reactions|length > 1 %}
+                        {{ courrier.reactions|length }} réactions
+                    {% elseif courrier.reactions|length == 1 %}
+                        Une seule réaction
+                    {% endif %}
+                </h2>
+            {% endif %}
+
+
+            <ol class="comment-list">
+
+                {% for reaction in courrier.reactions %}
+                    <li id="comment-{{ reaction.id }}" class="comment even thread-even depth-1">
+                        <article id="div-comment-{{ reaction.id }}" class="comment-body">
+                            <footer class="comment-meta">
+                                <div class="comment-author vcard">
+                                    <img alt="" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    <b class="fn">{{ reaction.name }}</b> <span class="says">dit&nbsp;:</span>
+                                </div><!-- .comment-author -->
+
+                                <div class="comment-metadata">
+                                    <a href="#comment-{{ reaction.id }}">
+                                        <time>
+                                            {{ reaction.date|ago }}
+                                        </time>
+                                    </a>
+                                </div><!-- .comment-metadata -->
+
+                            </footer><!-- .comment-meta -->
+
+                            <div class="comment-content">
+                                <p>{{ reaction.reaction|raw }}</p>
+                            </div><!-- .comment-content -->
+
+                            <div class="reply">
+                                <a class="comment-reply-link" href="#" data-comment-id="{{ reaction.id }}">Répondre</a>
+                            </div>
+                        </article><!-- .comment-body -->
+                    </li><!-- #comment-## -->
+                {% endfor %}
+
+            </ol><!-- .comment-list -->
+
+            <div id="respond" class="comment-respond">
+
+                <h3 id="reply-title" class="comment-reply-title">
+                    {% if courrier.reactions|length == 0 %}
+                        Soyez le premier à réagir
+                    {% else %}
+                        Et vous ?
+                    {% endif %}
+                </h3>
+                {% if sent == 1 %}
+                <div class="sub-info">
+                    <div class="sub-content">
+                        <span>Votre commentaire est en cours de modération !</span>
+                    </div>
+                </div>
+
+                    <span class="paging-space"></span>
+                {% else %}
+                {{ form_errors(reaction_form) }}
+                    {{ form_start(reaction_form, {'attr': {'class': 'comment-form'}}) }}
+                        <p class="comment-form-author">{{ form_widget(reaction_form.name) }}</p>
+                        <p class="comment-form-email">{{ form_widget(reaction_form.email) }}</p>
+                        <p class="comment-form-url">{{ form_widget(reaction_form.url) }}</p>
+                        <p>{{ form_widget(reaction_form.reaction) }}</p>
+                        <p class="form-submit">{{ form_widget(reaction_form.submit) }}
+                    {{ form_end(reaction_form) }}
+                {% endif %}
+            </div><!-- #respond -->
+
+
+
+
+        </div><!-- #comments -->
+    </div>
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+    {% stylesheets
+        'bundles/app/admin/global/plugins/datatables/datatables.min.css'
+        'bundles/app/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css'
+        'bundles/app/admin/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css'
+        'bundles/app/admin/pages/scripts/ui-blockui.min.js'
+    filter='cssrewrite' %}
+        <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Courriers', sub_level: 'Liste des courriers'}) }}
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="fa fa-envelope-o font-dark"></i>
+                        <span class="caption-subject bold uppercase"> Liste des courriers</span>
+                    </div>
+                </div>
+                <div class="portlet-body flip-scroll">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="{{ path('admin_courrier_rediger') }}" id="sample_editable_1_new" class="btn sbold green"> Rédiger un nouveau courrier
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="btn-group pull-right">
+                                    <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="fa fa-print"></i> Print </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="fa fa-file-excel-o"></i> Export to Excel </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table flip-content table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th class="no-sort">
+                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                    <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                                    <span></span>
+                                </label>
+                            </th>
+                            <th> # </th>
+                            <th> Titre </th>
+                            <th> Catégorie </th>
+                            <th> Date de publication </th>
+                            <th> Tags </th>
+                            <th> Mentions J'aime </th>
+                            <th> En ligne </th>
+                            <th class="no-sort"> Actions </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for courrier in courriers %}
+                        <tr class="odd gradeX" data-id="{{ courrier.id }}">
+                            <td>
+                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                    <input type="checkbox" class="checkboxes" value="1" />
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td> {{ courrier.id }}</td>
+                            <td> {{ courrier.name }} </td>
+                            <td> {{ courrier.categorie.name }} </td>
+                            <td class="not-sortable"> {{ courrier.envoi|date('d/m/Y à H:i:s') }}</td>
+                            <td class="not-sortable">
+
+                                {% for tag in courrier.tags %}
+                                    {{ tag.name }} {% if not loop.last %}-{% endif %}
+                                {% else %}
+                                    <em class="font-grey">Aucun tag</em>
+                                {% endfor %}
+                            </td>
+                            <td class="text-center"> {{ courrier.likeCount }} </td>
+                            <td class="text-center">
+                                {% if courrier.published == 1 %}
+                                    <span class="label label-sm label-success"> Oui </span>
+                                {% elseif courrier.published == 0 %}
+                                    <span class="label label-sm label-danger"> Non </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" target="_blank">
+                                                <i class="fa fa-eye"></i> Lire </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('admin_courrier_rediger', {id: courrier.id}) }}">
+                                                <i class="fa fa-pencil"></i> Modifier </a>
+                                        </li>
+                                        {% if courrier.reactions|length > 0 %}
+                                            <li>
+                                                <a href="{{ path('admin_reaction_lister', {id: courrier.id}) }}">
+                                                    <i class="fa fa-comments-o"></i> Réactions
+                                                    <span class="badge badge-success">{{ courrier.reactions|length }}</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="divider"> </li>
+                                        <li>
+                                            <a data-toggle="confirmation" data-btn-ok-label="Oui" data-btn-cancel-label="Non" data-placement="left" title="Confirmation" href="{{ path('admin_courrier_supprimer', {id: courrier.id}) }}">
+                                                <i class="fa fa-times-circle"></i> Supprimer </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% javascripts
+        '@AppBundle/Resources/public/admin/global/scripts/datatable.js'
+        '@AppBundle/Resources/public/admin/global/plugins/datatables/datatables.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js'
+        '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+    <script>
+        jQuery(function($) {
+            $('table').DataTable({
+                "order": [],
+                "columnDefs": [ {
+                    "targets"  : 'no-sort',
+                    "orderable": false,
+                }],
+                "language": {
+                    "url": "/admin/global/plugins/datatables/datatables.fr.json"
+                }
+            });
+
+
+            /**
+             * Anime la couleur du fond de la ligne
+             * que l'on vient d'éditer
+             */
+            {% if id is not null %}
+            $('tr[data-id={{ id }}]').css({
+                backgroundColor: 'rgba(218, 201, 0, 0.56)',
+            }).animate({
+                backgroundColor:'transparent'
+            }, 2500, null, function() {
+                this.style.backgroundColor='transparent';
+            });
+            {% endif %}
+        });
+    </script>
+{% endblock %}

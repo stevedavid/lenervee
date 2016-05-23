@@ -1,0 +1,125 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+    {% stylesheets
+    'bundles/app/admin/global/css/components-md.css'
+    'bundles/app/admin/global/css/plugins-md.min.css'
+    'bundles/app/admin/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+    'bundles/app/admin/global/plugins/custom-fileinputs/components.css'
+    'bundles/app/admin/global/plugins/select2/css/select2.min.css'
+    'bundles/app/admin/global/plugins/select2/css/select2-bootstrap.min.css'
+    'bundles/app/admin/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+    {% import 'TwigBundle:Form:display-yaml.html.twig' as macros %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Blogroll', sub_level: 'Lister les partenaires'}) }}
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption ">
+                        <i class="fa fa-link"></i>
+                        <span class="caption-subject font-dark bold uppercase">Lister les partenaires</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                    <div class="col-xs-12">
+                        <ul id="yaml-file">
+                            {{ macros.display_yaml(liens) }}
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 text-right">
+                            <button class="btn btn-success" id="sauvegarder-yaml">Sauvegarder</button>
+                        </div>
+                        <div class="col-xs-6 text-left">
+                            <button class="btn btn-danger" id="annuler-yaml">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            var $yaml = $('#yaml-file');
+
+            $yaml.find('button').on('click', function() {
+
+                var action = $(this).data('action')
+                        , $li = $(this).closest('li')
+                        ;
+
+                if(action == 'ajouter') {
+                    var $clone = $li.clone(true);
+                    $clone.find('input').each(function() {
+                        $(this).val('');
+                    });
+
+                    $li.after($clone.hide().fadeIn());
+                } else if(action == 'enlever') {
+                    $li.fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                }
+
+            });
+
+            var yaml = {};
+            var storeYaml = function storeYaml($lis) {
+                var innerYaml = {};
+                $lis.each(function(i) {
+                    var key = $.isNumeric($(this).find('> .yaml-key').text()) ? i : $(this).find('> .yaml-key').text()
+                            , $ul = $(this).find('> ul')
+                            , $input = $(this).find('> .form-group > input[type=text]')
+                            , $checkbox = $(this).find('> .form-group > input[type=checkbox]')
+                            ;
+                    if($ul.length) {
+                        innerYaml[key] = storeYaml($ul.find('> li'));
+                    } else if($input.length) {
+                        innerYaml[key] = $input.val();
+                    } else if ($checkbox.length) {
+                        innerYaml[key] = $checkbox.is(':checked') ? true : false;
+                    }
+                    yaml = innerYaml;
+                });
+                return innerYaml;
+            };
+
+            $('#sauvegarder-yaml').on('click', function() {
+                $button = $(this);
+                var yaml = storeYaml($('#yaml-file').find('> li'));
+                $.ajax({
+                    url: '{{ path('admin_blogroll_sauvegarder') }}',
+                    method: 'post',
+                    data: {yaml: yaml},
+                    success: function() {
+                        $yaml
+                                .find('.form-group')
+                                .removeClass('has-error')
+                                .addClass('has-success')
+                                .find('input, checkbox')
+                                .attr('disabled', 'disabled')
+                        ;
+                        $button.attr('disabled', 'disabled');
+
+                    },
+                    error: function() {
+                        $yaml.find('.form-group').removeClass('has-success').addClass('has-error');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

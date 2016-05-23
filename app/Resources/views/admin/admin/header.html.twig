@@ -1,0 +1,145 @@
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="{{ path('admin_index_index') }}">
+                <img src="{{ asset('images/lenervee/logo-330x330.png') }}" width="25" height="25" alt="logo" class="logo-default" />
+            </a>
+            <div class="menu-toggler sidebar-toggler">
+                <span></span>
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span></span>
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- END NOTIFICATION DROPDOWN -->
+                <!-- BEGIN INBOX DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="fa fa-envelope-o"></i>
+                        {% if unpublished_courriers|length > 0 %}
+                            <span class="badge badge-default"> {{ unpublished_courriers|length }} </span>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>Il y a
+                                <span class="bold">{{ unpublished_courriers|length }}</span> courrier(s) non publié(s)</h3>
+                            <a href="{{ path('admin_courrier_lister') }}">voir</a>
+                        </li>
+                        {% if unpublished_courriers|length > 0 %}
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                {% for courrier in unpublished_courriers %}
+                                <li>
+                                    <a href="{{ path('admin_courrier_rediger', {id: courrier.id}) }}">
+                                                <span class="photo">
+                                                    <img src="{{ asset(courrier.image) }}" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> {{ courrier.name }} </span>
+                                                    <span class="time">{{ courrier.envoi|ago }}</span>
+                                                </span>
+                                        <span class="message"> {{ courrier.intro|slice(0, 30) }}... </span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+                <!-- BEGIN INBOX DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="fa fa-comments"></i>
+                        {% if pending_reactions|length > 0 %}
+                            <span class="badge badge-default"> {{ pending_reactions|length }} </span>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>Il y a
+                                <span class="bold">{{ pending_reactions|length }}</span> reaction(s) en attente</h3>
+                            <a href="{{ path('admin_reaction_moderer') }}">voir</a>
+                        </li>
+                        {% if pending_reactions|length > 0 %}
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                {% for reaction in pending_reactions %}
+                                <li>
+                                    <a href="{{ path('admin_courrier_rediger', {id: reaction.courrier.id}) }}">
+                                                <span class="photo">
+                                                    <img src="{{ asset(reaction.courrier.image) }}" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> {{ reaction.name }} </span>
+                                                    <span class="time">{{ reaction.date|ago }}</span>
+                                                </span>
+                                        <span class="message"> {{ reaction.reaction|slice(0, 30) }}... </span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <!-- END TODO DROPDOWN -->
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="" class="img-circle" src="{{ asset('img/steve.png') }}" style="width: 30px;" />
+                        <span class="username username-hide-on-mobile"> Steve </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="http://www.facebook.com/lenervee/" target="_blank">
+                                <i class="fa fa-facebook"></i> Facebook </a>
+                        </li>
+                        <li>
+                            <a href="http://www.twitter.com/lenervee" target="_blank">
+                                <i class="fa fa-twitter"></i> Twitter
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.google.com/analytics/web/?hl=fr#realtime/rt-overview/a50184381w82113597p85029582/" target="_blank">
+                                <i class="fa fa-google"></i> Google Analytics
+                            </a>
+                        </li>
+                        <li class="divider"> </li>
+                        <li>
+                            <a href="{{ path('courrier_index') }}">
+                                <i class="fa fa-home"></i> Retour sur L'énervée </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <i class="fa fa-power-off"></i> Se déconnecter </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                    </a>
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>

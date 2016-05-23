@@ -1,0 +1,37 @@
+<aside id="testimonials_widget-3" class="widget Axl_Testimonials_Widget_Slider_Widget">
+    <h3 class="widget-title">L’énervée dans la presse</h3>
+    <div class="bx-wrapper" style="max-width: 100%; margin: 0px auto;">
+        <div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 232px;">
+            <div class="testimonials-widget-testimonials testimonials-widget-testimonials3" style="width: 6215%; position: relative; transition-duration: 0s; transform: translate3d(-301px, 0px, 0px);">
+                {% for article in articles %}
+                <div class="testimonials-widget-testimonial post-1862 testimonials-widget type-testimonials-widget status-publish bx-clone" style="float: left; list-style: none; position: relative; width: 299px; margin-right: 2px;" aria-hidden="true">
+                    <!-- testimonials-widget-testimonials:1862: -->
+                    <blockquote>
+                        <span class="open-quote"></span>
+                        {{ article.texte }}
+                        <span class="close-quote"></span>
+                    </blockquote>
+                    <div class="credit">
+                        <span class="author">{{ article.nom }}</span>
+                        <span class="join"></span>
+                        <span class="company">
+                                {{ article.entreprise }}
+                            </a>
+                        </span>
+                        <span class="join-location"></span>
+                        <span class="location">
+                            <br>
+                            <a href="{{ article.url }}" rel="nofollow" target="_blank">
+                                {{ article.titre }}
+                            </a>,
+                            <i>{{ article.date|date('d/m/Y') }}</i>
+                        </span>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</aside>

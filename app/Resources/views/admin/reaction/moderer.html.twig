@@ -1,0 +1,200 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block css %}
+
+    {% stylesheets
+        'bundles/app/admin/global/css/components-md.css'
+        'bundles/app/admin/global/css/plugins-md.min.css'
+    %}
+        <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Réactions', sub_level: 'Modérer les réactions en attente'}) }}
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <i class="fa fa-check-circle"></i>
+                <span class="caption-subject bold uppercase"> <u>{{ reactions|length }}</u> réactions en attente de modération</span>
+            </div>
+            <div class="actions">
+                <div class="md-checkbox" style="display: inline-block; zoom: 1.25; top: 2px;">
+                    <input type="checkbox" id="check-all" class="md-check">
+                    <label for="check-all">
+                        <span class="inc"></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                    </label>
+                </div>
+                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;" id="reaction-accept-all" rel="tooltip" title="Tout accepter">
+                    <i class="fa fa-check font-green"></i>
+                </a>
+                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;" id="reaction-moderate-all" rel="tooltip" title="Tout modérer">
+                    <i class="fa fa-ban font-yellow"></i>
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body" id="pending-reactions">
+            <div class="panel-group accordion" id="accordion3">
+                {% for reaction in reactions %}
+                    <div class="reaction-div">
+                        <div class="md-checkbox" style="display: inline-block;">
+                            <input type="checkbox" id="checkbox-{{ reaction.id }}" class="md-check">
+                            <label for="checkbox-{{ reaction.id }}">
+                                <span class="inc"></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                            </label>
+                        </div>
+                        <div class="panel panel-default" data-id="{{ reaction.id }}" style="display: inline-block;">
+                            <div class="panel-heading">
+                                <h4 class="panel-title" style="font-size: 1em;">
+                                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#reaction-{{ reaction.id }}" aria-expanded="false">
+                                        #{{ reaction.id }}
+                                        |
+                                        <strong>{{ reaction.name }}</strong> a commenté sur le courrier <strong>{{ reaction.courrier.name }}</strong> le <strong>{{ reaction.date|date('d/m/Y à H:i:s') }}</strong>
+                                        |
+                                        <small>
+                                            {{ reaction.reaction|slice(0, 100) }}{% if reaction.reaction|length > 100 %}...{% endif %}
+                                        </small>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="reaction-{{ reaction.id }}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                                        <i class="fa fa-envelope-o font-blue"></i>
+                                        {{ reaction.email }}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                                        <i class="fa fa-at font-red"></i>
+                                        {% if reaction.url %}
+                                            {{ reaction.url }}
+                                            <a href="{{ reaction.url }}" target="_blank" class="btn btn-xs green">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        {% else %}
+                                            <em>Non fourni</em>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                                        <i class="fa fa-terminal font-dark"></i>
+                                        {{ reaction.ip }}
+                                        <a href="http://whatismyipaddress.com/ip/{{ reaction.ip }}" target="_blank" class="btn btn-xs green">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-12" style="margin-top: 25px;">
+                                        <blockquote>
+                                            <p>{{ reaction.reaction|nl2br }}</p>
+                                            <small>{{ reaction.name }} sur
+                                                <cite>{{ reaction.courrier.name }}</cite>
+                                            </small>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-xs-12 text-center">
+                                        <div class="btn-group btn-group-circle">
+                                            <button type="button" class="btn btn-outline green btn-lg" data-action="{{ constant('STATUS_ACCEPTED', reaction) }}">Accepter</button>
+                                            <button type="button" class="btn btn-outline yellow btn-lg" data-action="{{ constant('STATUS_MODERATED', reaction) }}">Modérer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if reactions[loop.index] is defined and reactions[loop.index].courrier.id !=  reaction.courrier.id %}
+                        <hr/>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {% javascripts
+        '@AppBundle/Resources/public/admin/pages/scripts/ui-blockui.min.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+    <script>
+        jQuery(function($) {
+
+            $('.panel-group').find('button').on('click', function() {
+                var $count = $('.caption-subject').find('u');
+                var $panel = $(this).closest('.panel');
+                var data = {
+                    id: $(this).closest('.panel').data('id'),
+                    type: 'status',
+                    value: $(this).data('action'),
+                };
+
+                $.ajax({
+                    url: '{{ path('admin_reaction_editer') }}',
+                    method: 'post',
+                    data: data,
+                    beforeSend: function() {
+                        App.blockUI({
+                            target: '#reaction-' + data.id,
+                            animate: true
+                        });
+                    },
+                    success: function() {
+                        $panel.closest('.reaction-div').slideUp('slow', function() {
+                            $(this).remove();
+                            $count.text(parseInt($count.text()) - 1);
+                            $('.panel-group').find('hr + hr').remove();
+                        });
+                    },
+                    error: function(error) {
+                        $.get('{{ path('admin_admin_modal') }}', {
+                            type: 'error',
+                            message: 'Une erreur est survenue lors de la modération : "<i>' + $.parseJSON(error.responseText).error + '</i>".'
+                        }, function(modal) {
+                            $(modal).modal('show');
+                        });
+                    }
+                });
+            });
+
+            var $panels = $('.panel-group').find('.panel');
+            var testFunc = function(i) {
+                setInterval(function() {
+                    $panels.eq(i).empty().animate({
+                        marginLeft: "3000px"
+                    }, 1500).fadeOut(1500);
+                    i++;
+                    console.log(i);
+                    if(i < $panels.length) {
+                        testFunc()
+                    }
+                }, 1500);
+            };
+            $('#reaction-accept-all').on('click', function() {
+                $('.panel-group').find('button.green').each(function() {
+                    var $button = $(this);
+
+                    if($button.closest('.reaction-div').find('input[type=checkbox]').is(':checked')) {
+                        $button.delay(250).trigger('click');
+                    }
+                });
+            });
+
+            $('#check-all').on('click', function() {
+                $('[id^=checkbox-]').prop('checked', $(this).is(':checked'));
+            });
+
+            $('#reaction-moderate-all').on('click', function() {
+                $('.panel-group').find('button.yellow').each(function() {
+                    var $button = $(this);
+
+                    if($button.closest('.reaction-div').find('input[type=checkbox]').is(':checked')) {
+                        $button.delay(250).trigger('click');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

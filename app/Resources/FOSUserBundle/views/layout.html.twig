@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 4.5.6
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | User Login 2</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    {% stylesheets
+        'bundles/app/admin/global/plugins/font-awesome/css/font-awesome.min.css'
+        'bundles/app/admin/global/plugins/simple-line-icons/simple-line-icons.min.css'
+        'bundles/app/admin/global/plugins/bootstrap/css/bootstrap.min.css'
+        'bundles/app/admin/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css'
+        'bundles/app/admin/global/plugins/select2/css/select2.min.css'
+        'bundles/app/admin/global/plugins/select2/css/select2-bootstrap.min.css'
+        'bundles/app/admin/global/css/components-md.min.css'
+        'bundles/app/admin/global/css/plugins-md.min.css'
+        'bundles/app/admin/pages/css/login-2.min.css'
+        'bundles/app/admin/global/css/components-md.css'
+        'bundles/app/admin/global/css/plugins-md.min.css'
+        'bundles/app/admin/pages/css/login_custom.css'
+    filter='cssrewrite'%}
+        <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+    <link rel="shortcut icon" href="favicon.ico" /> </head>
+<!-- END HEAD -->
+
+<body class=" login">
+<!-- BEGIN LOGO -->
+<div class="logo">
+    <a href="index.html">
+        <img src="{{ asset('images/lenervee/logo-330x330.png') }}" style="height: 150px;" alt="" /> </a>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+    <!-- BEGIN LOGIN FORM -->
+    <form action="{{ path("fos_user_security_check") }}" role="form" method="post" id="login-form">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <div class="form-title">
+            <span class="form-title">Bienvenue.</span>
+            <span class="form-subtitle">Veuillez vous identifier.</span>
+        </div>
+        {% if error %}
+            <span class="alert alert-danger" style="display: block; margin: auto;">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </span>
+            <br/>
+        {% endif %}
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            <span> Enter any username and password. </span>
+        </div>
+        <div class="form-body">
+            <div class="form-group form-md-line-input form-md-floating-label">
+
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <input id="username" name="_username" class="form-control " type="text" autocomplete="off" />
+                <label class="" for="username">Nom d'utilisateur</label>
+
+            </div>
+            <div class="form-group form-md-line-input form-md-floating-label">
+                <input id="password" name="_password" class="form-control " type="password" autocomplete="off"/>
+                <label class="" for="password">Mot de passe</label>
+
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="login-submit" name="_submit" class="btn red btn-block uppercase">Je m'identifie</button>
+            </div>
+            <div class="form-actions">
+                <div class="">
+                    <div class="form-group form-md-line-input form-md-floating-label" style="">
+                        <div class="md-checkbox">
+                            <input checked="checked" type="checkbox" name="_remember_me" id="remember-me" class="md-check" value="on" />
+                            <label for="remember-me">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box" ></span>
+                                Se souvenir de moi
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-account">
+                <p>
+                    <a href="{{ path('courrier_index') }}" class="btn-default btn btn-outline" id="register-btn">Retour</a>
+                </p>
+            </div>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN CORE PLUGINS -->
+{% javascripts
+    '@AppBundle/Resources/public/admin/global/plugins/jquery.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/bootstrap/js/bootstrap.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/js.cookie.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/jquery.blockui.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/jquery-validation/js/jquery.validate.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/jquery-validation/js/additional-methods.min.js'
+    '@AppBundle/Resources/public/admin/global/plugins/select2/js/select2.full.min.js'
+    '@AppBundle/Resources/public/admin/global/scripts/app.min.js'
+    '@AppBundle/Resources/public/admin/pages/scripts/login.min.js'
+%}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+<script>
+    jQuery(function($) {
+
+        $('#login-form').on('submit', function() {
+            $('#login-submit').prop('disabled', true).html('<i class="fa fa-cog fa-spin fa-fw"></i>')
+        });
+
+    });
+</script>
+</body>
+
+
+</html>

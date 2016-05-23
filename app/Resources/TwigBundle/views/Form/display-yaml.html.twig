@@ -1,0 +1,43 @@
+{% macro display_yaml(yamls) %}
+    {% for key, yaml in yamls %}
+        <li class="form-inline">
+            {% if yaml is iterable %}
+                {% if key matches '/^\\d+$/' %}
+                    <div class="btn-group" style="margin-bottom: 5px;">
+                        <button class="btn btn-xs" data-action="ajouter">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <button class="btn btn-xs" data-action="enlever">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <strong class="yaml-key hidden">{{ key }}</strong>
+                {% else %}
+                    <strong class="yaml-key">{{ key }}</strong> :
+                {% endif %}
+                <ul>
+                    {{ _self.display_yaml(yaml) }}
+                </ul>
+            {% else %}
+                {% if key matches '|[^-0-9\/]+|' %}
+                    <strong class="yaml-key">{{ key }}</strong> :
+                {% else %}
+                    <strong class="yaml-key hidden">{{ key }}</strong>
+                {% endif %}
+                <div class="form-group">
+                    <input type="text" style="width: 350px;" class="form-control" value="{{ yaml }}"/>
+                </div>
+                {% if key matches '/^\\d+$/' %}
+                    <div class="btn-group">
+                        <button class="btn btn-xs" data-action="ajouter">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <button class="btn btn-xs" data-action="enlever">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
