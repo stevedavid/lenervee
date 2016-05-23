@@ -11,14 +11,15 @@ use Symfony\Component\Yaml\Parser;
 
 class BlogrollController extends Controller
 {
-    const YAML_FILE = __DIR__ . '/../../Resources/config/blogroll.yml';
     /**
      * @Route("admin/blogroll", name="admin_blogroll_lister")
      */
     public function listerAction()
     {
+        $yamlPath = $this->get('kernel')->getRootDir() . '/../' . $this->getParameter('blogroll_yml_path');
+
         return $this->render('admin/blogroll/lister.html.twig', [
-            'liens' => (new Parser)->parse(file_get_contents(self::YAML_FILE))['blogroll'],
+            'liens' => (new Parser)->parse(file_get_contents($yamlPath))['blogroll'],
         ]);
     }
 
@@ -27,11 +28,12 @@ class BlogrollController extends Controller
      */
     public function sauvegarderAction(Request $request)
     {
+        $yamlPath = $this->get('kernel')->getRootDir() . '/../' . $this->getParameter('blogroll_yml_path');
         $dumper = new Dumper();
 
         $yaml = $dumper->dump(['blogroll' => $request->request->get('yaml')], 2);
 
-        file_put_contents(self::YAML_FILE, $yaml);
+        file_put_contents($yamlPath, $yaml);
 
         return new Response();
     }
