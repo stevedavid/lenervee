@@ -308,3 +308,10 @@ blockquote:not(.reponse) > p:last-child {
     content: none;
 }
 
+.ph-image {
+    border-radius: 50% !important;
+    width: 100px !important;
+    height: 100px !important;
+    background-size: cover;
+    background-position: center center;
+}

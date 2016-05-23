@@ -67,7 +67,9 @@
         <!-- post heading navigation -->
         {% if prev_courrier is not empty %}
             <a href="{{ path('courrier_voir', {slugCategorie: prev_courrier.categorie.slug, slugCourrier: prev_courrier.slug}) }}" class="post-heading-nav nav-prev round">
-                <div class="ph-image"><img src="{{ asset(prev_courrier.image) }}" class="attachment-thumbnail wp-post-image" alt="{{ prev_courrier.name }}" /></div>
+                <div class="ph-image" style="background-image: url('{{ asset(prev_courrier.image) }}');">
+                    &nbsp;
+                </div>
             </a>
         {% else %}
             <span class="post-heading-nav nav-prev round disabled"></span>
@@ -75,7 +77,9 @@
 
         {% if next_courrier is not empty %}
             <a href="{{ path('courrier_voir', {slugCategorie: next_courrier.categorie.slug, slugCourrier: next_courrier.slug}) }}" class="post-heading-nav nav-next round">
-                <div class="ph-image"><img src="{{ asset(next_courrier.image) }}" class="attachment-thumbnail wp-post-image" alt="{{ next_courrier.name }}" /></div>
+                <div class="ph-image" style="background-image: url('{{ asset(next_courrier.image) }}');">
+                    &nbsp;
+                </div>
             </a>
         {% else %}
             <span class="post-heading-nav nav-next round disabled"></span>
