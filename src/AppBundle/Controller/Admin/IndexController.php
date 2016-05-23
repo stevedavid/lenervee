@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Yaml\Parser;
 
 class IndexController extends Controller
 {
@@ -164,6 +165,18 @@ class IndexController extends Controller
 
         return $this->render('admin/admin/index/derniere-activite.html.twig', [
             'elements' => $elements,
+        ]);
+    }
+
+    /**
+     * Not routable
+     */
+    function blogrollAction()
+    {
+        $yamlPath = $this->get('kernel')->getRootDir() . '/../' . $this->getParameter('blogroll_yml_path');
+
+        return $this->render('admin/admin/index/blogroll.html.twig', [
+            'liens' => (new Parser)->parse(file_get_contents($yamlPath))['blogroll'],
         ]);
     }
 }
