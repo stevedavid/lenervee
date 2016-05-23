@@ -157,7 +157,11 @@
                         <article id="div-comment-{{ reaction.id }}" class="comment-body">
                             <footer class="comment-meta">
                                 <div class="comment-author vcard">
-                                    <img alt="" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    {% if reaction.name == 'Administrateur' %}
+                                        <img alt="" src="{{ asset('images/lenervee/Logo-Mockup-3D-150x148.png') }}" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    {% else %}
+                                        <img alt="" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    {% endif %}
                                     <b class="fn">{{ reaction.name }}</b> <span class="says">dit&nbsp;:</span>
                                 </div><!-- .comment-author -->
 
@@ -172,7 +176,7 @@
                             </footer><!-- .comment-meta -->
 
                             <div class="comment-content">
-                                <p>{{ reaction.reaction|raw }}</p>
+                                <p>{{ reaction.reaction|raw|nl2br }}</p>
                             </div><!-- .comment-content -->
                         </article><!-- .comment-body -->
                     </li><!-- #comment-## -->
