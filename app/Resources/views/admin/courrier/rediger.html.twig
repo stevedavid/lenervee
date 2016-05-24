@@ -34,6 +34,17 @@
                             <i class="icon-settings font-green-haze"></i>
                             <span class="caption-subject bold uppercase"> Informations principales</span>
                         </div>
+                        <div class="actions">
+                            {% if courrier_form.vars.value.categorie is not null %}
+                                <a class="btn btn-sm green" href="{{ path('courrier_voir', {slugCategorie: courrier_form.vars.value.categorie.slug, slugCourrier: courrier_form.vars.value.slug}) }}" target="_blank">
+                                    Lire l'article
+                                </a>
+                            {% else %}
+                                <a class="btn btn-sm green disabled" href="javascript:;">
+                                    Lire l'article
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="portlet-body form">
                             <div class="form-body">
@@ -71,6 +82,13 @@
                         <div class="caption font-red-sunglo">
                             <i class="icon-settings font-red-sunglo"></i>
                             <span class="caption-subject bold uppercase"> Courrier</span>
+                        </div>
+                        <div class="actions">
+
+                            <a class="btn btn-sm green" id="courrier-toggle" href="javascript:;" data-textarea="courrier_courrier">
+                                Source
+                            </a>
+
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -169,6 +187,11 @@
                             <i class="icon-settings font-red-sunglo"></i>
                             <span class="caption-subject bold uppercase"> Reponse</span>
                         </div>
+                        <div class="actions">
+                            <a class="btn btn-sm green" id="reponse-toggle" href="javascript:;" data-textarea="courrier_reponse">
+                                Source
+                            </a>
+                        </div>
                     </div>
                     <div class="portlet-body form">
                         <div class="form-group form-md-line-input form-md-floating-label">
@@ -214,6 +237,9 @@
     <script>
         jQuery(function($) {
 
+            /**
+             * TinyMCE initialization
+             */
             tinymce.init({
                 selector:'#courrier_courrier',
                 menubar: false,
@@ -230,6 +256,21 @@
             });
             $(document).on('mouseenter, mouseleave', 'iframe', function() {
                 $(this).attr('title', '');
+            });
+
+            /**
+             * Toggle HTML/source
+             */
+            $('#courrier-toggle, #reponse-toggle').on('click', function() {
+                var textarea = $(this).data('textarea');
+                if(!$(this).hasClass('toggled')) {
+                    $(this).addClass('toggled');
+                    $(this).text('HTML');
+                } else {
+                    $(this).removeClass('toggled');
+                    $(this).text('Source');
+                }
+                tinymce.EditorManager.execCommand('mceToggleEditor', true, textarea);
             });
 
             /**
