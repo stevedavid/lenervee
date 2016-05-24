@@ -2,7 +2,6 @@
 
 {% block css %}
     <link href="/bundles/app/admin/global/plugins/tinymce/js/tinymce/skins/lightgray/skin.min.css" rel="stylesheet" type="text/css" />
-    <link href="/bundles/app/admin/global/plugins/tinymce/js/tinymce/skins/lightgray/content.min.css" rel="stylesheet" type="text/css" />
     {% stylesheets
         'bundles/app/admin/global/css/components-md.css'
         'bundles/app/admin/global/css/plugins-md.min.css'
@@ -254,7 +253,9 @@
                 relative_urls : true
 
             });
-            $('#courrier_courrier_ifr').removeAttr('title');
+            $(document).on('mouseenter, mouseleave', 'iframe', function() {
+                $(this).attr('title', '');
+            });
 
             /**
              * Initialiser le datetime picker
