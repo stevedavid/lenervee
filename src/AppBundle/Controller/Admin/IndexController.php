@@ -13,7 +13,7 @@ use Symfony\Component\Yaml\Parser;
 
 class IndexController extends Controller
 {
-    const ACTIVITE_COURRIER = '%s# | Le courrier "<em>%s</em>" a été créé.';
+    const ACTIVITE_COURRIER = '%s# | Le courrier "<em>%s</em>" a été publié.';
     const ACTIVITE_REACTION = '%s# | <strong>%s</strong> a commenté sur "<em>%s</em>".';
     /**
      * @Route("/admin", name="admin_index_index")
