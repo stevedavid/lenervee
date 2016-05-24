@@ -1,6 +1,8 @@
 {% extends ':admin:base.html.twig' %}
 
 {% block css %}
+    <link href="/bundles/app/admin/global/plugins/tinymce/js/tinymce/skins/lightgray/skin.min.css" rel="stylesheet" type="text/css" />
+    <link href="/bundles/app/admin/global/plugins/tinymce/js/tinymce/skins/lightgray/content.min.css" rel="stylesheet" type="text/css" />
     {% stylesheets
         'bundles/app/admin/global/css/components-md.css'
         'bundles/app/admin/global/css/plugins-md.min.css'
@@ -12,6 +14,7 @@
     %}
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
     {% endstylesheets %}
+
 {% endblock %}
 
 {% block body %}
@@ -73,31 +76,31 @@
                     </div>
                     <div class="portlet-body form">
                         <div class="form-group form-md-line-input form-md-floating-label">
-                            <div id="wysihtml5-toolbar">
-                                <!-- User can define the link's href: -->
-                                    <span class="btn-group" >
-                                      <a data-wysihtml5-command="insertHTML" data-wysihtml5-command-value="<p>foobar</p>">&lt;/p&gt;</a>
-                                      <a data-wysihtml5-command="bold" title="Bold" class="btn btn-default" ><span class="icon-darkGray txt18" ><b>B</b></span></a>
-                                      <a data-wysihtml5-command="italic" title="Italics" class="btn" ><span class="icon-darkGray txt18" style="font-style:italic">I</span></a>
-                                      <a data-wysihtml5-command="underline" title="Underline" class="btn" ><span class="icon-darkGray txt18" style="text-decoration:underline">U</span></a>
-                                    </span>
-                                    <div class="bootstrap-wysihtml5-insert-link-modal modal hide fade">
-                                        <div class="modal-header">
-                                            <a class="close" data-dismiss="modal">×</a>
-                                            <h3>Insert Link</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input value="http://" class="bootstrap-wysihtml5-insert-link-url input-xlarge"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
-                                            <a href="#" class="btn btn-primary" data-dismiss="modal">Insert link</a>
-                                        </div>
-                                    </div>
-                                    <a class="btn" data-wysihtml5-command="createLink" title="Link">
-                                        <i class="icon-share"></i>
-                                    </a>
-                            </div>
+                            {#<div id="wysihtml5-toolbar">#}
+                                {#<!-- User can define the link's href: -->#}
+                                    {#<span class="btn-group" >#}
+                                      {#<a data-wysihtml5-command="insertHTML" data-wysihtml5-command-value="<p>foobar</p>">&lt;/p&gt;</a>#}
+                                      {#<a data-wysihtml5-command="bold" title="Bold" class="btn btn-default" ><span class="icon-darkGray txt18" ><b>B</b></span></a>#}
+                                      {#<a data-wysihtml5-command="italic" title="Italics" class="btn" ><span class="icon-darkGray txt18" style="font-style:italic">I</span></a>#}
+                                      {#<a data-wysihtml5-command="underline" title="Underline" class="btn" ><span class="icon-darkGray txt18" style="text-decoration:underline">U</span></a>#}
+                                    {#</span>#}
+                                    {#<div class="bootstrap-wysihtml5-insert-link-modal modal hide fade">#}
+                                        {#<div class="modal-header">#}
+                                            {#<a class="close" data-dismiss="modal">×</a>#}
+                                            {#<h3>Insert Link</h3>#}
+                                        {#</div>#}
+                                        {#<div class="modal-body">#}
+                                            {#<input value="http://" class="bootstrap-wysihtml5-insert-link-url input-xlarge"/>#}
+                                        {#</div>#}
+                                        {#<div class="modal-footer">#}
+                                            {#<a href="#" class="btn" data-dismiss="modal">Cancel</a>#}
+                                            {#<a href="#" class="btn btn-primary" data-dismiss="modal">Insert link</a>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<a class="btn" data-wysihtml5-command="createLink" title="Link">#}
+                                        {#<i class="icon-share"></i>#}
+                                    {#</a>#}
+                            {#</div>#}
                             {{ form_widget(courrier_form.courrier) }}
                         </div>
                     </div>
@@ -228,11 +231,31 @@
         '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
         '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
         '@AppBundle/Resources/public/admin/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'
+        '@AppBundle/Resources/public/admin/global/plugins/tinymce/js/tinymce/tinymce.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/tinymce/js/tinymce/jquery.tinymce.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/tinymce/js/tinymce/themes/modern/theme.min.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
         jQuery(function($) {
+
+            tinymce.init({
+                selector:'#courrier_courrier',
+                menubar: false,
+                toolbar: 'format | undo redo | styleselect | bold italic | code | link image',
+                relative_urls : true
+
+            });
+            tinymce.init({
+                selector:'#courrier_reponse',
+                menubar: false,
+                toolbar: 'format | undo redo | styleselect | bold italic | code | link image',
+                relative_urls : true
+
+            });
+            $('#courrier_courrier_ifr').removeAttr('title');
+
             /**
              * Initialiser le datetime picker
              * http://www.malot.fr/bootstrap-datetimepicker/
@@ -350,40 +373,40 @@
                 }
             });
 
-            $('#courrier_courrier').each(function(){
-                var textareaid = $(this).attr('id');
+            {#$('#courrier_courrier').each(function(){#}
+                {#var textareaid = $(this).attr('id');#}
 
-                var editor = new wysihtml5.Editor(textareaid, {
-                    parserRules: {
-                        "tags": {
-                            "a": {
-                                "check_attributes": {
-                                    "href": "url"
-                                },
-                                "set_attributes": {
-                                    "rel": "nofollow",
-                                    "target": "_blank"
-                                }
-                            },
-                            "b": {},
-                            "br": {},
-                            "div": {},
-                            "em": {},
-                            "i": {},
-                            "li": {},
-                            "ol": {},
-                            "p": {remove: 0},
-                            "span": {},
-                            "strong": {},
-                            "ul": {},
-                            "u": {}
-                        }
-                    },
-                    locale: 'fr-FR',
-                    toolbar: 'wysihtml5-toolbar',
-                    "stylesheets": ["{{ asset('admin/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]
-                });
-            })
+                {#var editor = new wysihtml5.Editor(textareaid, {#}
+                    {#parserRules: {#}
+                        {#"tags": {#}
+                            {#"a": {#}
+                                {#"check_attributes": {#}
+                                    {#"href": "url"#}
+                                {#},#}
+                                {#"set_attributes": {#}
+                                    {#"rel": "nofollow",#}
+                                    {#"target": "_blank"#}
+                                {#}#}
+                            {#},#}
+                            {#"b": {},#}
+                            {#"br": {},#}
+                            {#"div": {},#}
+                            {#"em": {},#}
+                            {#"i": {},#}
+                            {#"li": {},#}
+                            {#"ol": {},#}
+                            {#"p": {remove: 0},#}
+                            {#"span": {},#}
+                            {#"strong": {},#}
+                            {#"ul": {},#}
+                            {#"u": {}#}
+                        {#}#}
+                    {#},#}
+                    {#locale: 'fr-FR',#}
+                    {#toolbar: 'wysihtml5-toolbar',#}
+                    {#"stylesheets": ["{{ asset('admin/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]#}
+                {#});#}
+            {#})#}
 
             {#$('#courrier_reponse').wysihtml5({#}
                 {#toolbar: {#}
