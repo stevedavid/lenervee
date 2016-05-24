@@ -124,7 +124,11 @@
                 <div class="bw-table">
                     <div class="bw-cell">
                         <a href="{{ path('courrier_index') }}">
-                            <img src="{{ asset('images/lenervee/logo-330x330.png') }}" alt="L&#039;énervée">
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <img src="{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}" alt="L&#039;énervée">
+                            {% else %}
+                              <img src="{{ asset('images/lenervee/logo-330x330.png') }}" alt="L&#039;énervée">
+                            {% endif %}
                         </a>
                         <h1>L&#039;énervée</h1><span id="logo-baseline">Avis d&#039;une consommatrice</span>
                     </div>
@@ -267,7 +271,12 @@
                 <div class="top-bar" style="background-color:#364e6d">
                     <div class="row">
                         <span class="back-top round" style="background-color:#364e6d"></span>
-                        <img src='{{ asset('images/lenervee/logo-330x330.png') }}' alt='footer-logo'>
+
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <img src='{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}' alt='footer-logo'>
+                        {% else %}
+                            <img src='{{ asset('images/lenervee/logo-330x330.png') }}' alt='footer-logo'>
+                        {% endif %}
                     </div>
                 </div>
 
