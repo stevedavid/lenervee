@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogController extends Controller
 {
+    const MAIL_TITLE = '%s vous conseille un courrier sur http://lenervee.com/ !';
+
     /**
      * @Route("/blog/page/contactez-nous", name="blog_contact")
      *
@@ -90,9 +92,11 @@ class BlogController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function emailAction()
+    public function emailAction(Request $request)
     {
-        return $this->render('blog/email.html.twig');
+        return $this->render('blog/partage/form.html.twig', [
+            'courrier' => $request->query->get('courrier'),
+        ]);
     }
 
     /**
@@ -119,11 +123,45 @@ class BlogController extends Controller
             }
 
             if (count($errors)) {
-                return new JsonResponse($errors, 415);
+                return new JsonResponse($errors, 412);
             }
 
+            if ($this->get('kernel')->getEnvironment() == 'prod') {
+                $email = \Swift_Message::newInstance()
+                    ->setSubject(sprintf(self::MAIL_TITLE, $senderName))
+                    ->setFrom([$senderEmail => $senderName])
+                    ->setTo($friendEmail)
+                    ->setBody($this->render('blog/partage/email.html.twig', [
+                        'courrier' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->find($request->request->get('id')),
+                        'sender_name' => $senderName,
+                    ]),'text/html')
+                ;
+
+                $deliveredTo = $this->get('mailer')->send($email);
+
+                if ($deliveredTo) {
+                    return new JsonResponse(null, 200);
+
+                }
+                return new JsonResponse(null, 500);
+
+            }
             return new JsonResponse(null, 200);
+
         }
-        exit;
+        return new Response(null, 405);
+    }
+
+    /**
+     * @Route("/testouille/testouille/testouille")
+     *
+     * @return Response
+     */
+    public function testEmailAction(Request $request)
+    {
+        return $this->render('blog/partage/email.html.twig', [
+            'courrier' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->find($request->get('id')),
+            'sender_name' => 'Gaston Lagaffe'
+        ]);
     }
 }

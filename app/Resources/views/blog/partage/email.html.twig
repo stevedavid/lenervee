@@ -1,0 +1,102 @@
+<html>
+<head>
+    <link rel='stylesheet' id='google-fonts-css' href='http://fonts.googleapis.com/css?family=Noto+Serif%7CRoboto+Slab%3A300%2C400%2C700&#038;ver=4.2.1' type='text/css' media='all' />
+    <link rel='stylesheet' id='add-google-fonts-css' href='http://fonts.googleapis.com/css?family=Montserrat%7CCrimson+Text%7COpen+Sans%7CJosefin+Sans%3A100%2C400%7CAmatic+SC&#038;ver=4.2.1' type='text/css' media='all' />    <style>
+        body {
+            color: #252525;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border: 0;
+        }
+
+        td {
+            border-bottom: 1px solid #d4d4d4;
+            text-align: center;
+        }
+
+        #header {
+            background-image: url('{{ absolute_url(asset('img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg')) }}');
+            border-bottom: 1px solid #D4D4D4;
+            text-align: center;
+            -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+        }
+
+        #header > img {
+            max-height: 100px;
+            max-width: 100px;
+        }
+
+        #intro {
+            text-align: center;
+            padding: 40px 0;
+            color: #252525;
+            background-color: #f9f9f9;
+            font-family: 'Noto Sans';
+        }
+
+        #courrier-title > span#title {
+            font-family: 'Roboto Slab';
+            font-size: 3em;
+            min-height: 250px;
+        }
+
+        p {
+            font-family: 'Noto Sans';
+            margin-bottom: 50px;
+        }
+
+        #lenervee {
+            text-align: center;
+            font-style: italic;
+            font-family: 'Josefin Sans';
+            padding: 25px;
+        }
+    </style>
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr>
+                <td id="header" style="">
+                    <img src="{{ absolute_url(asset('images/lenervee/logo-330x330.png')) }}"/>
+                </td>
+            </tr>
+        <tr>
+            <td id="intro">
+                <strong>{{ sender_name }}</strong>, que vous connaissez bien (ou pas), vous conseille la lecture
+                {% if courrier.reponse is not null %}
+                    d'un échange avec une grande marque de l'agroalimentaire (mais pas que)
+                {% else %}
+                    d'un courrier envoyé à une grande marque de l'agroalimentaire (mais pas que)
+                {% endif %}
+                  sur le blog de L'énervée :
+                <br/>
+                <a href="{{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" target="_blank">
+                    {{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td id="courrier-title">
+                <span id="title">{{ courrier.name }}</span>
+                <br/>
+                <a href="{{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" target="_blank">
+                    <img src="{{ absolute_url(asset(courrier.image)) }}"/>
+                </a>
+                <p>{{ courrier.intro }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td id="lenervee">
+                L'énervée, c'est le blog satirique d'une consommatrice acrimonieuse qui envoie ses lettres de réclamation aux services consommateurs des marques de la grande distribution pour faire connaître son insatisfaction (et un peu pour raconter sa vie).
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

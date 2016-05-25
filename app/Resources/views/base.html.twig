@@ -371,7 +371,7 @@ output='js/compiled.js' %}
         $('body').on('click', '#share-email', function(e) {
             var $this = $(this);
             $this.off('click');
-            $.get('{{ path('blog_email') }}', function(html) {
+            $.get('{{ path('blog_email') }}', {courrier: $this.data('courrier')}, function(html) {
                 $this.popover({
                     content: html,
                     placement: 'bottom',
@@ -394,6 +394,7 @@ output='js/compiled.js' %}
                 'senderName': $('#email-share-form-sender-name').val(),
                 'senderEmail': $('#email-share-form-sender-email').val(),
                 'friendEmail': $('#email-share-form-friend-email').val(),
+                'id': $(this).data('courrier'),
             };
 
             $.ajax({
@@ -466,7 +467,7 @@ output='js/compiled.js' %}
                     'prenom': $('#contact_prenom').val(),
                     'email': $('#contact_email').val(),
                     'message': $('#contact_message').val(),
-                }
+                },
             }
                     , $this = $(this);
             $.ajax({
