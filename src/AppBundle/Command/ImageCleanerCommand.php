@@ -46,9 +46,7 @@ class ImageCleanerCommand extends ContainerAwareCommand
 
         $images = [];
         foreach ($courriers as $courrier) {
-            $output->doWrite('>> Fetching courrier n°' . $courrier->getId() . '\'s image');
             $images[] = $imagesDirectory . '/' . $courrier->getImage()->getPath();
-            sleep(1);
         }
         $scannedDirectory = glob($imagesDirectory . '/' . Image::UPLOAD_DIR . '/*.*');
 
