@@ -51,9 +51,13 @@ class ImageCleanerCommand extends ContainerAwareCommand
         $scannedDirectory = glob($imagesDirectory . '/' . Image::UPLOAD_DIR . '/*.*');
 
         foreach ($scannedDirectory as $filePath) {
+            $parts = explode('/', $filePath);
+
             if (!in_array($filePath, $images)) {
-                dump('>> Unlinking following file: "' . $filePath . '"');
+                $output->writeln('Image "' . array_pop($parts) . '" belongs to nothing: removing!');
                 unlink($filePath);
+            } else {
+                $output->writeln('Image "' . array_pop($parts) . '" belongs to a courrier.');
             }
         }
     }

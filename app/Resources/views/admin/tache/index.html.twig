@@ -1,0 +1,88 @@
+{% extends ':admin:base.html.twig' %}
+
+{% block body %}
+    {{ include('admin/admin/page-header.html.twig', {main_level: 'Tâches', sub_level: command|title|replace('-', ' ')}) }}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-green-haze">
+                        <i class="icon-settings font-green-haze"></i>
+                        <span class="caption-subject bold uppercase"> {{ command|replace('-', ' ') }}</span>
+                    </div>
+                    <div class="actions">
+                            <a class="btn btn-sm green" id="launch-task" href="javascript:;">
+                                Lancer la tâche
+                            </a>
+                    </div>
+                </div>
+                <div class="portlet-body form" id="task-container">
+                    <div class="console">
+                        <div class="inner-output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            $('#launch-task').on('click', function() {
+                $(this).attr('disabled', 'disabled');
+                console.log('{{ command }}');
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{{ path('admin_tache_do') }}', true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send('command={{ command }}');
+                var timer;
+                timer = window.setInterval(function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        window.clearTimeout(timer);
+                    }
+                    $('.inner-output').html(xhr.responseText);
+                    $('.console').scrollTop($('.inner-output').height());
+                }, 250);
+
+                {#$.ajax({#}
+                    {#url: '{{ path('admin_tache_image') }}',#}
+                    {#method: 'get',#}
+                    {#data: null,#}
+                    {#success: function(html) {#}
+                        {#$('#task-container').html(html);#}
+                    {#},#}
+                    {#error: function() {#}
+                        {#alert('xhr error');#}
+                    {#},#}
+                {#});#}
+            });
+            {#$('#launch-task').on('click', function() {#}
+                {#$('iframe').attr({#}
+                    {#src: '{{ path('admin_tache_image') }}',#}
+                {#});#}
+
+                {#console.log($('iframe').contents());#}
+            {#});#}
+
+{#//            $('iframe').on('load', function() {#}
+{#//                alert('loaded');#}
+{#//                var $contents = $(this).contents();#}
+{#//                $contents.scrollTop($contents.height());#}
+{#//            })#}
+
+{#//            document.getElementById('task-iframe').onreadystatechange = function() {#}
+{#//                console.log('loaded');#}
+{#//            };#}
+{#//            $('iframe').on('readystatechange', function() {#}
+{#//                console.log(this.readyState);#}
+{#//            });#}
+
+            {#$('iframe').contents().on('load', function() {#}
+                {#alert('loading');#}
+            {#});#}
+        });
+    </script>
+{% endblock %}
