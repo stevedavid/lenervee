@@ -46,19 +46,39 @@ class ImageCleanerCommand extends ContainerAwareCommand
 
         $images = [];
         foreach ($courriers as $courrier) {
-            $images[] = $imagesDirectory . '/' . $courrier->getImage()->getPath();
+            $images[] = sprintf('%s/%s', $imagesDirectory, $courrier->getImage()->getPath());
         }
-        $scannedDirectory = glob($imagesDirectory . '/' . Image::UPLOAD_DIR . '/*.*');
+        $scannedDirectory = glob(sprintf(
+            '%s/%s/*.*',
+            $imagesDirectory,
+            Image::UPLOAD_DIR
+        ));
 
+        $nbDeleted = $nbKept = 0;
         foreach ($scannedDirectory as $filePath) {
             $parts = explode('/', $filePath);
 
             if (!in_array($filePath, $images)) {
-                $output->writeln('Image "' . array_pop($parts) . '" belongs to nothing: removing!');
+                $output->writeln(sprintf(
+                    'Image "%s" belongs to nothing: removing!',
+                    array_pop($parts)
+                ));
                 unlink($filePath);
+                ++$nbDeleted;
             } else {
-                $output->writeln('Image "' . array_pop($parts) . '" belongs to a courrier.');
+                $output->writeln(sprintf(
+                    'Image "%s" belongs to a courrier.',
+                    array_pop($parts)
+                ));
+                ++$nbKept;
             }
         }
+        $output->writeln(str_repeat('-', 30));
+        $output->writeln(sprintf(
+            '[%s FILES ANALYZED: %s DELETED, %s KEPT!]',
+            count($scannedDirectory),
+            $nbDeleted,
+            $nbKept
+        ));
     }
 }
