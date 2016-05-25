@@ -160,6 +160,7 @@ class CourrierImporterCommand extends ContainerAwareCommand
 
                 if (!empty($images)) {
                     foreach ($images as $image) {
+                        $fullUrl = $image['guid'];
                         $image = explode('/', $image['guid']);
                         $image = array_pop($image);
                         if (file_exists(__DIR__ . '/../../../web/images/courriers/' . $image)) {
@@ -167,6 +168,12 @@ class CourrierImporterCommand extends ContainerAwareCommand
                             $oImage = (new Image)
                                 ->setPath('images/courriers/' . $image)
                             ;
+
+                            if(!is_dir(__DIR__ . '/../../../web/' . str_replace('http://lenervee.com/', '', str_replace('/' . $image, '', $fullUrl)))) {
+                                mkdir(__DIR__ . '/../../../web/' . str_replace('http://lenervee.com/', '', str_replace('/' . $image, '', $fullUrl)), 0755, true);
+                            }
+                            copy(__DIR__ . '/../../../web/images/courriers/' . $image, __DIR__ . '/../../../web/'. str_replace('http://lenervee.com/', '', $fullUrl));
+
 
                             $oCourrier->setImage($oImage);
                             $em->persist($oImage);
