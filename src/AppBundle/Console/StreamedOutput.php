@@ -11,8 +11,8 @@ class StreamedOutput extends BufferedOutput
     public function doWrite($message, $newline)
     {
         $response = new StreamedResponse();
-        $response->setCallback(function() use($message, $newline) {
-            $this->write($message, $newline);
+        $response->setCallback(function() use($message) {
+            echo '<p>[<span class="output-time">'. date('H:i:s') .'</span>] $ ' . $message . '</p>';
             flush();
         });
 

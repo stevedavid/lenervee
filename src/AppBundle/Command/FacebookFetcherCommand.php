@@ -53,7 +53,7 @@ class FacebookFetcherCommand extends ContainerAwareCommand
             ->findAll();
 
         foreach ($courriers as $courrier) {
-            $output->doWrite('>> Fetching courrier "' . $courrier->getName() . '".');
+            $output->writeln('>> Fetching courrier "' . $courrier->getName() . '".');
             $json = file_get_contents(str_replace(' ', '%20', sprintf(self::FACEBOOK_URL, $router->generate('courrier_voir', [
                 'slugCourrier' => $courrier->getSlug(),
                 'slugCategorie' => $courrier->getCategorie()->getSlug(),
@@ -62,7 +62,7 @@ class FacebookFetcherCommand extends ContainerAwareCommand
             $nbLikes = json_decode($json)[0]->total_count;
 
             $courrier->setLikeCount($nbLikes);
-            $output->doWrite('>> Found '. $nbLikes .' likes !');
+            $output->writeln('>> Found '. $nbLikes .' likes !');
             sleep(5);
 
         }

@@ -67,3 +67,16 @@ tr[data-id] {
     -moz-transition: background-color 2.5s;
     transition: background-color 2.5s;
 }
+
+#task-container .console {
+    border: 1px solid gray;
+    background-color: black;
+    color: rgba(0, 128, 0, 0.86);
+    min-height: 550px;
+    max-height: 550px;
+    overflow: auto;
+}
+
+#task-container .output-time {
+    color: rgba(255, 255, 0, 0.77);
+}
