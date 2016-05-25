@@ -72,6 +72,7 @@ class ImageCleanerCommand extends ContainerAwareCommand
                 ));
                 ++$nbKept;
             }
+            usleep(249999);
         }
         $output->writeln(str_repeat('-', 30));
         $output->writeln(sprintf(

@@ -31,9 +31,8 @@
         jQuery(function($) {
 
             $('#launch-task').on('click', function() {
-                $(this).attr('disabled', 'disabled');
-                console.log('{{ command }}');
-
+                var $button = $(this);
+                $button.attr('disabled', 'disabled').html('<i class="fa fa-cog fa-spin fa-fw"></i>');
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '{{ path('admin_tache_do') }}', true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -42,47 +41,13 @@
                 timer = window.setInterval(function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         window.clearTimeout(timer);
+                        $button.removeAttr('disabled').html('Lancer la tâche');
                     }
                     $('.inner-output').html(xhr.responseText);
                     $('.console').scrollTop($('.inner-output').height());
                 }, 250);
-
-                {#$.ajax({#}
-                    {#url: '{{ path('admin_tache_image') }}',#}
-                    {#method: 'get',#}
-                    {#data: null,#}
-                    {#success: function(html) {#}
-                        {#$('#task-container').html(html);#}
-                    {#},#}
-                    {#error: function() {#}
-                        {#alert('xhr error');#}
-                    {#},#}
-                {#});#}
             });
-            {#$('#launch-task').on('click', function() {#}
-                {#$('iframe').attr({#}
-                    {#src: '{{ path('admin_tache_image') }}',#}
-                {#});#}
 
-                {#console.log($('iframe').contents());#}
-            {#});#}
-
-{#//            $('iframe').on('load', function() {#}
-{#//                alert('loaded');#}
-{#//                var $contents = $(this).contents();#}
-{#//                $contents.scrollTop($contents.height());#}
-{#//            })#}
-
-{#//            document.getElementById('task-iframe').onreadystatechange = function() {#}
-{#//                console.log('loaded');#}
-{#//            };#}
-{#//            $('iframe').on('readystatechange', function() {#}
-{#//                console.log(this.readyState);#}
-{#//            });#}
-
-            {#$('iframe').contents().on('load', function() {#}
-                {#alert('loading');#}
-            {#});#}
         });
     </script>
 {% endblock %}
