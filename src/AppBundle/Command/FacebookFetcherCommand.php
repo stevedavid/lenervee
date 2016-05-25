@@ -63,7 +63,7 @@ class FacebookFetcherCommand extends ContainerAwareCommand
 
             $courrier->setLikeCount($nbLikes);
             $output->writeln('>> Found '. $nbLikes .' likes !');
-            sleep(5);
+            sleep(2.5);
 
         }
 

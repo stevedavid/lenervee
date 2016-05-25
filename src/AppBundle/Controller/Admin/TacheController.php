@@ -41,7 +41,6 @@ class TacheController extends Controller
     public function doAction(Request $request)
     {
         $command = self::COMMANDS[$request->request->get('command')];
-
         $kernel = $this->get('kernel');
         $application = new Application($kernel);
         $application->setAutoExit(false);
@@ -57,7 +56,6 @@ class TacheController extends Controller
         $content = $output->fetch();
 
         // return new Response(""), if you used NullOutput()
-//        return new Response($content);
-        exit;
+        return new Response($content);
     }
 }

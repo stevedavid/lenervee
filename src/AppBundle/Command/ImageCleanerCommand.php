@@ -46,7 +46,9 @@ class ImageCleanerCommand extends ContainerAwareCommand
 
         $images = [];
         foreach ($courriers as $courrier) {
+            $output->doWrite('>> Fetching courrier n°' . $courrier->getId() . '\'s image');
             $images[] = $imagesDirectory . '/' . $courrier->getImage()->getPath();
+            sleep(1);
         }
         $scannedDirectory = glob($imagesDirectory . '/' . Image::UPLOAD_DIR . '/*.*');
 
@@ -55,7 +57,7 @@ class ImageCleanerCommand extends ContainerAwareCommand
 
             if (!in_array($filePath, $images)) {
                 $output->writeln('Image "' . array_pop($parts) . '" belongs to nothing: removing!');
-//                unlink($filePath);
+                unlink($filePath);
             } else {
                 $output->writeln('Image "' . array_pop($parts) . '" belongs to a courrier.');
             }
