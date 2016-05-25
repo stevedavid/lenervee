@@ -12,7 +12,7 @@ class StreamedOutput extends BufferedOutput
     {
         $response = new StreamedResponse();
         $response->setCallback(function() use($message) {
-            echo '<p>[<span class="output-time">'. date('H:i:s') .'</span>] $ ' . $message . '</p>';
+            echo '<p style="font-family: \'Consolas\'">[<span class="output-time">'. date('H:i:s') .'</span>] $ ' . $message . '</p>';
             flush();
         });
 

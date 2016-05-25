@@ -40,6 +40,7 @@ class TacheController extends Controller
      */
     public function doAction(Request $request)
     {
+        ini_set('max_execution_time', -1);
         $command = self::COMMANDS[$request->request->get('command')];
         $kernel = $this->get('kernel');
         $application = new Application($kernel);

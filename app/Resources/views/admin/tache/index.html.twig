@@ -19,7 +19,11 @@
                 </div>
                 <div class="portlet-body form" id="task-container">
                     <div class="console">
-                        <div class="inner-output"></div>
+                        <div class="inner-output">
+
+                            <p style="font-family: Consolas">[<span class="output-time">{{ 'now'|date('H:i:s') }}</span>] - $ <span class="blink">_</span></p>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,6 +41,7 @@
                 xhr.open('POST', '{{ path('admin_tache_do') }}', true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhr.send('command={{ command }}');
+                $('.blink').css('visibility', 'visible').html('Transmitting...');
                 var timer;
                 timer = window.setInterval(function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -48,6 +53,16 @@
                 }, 250);
             });
 
+            $('.blink').each(function() {
+                var elem = $(this);
+                setInterval(function() {
+                    if (elem.css('visibility') == 'hidden') {
+                        elem.css('visibility', 'visible');
+                    } else {
+                        elem.css('visibility', 'hidden');
+                    }
+                }, 500);
+            });
         });
     </script>
 {% endblock %}
