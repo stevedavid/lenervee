@@ -1,13 +1,27 @@
 <html>
 <head>
-    <link rel='stylesheet' id='google-fonts-css' href='http://fonts.googleapis.com/css?family=Noto+Serif%7CRoboto+Slab%3A300%2C400%2C700&#038;ver=4.2.1' type='text/css' media='all' />
-    <link rel='stylesheet' id='add-google-fonts-css' href='http://fonts.googleapis.com/css?family=Montserrat%7CCrimson+Text%7COpen+Sans%7CJosefin+Sans%3A100%2C400%7CAmatic+SC&#038;ver=4.2.1' type='text/css' media='all' />    <style>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Noto+Serif%7CRoboto+Slab%3A300%2C400%2C700);
+        @import url(http://fonts.googleapis.com/css?family=Montserrat%7CCrimson+Text%7COpen+Sans%7CJosefin+Sans%3A100%2C400%7CAmatic+SC)
         body {
             color: #252525;
             margin: 0;
             padding: 0;
         }
+        @media screen { /* hides this rule from unsupported clients */
+            .roboto-slab {
+                font-family: "Roboto Slab", arial, sans-serif !important;
+            }
 
+            .noto-sans {
+                font-family: "Noto Sans", arial, sans-serif !important;
+            }
+
+            .josefin-sans {
+                font-family: "Josefin Sans", arial, sans-serif !important;
+            }
+
+        }
         table {
             border: 0;
         }
@@ -37,7 +51,6 @@
             padding: 40px 0;
             color: #252525;
             background-color: #f9f9f9;
-            font-family: 'Noto Sans';
         }
 
         #courrier-title > span#title {
@@ -47,15 +60,15 @@
         }
 
         p {
-            font-family: 'Noto Sans';
             margin-bottom: 50px;
         }
 
         #lenervee {
             text-align: center;
             font-style: italic;
-            font-family: 'Josefin Sans';
             padding: 25px;
+            color: #404040;
+            font-size: 1.25em;
         }
     </style>
 </head>
@@ -68,14 +81,14 @@
                 </td>
             </tr>
         <tr>
-            <td id="intro">
+            <td id="intro" class="noto-sans">
                 <strong>{{ sender_name }}</strong>, que vous connaissez bien (ou pas), vous conseille la lecture
                 {% if courrier.reponse is not null %}
-                    d'un échange avec une grande marque de l'agroalimentaire (mais pas que)
+                    d'un échange avec
                 {% else %}
-                    d'un courrier envoyé à une grande marque de l'agroalimentaire (mais pas que)
+                    d'un courrier envoyé à
                 {% endif %}
-                  sur le blog de L'énervée :
+                une grande marque sur le blog de L'énervée :
                 <br/>
                 <a href="{{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" target="_blank">
                     {{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}
@@ -84,16 +97,16 @@
         </tr>
         <tr>
             <td id="courrier-title">
-                <span id="title">{{ courrier.name }}</span>
+                <span id="title" class="roboto-slab">{{ courrier.name }}</span>
                 <br/>
                 <a href="{{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" target="_blank">
                     <img src="{{ absolute_url(asset(courrier.image)) }}"/>
                 </a>
-                <p>{{ courrier.intro }}</p>
+                <p class="noto-sans">{{ courrier.intro }}</p>
             </td>
         </tr>
         <tr>
-            <td id="lenervee">
+            <td id="lenervee" class="josefin-sans">
                 L'énervée, c'est le blog satirique d'une consommatrice acrimonieuse qui envoie ses lettres de réclamation aux services consommateurs des marques de la grande distribution pour faire connaître son insatisfaction (et un peu pour raconter sa vie).
             </td>
         </tr>
