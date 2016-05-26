@@ -328,3 +328,19 @@ blockquote:not(.reponse) > p:last-child {
 #dgd_scrollbox-1672.shown {
     right: 0px !important;
 }
+
+@media only screen and (max-width: 1120px) {
+    #logo-mobile {
+        width: 90% !important;
+    }
+
+    blockquote {
+        width: 90% !important;
+    }
+}
+
+@media only screen and (max-width: 782px) {
+    #wrapper {
+        margin-top: -46px !important;
+    }
+}
