@@ -225,9 +225,7 @@
         jQuery(function($) {
 
             $(window).on('scroll', function() {
-                console.log($(document).scrollTop());
-                console.log($('.bw-share').offset().top);
-                if ($(document).scrollTop() > $('.bw-share').offset().top) {
+                if ($(document).scrollTop() > $('.bw-share').offset().top && $(window).width() > 1366) {
                     $('#dgd_scrollbox-1672').addClass('shown');
                 } else {
                     $('#dgd_scrollbox-1672').removeClass('shown');
