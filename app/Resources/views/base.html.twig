@@ -125,9 +125,9 @@
                     <div class="bw-cell">
                         <a href="{{ path('courrier_index') }}">
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                <img src="{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}" alt="L&#039;énervée">
+                                <img src='{{ asset('images/lenervee/logo-red.png') }}'>
                             {% else %}
-                              <img src="{{ asset('images/lenervee/logo-330x330.png') }}" alt="L&#039;énervée">
+                                <img src='{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}'>
                             {% endif %}
                         </a>
                         <h1>L&#039;énervée</h1><span id="logo-baseline">Avis d&#039;une consommatrice</span>
@@ -160,7 +160,11 @@
 
             <div id="logo-mobile">
                 <a href="{{ path('courrier_index') }}">
-                    <img src="{{ asset('images/lenervee/logo-330x330.png') }}" alt="L&#039;énervée">
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <img src='{{ asset('images/lenervee/logo-red.png') }}'>
+                    {% else %}
+                        <img src='{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}'>
+                    {% endif %}
                 </a>
                 <h1>L&#039;énervée</h1> ‹ <span id="logo-baseline-mobile">Avis d&#039;une consommatrice</span>
             </div>
@@ -180,7 +184,11 @@
                 {{ render(controller('AppBundle:Categorie:menu')) }}
                 <div id="sticky-logo">
                     <a href="{{ path('courrier_index') }}">
-                        <img src="{{ asset('images/lenervee/logo-330x330.png') }}" alt="sticky logo">
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <img src='{{ asset('images/lenervee/logo-red.png') }}' alt='sticky-logo'>
+                        {% else %}
+                            <img src='{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}' alt='sticky-logo'>
+                        {% endif %}
                     </a>
                 </div>
             </nav>
@@ -273,9 +281,9 @@
                         <span class="back-top round" style="background-color:#364e6d"></span>
 
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <img src='{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}' alt='footer-logo'>
+                            <img src='{{ asset('images/lenervee/logo-red.png') }}' alt='footer-logo'>
                         {% else %}
-                            <img src='{{ asset('images/lenervee/logo-330x330.png') }}' alt='footer-logo'>
+                            <img src='{{ asset('images/lenervee/Logo-Mockup-3D-330x330.png') }}' alt='footer-logo'>
                         {% endif %}
                     </div>
                 </div>
