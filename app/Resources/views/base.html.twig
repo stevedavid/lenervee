@@ -455,49 +455,7 @@ output='js/compiled.js' %}
         });
     });
 </script>
-<script>
-    jQuery(function($) {
-
-
-        $('#contact_submit').on('click', function(e) {
-            e.preventDefault();
-
-            var data = {
-                'contact': {
-                    'prenom': $('#contact_prenom').val(),
-                    'email': $('#contact_email').val(),
-                    'message': $('#contact_message').val(),
-                },
-            }
-                    , $this = $(this);
-            $.ajax({
-                url: '/',
-                data: data,
-                method: 'post',
-                success: function(r) {
-                    console.log(r);
-                    if(r.status == 'nok') {
-                        $this.addClass('submit-error').text('Revérifiez...').on('blur', function() {
-                            $(this).removeClass('submit-error').text('Envoyer');
-                        });
-                    } else if(r.status == 'ok') {
-                        $this.addClass('submit-success').text('Envoyé').attr('disabled', 'disabled');
-                    }
-                },
-            });
-        });
-
-    });
-</script>
-{#<script type='text/javascript' src='js/jquery.js'></script>#}
-{#<script type='text/javascript' src='js/jquery-migrate.min.js'></script>#}
-{#<script type='text/javascript' src='js/std-box.js'></script>#}
 <script type='text/javascript' src='//connect.facebook.net/fr_FR/all.js?ver=4.2.1#xfbml=1&#038;appId=1443946719181573'></script>
-{#<script type='text/javascript' src='js/modernizr.custom.js'></script>#}
-{#<script type='text/javascript' src='js/widget_custom_field_list_js.php'></script>#}
-{#<script type='text/javascript' src='js/comment-reply.min.js'></script>#}
-{#<script type='text/javascript' src='js/tweenmax.min.js'></script>#}
-{#<script type='text/javascript' src='js/plugins.js'></script>#}
 <script type='text/javascript' src='//maps.google.com/maps/api/js?sensor=false&#038;ver=1.0'></script>
 <script>
     ! function(d, s, id) {
@@ -554,7 +512,6 @@ output='js/compiled.js' %}
 
 
 
-<!-- This site uses the Google Analytics by Yoast plugin v5.4.2 - Universal disabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
 <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-50184381-1']);
@@ -657,12 +614,20 @@ output='js/compiled.js' %}
 </script>
 {% block js %}
 {% endblock %}
-<div class="dgd_stb_box" id="dgd_scrollbox-1672"><a class="dgd_stb_box_close dgd_stb_box_x" href="javascript:void(0);"> </a><h3 style="font-size: 1.25em; margin-left: 20px;margin-bottom: 20px">Hey ! On se suit ?</h3>
-    <p><a href="https://twitter.com/lenervee" class="twitter-follow-button" data-show-count="true" data-lang="fr">Suivre @lenervee</a><br />
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
-    <p><a class="twitter-timeline" data-chrome="noheader nofooter" href="https://twitter.com/lenervee" data-widget-id="461677761292013568" data-tweet-limit="1">Dernier tweet</a><br />
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
-    <div class="fb-like-box" data-href="https://www.facebook.com/lenervee" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="false" data-show-border="false"></div>
+<div class="dgd_stb_box" id="dgd_scrollbox-1672">
+    <a class="dgd_stb_box_close dgd_stb_box_x" href="javascript:;"> </a>
+    <h3 style="font-size: 1.25em; margin-left: 20px;margin-bottom: 20px">Hey ! On se suit ?</h3>
+    <p>
+        <a href="https://twitter.com/lenervee" class="twitter-follow-button" data-show-count="true" data-lang="fr">Suivre @lenervee</a>
+        <br />
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </p>
+    <p>
+        <a class="twitter-timeline" data-chrome="noheader nofooter" href="https://twitter.com/lenervee" data-widget-id="461677761292013568" data-tweet-limit="1">Dernier tweet</a>
+        <br />
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </p>
+    <div class="fb-page" data-href="https://www.facebook.com/lenervee/" data-width="277" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/lenervee/"><a href="https://www.facebook.com/lenervee/">L&#039;énervée</a></blockquote></div></div>
 </div>
 <div id="cookie-notice" class="cn-top" style="color: #555555; background-color: #f8f8f8;">
     <div class="cookie-notice-container"><span id="cn-notice-text">En continuant votre navigation sur ce site, vous acceptez l'utilisation des cookies.</span><a href="" id="cn-accept-cookie" class="button">Ok</a>

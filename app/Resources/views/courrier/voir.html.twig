@@ -219,3 +219,27 @@
         </div><!-- #comments -->
     </div>
 {% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            $(window).on('scroll', function() {
+                console.log($(document).scrollTop());
+                console.log($('.bw-share').offset().top);
+                if ($(document).scrollTop() > $('.bw-share').offset().top) {
+                    $('#dgd_scrollbox-1672').addClass('shown');
+                } else {
+                    $('#dgd_scrollbox-1672').removeClass('shown');
+                }
+            });
+
+            $('.dgd_stb_box_close').on('click', function() {
+                $('#dgd_scrollbox-1672').removeClass('shown');
+            });
+
+
+
+        });
+    </script>
+{% endblock %}

@@ -315,3 +315,16 @@ blockquote:not(.reponse) > p:last-child {
     background-size: cover;
     background-position: center center;
 }
+
+#dgd_scrollbox-1672 {
+    -webkit-transition: all 250ms linear;
+    -moz-transition: all 250ms linear;
+    -ms-transition: all 250ms linear;
+    -o-transition: all 250ms linear;
+    transition: all 250ms linear;
+    bottom: 0 !important;
+}
+
+#dgd_scrollbox-1672.shown {
+    right: 0px !important;
+}

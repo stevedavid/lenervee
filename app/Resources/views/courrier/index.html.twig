@@ -25,10 +25,6 @@
                 , scroll = $(document).scrollTop()
                 ;
 
-
-                console.log(offset);
-                console.log(scroll);
-
                 if(scroll > offset && window.pending) {
                     window.pending = false;
                     $.ajax({
