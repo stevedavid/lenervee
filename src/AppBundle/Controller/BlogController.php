@@ -131,7 +131,7 @@ class BlogController extends Controller
                     ->setSubject(sprintf(self::MAIL_TITLE, $senderName))
                     ->setFrom([$senderEmail => $senderName])
                     ->setTo($friendEmail)
-                    ->setBody($this->render('blog/partage/email.html.twig', [
+                    ->setBody($this->renderView('blog/partage/email.html.twig', [
                         'courrier' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->find($request->request->get('id')),
                         'sender_name' => $senderName,
                     ]),'text/html')
