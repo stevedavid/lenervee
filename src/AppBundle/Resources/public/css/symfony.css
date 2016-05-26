@@ -169,6 +169,13 @@ i.icn.share-email:before {
     content: url('../images/share_email.png')
 }
 
+i.icn.edit-courrier:before {
+    content: url('../images/edit_courrier.png');
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+}
+
 .pagination-counter {
     padding: 0;
 }
