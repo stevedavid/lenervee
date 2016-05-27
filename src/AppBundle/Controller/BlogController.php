@@ -15,6 +15,38 @@ class BlogController extends Controller
     const MAIL_TITLE = '%s vous conseille un courrier sur http://lenervee.com/ !';
 
     /**
+     * @Route("/blog/cookie/accept/", name="blog_cookie_accept")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function cookieAcceptAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+
+            $response = new Response();
+            $cookie = new Cookie('cookie_notice', '1', new \DateTime('+1 month'), '/');
+            $response->headers->setCookie($cookie);
+            $response->send();
+
+            return new $response;
+        }
+
+        return new Response(null, 405);
+    }
+
+    /**
+     * @Route("/cookies/", name="blog_cookie_know")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function cookieKnowAction(Request $request)
+    {
+        return $this->render('blog/cookie.html.twig');
+    }
+
+    /**
      * @Route("/contactez-nous/", name="blog_contact")
      *
      * @return \Symfony\Component\HttpFoundation\Response
