@@ -383,6 +383,10 @@ output='js/compiled.js' %}
 
 <script>
     jQuery(function($) {
+
+        /**
+         * Chargement de la popup de partage par email
+         */
         $('body').on('click', '#share-email', function(e) {
             var $this = $(this);
             $this.off('click');
@@ -397,10 +401,16 @@ output='js/compiled.js' %}
             });
         });
 
+        /**
+         * Reset de la couleur du fond des champs
+         */
         $('body').on('keyup', '#email-share-form input', function(e) {
             $(this).css('background-color', 'white');
         });
 
+        /**
+         * Envoi du formulaire de partage par email
+         */
         $('body').on('click', '#partager-submit', function(e) {
             e.preventDefault();
 
@@ -468,10 +478,15 @@ output='js/compiled.js' %}
                 }
             });
         });
+
+        $('#cn-accept-cookie').on('click', function() {
+            $.get('{{ path('blog_cookie_accept') }}', function() {
+                $('#cookie-notice').fadeOut(2000);
+            });
+        });
     });
 </script>
 <script type='text/javascript' src='//connect.facebook.net/fr_FR/all.js?ver=4.2.1#xfbml=1&#038;appId=1443946719181573'></script>
-<script type='text/javascript' src='//maps.google.com/maps/api/js?sensor=false&#038;ver=1.0'></script>
 <script>
     ! function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -483,50 +498,6 @@ output='js/compiled.js' %}
         }
     }(document, "script", "twitter-wjs");
 </script>
-
-<script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.3&appId=624472404312502";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-<!-- /Code Inserter module -->
-
-<!-- /SEO Ultimate -->
-
-<script type="text/javascript">
-    window._wpemojiSettings = {
-        "baseUrl": "http:\/\/s.w.org\/images\/core\/emoji\/72x72\/",
-        "ext": ".png",
-        "source": {
-            "concatemoji": "http:\/\/lenervee.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.1"
-        }
-    };
-    ! function(a, b, c) {
-        function d(a) {
-            var c = b.createElement("canvas"),
-                    d = c.getContext && c.getContext("2d");
-            return d && d.fillText ? (d.textBaseline = "top", d.font = "600 32px Arial", "flag" === a ? (d.fillText(String.fromCharCode(55356, 56812, 55356, 56807), 0, 0), c.toDataURL().length > 3e3) : (d.fillText(String.fromCharCode(55357, 56835), 0, 0), 0 !== d.getImageData(16, 16, 1, 1).data[0])) : !1
-        }
-
-        function e(a) {
-            var c = b.createElement("script");
-            c.src = a, c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c)
-        }
-        var f;
-        c.supports = {
-            simple: d("simple"),
-            flag: d("flag")
-        }, c.supports.simple && c.supports.flag || (f = c.source || {}, f.concatemoji ? e(f.concatemoji) : f.wpemoji && f.twemoji && (e(f.twemoji), e(f.wpemoji)))
-    }(window, document, window._wpemojiSettings);
-</script>
-
-
-
 <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-50184381-1']);
@@ -542,94 +513,17 @@ output='js/compiled.js' %}
         s.parentNode.insertBefore(ga, s);
     })();
 </script>
-<!-- / Google Analytics by Yoast -->
-
-<script type="text/javascript">
-    //<![CDATA[
-    function customfieldlist_the_collapse_sign() {
-        var signs = new Object();
-        signs['minus'] = '[ - ]';
-        signs['plus'] = '[ + ]';
-        return signs;
-    }
-
-    function customfieldlist_effect_speed() {
-        var speed = 'normal';
-        return speed;
-    }
-    //]]>
-</script>
-
-
-
-
-
-
-<script>
-    (function(d, s, id) {
+<script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&appId=1443946719181573&version=v2.0";
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=624472404312502";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, "script", "facebook-jssdk"));
-</script>
+    }(document, 'script', 'facebook-jssdk'));</script>
 <div id="su-footer-links" style="text-align: center;"></div>
-
-<script type='text/javascript'>
-    /* <![CDATA[ */
-    var addthis_config = {
-        "ui_click": "",
-        "ui_508_compliant": "",
-        "ui_use_css": "1",
-        "data_track_addressbar": "",
-        "data_track_clickback": ""
-    };
-    var addthis_share = {
-        "url": "http:\/\/lenervee.com\/exceptions\/ondamania-de-buki\/",
-        "title": "Priv\u00e9\u00a0: Ondamania de Buki",
-        "description": "L'\u00e9nerv\u00e9e fait partie de ceux qui aiment faire descendre les Ondamania dans les escaliers mais reste frustr\u00e9e par sa derni\u00e8re tentative."
-    };
-    /* ]]> */
-</script>
-<script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js?ver=1.0#pubid=ra-534b93e766f14c42'></script>
-<script type='text/javascript'>
-    /* <![CDATA[ */
-    var bw_theme_ajax = {
-        "ajax": "http:\/\/lenervee.com\/wp-admin\/admin-ajax.php",
-        "nonce": "e9a44cd223"
-    };
-    /* ]]> */
-</script>
-<script type='text/javascript'>
-    /* <![CDATA[ */
-    var BJLL = {
-        "threshold": "0"
-    };
-    /* ]]> */
-</script>
-
-<!--     ===== START Dreamgrow Scroll Triggered Box =====   -->
-
-<!--     ===== END OF Dreamgrow Scroll Triggered Box =====   -->
-
-<script type="text/javascript">
-    (function() {
-        var request, b = document.body,
-                c = 'className',
-                cs = 'customize-support',
-                rcs = new RegExp('(^|\\s+)(no-)?' + cs + '(\\s+|$)');
-
-        request = true;
-
-        b[c] = b[c].replace(rcs, ' ');
-        b[c] += (window.postMessage && request ? ' ' : ' no-') + cs;
-    }());
-</script>
 {% block js %}
 {% endblock %}
-<div class="dgd_stb_box" id="dgd_scrollbox-1672">
+<div class="dgd_stb_box" id="dgd_scrollbox-1672" style="z-index: 100002;">
     <a class="dgd_stb_box_close dgd_stb_box_x" href="javascript:;"> </a>
     <h3 style="font-size: 1.25em; margin-left: 20px;margin-bottom: 20px">Hey ! On se suit ?</h3>
     <p>
@@ -644,10 +538,16 @@ output='js/compiled.js' %}
     </p>
     <div class="fb-page" data-href="https://www.facebook.com/lenervee/" data-width="277" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/lenervee/"><a href="https://www.facebook.com/lenervee/">L&#039;énervée</a></blockquote></div></div>
 </div>
-<div id="cookie-notice" class="cn-top" style="color: #555555; background-color: #f8f8f8;">
-    <div class="cookie-notice-container"><span id="cn-notice-text">En continuant votre navigation sur ce site, vous acceptez l'utilisation des cookies.</span><a href="" id="cn-accept-cookie" class="button">Ok</a>
+{% if app.request.cookies.get('cookie_notice') != 1 %}
+<div id="cookie-notice" class="cn-bottom" style="color: #555555; background-color: #f8f8f8;">
+    <div class="cookie-notice-container">
+        <span id="cn-notice-text">En continuant votre navigation sur ce site, vous acceptez l'utilisation des cookies.</span>
+        <br/>
+        <a href="#" id="cn-accept-cookie" class="button">Ok</a>
+        <a href="{{ path('blog_cookie_know') }}" id="cn-know-more" class="button">En savoir plus</a>
     </div>
 </div>
+{% endif %}
 </body>
 
 </html>
