@@ -101,3 +101,36 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+
+# LexikMaintenanceBundle
+lexik_maintenance:
+    authorized:
+        ips: ['127.0.0.1', '78.192.138.227', '192.168.0.50']                                 # Optional. Authorized ip addresses
+        query: { unlock: true }                                                 # Optional. Authorized request query parameter (GET/POST)
+    driver:
+        ttl: 3600                                                                  # Optional ttl option, can be not set
+
+         # File driver
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'                # class for file driver
+        options: {file_path: %kernel.root_dir%/cache/lock}                         # file_path is the complete path for create the file
+
+         # Shared memory driver
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\ShmDriver'                 # class for shared memory driver
+
+         # MemCache driver
+        class: Lexik\Bundle\MaintenanceBundle\Drivers\MemCacheDriver               # class for MemCache driver
+        options: {key_name: 'maintenance', host: 127.0.0.1, port: 11211}           # need to define a key_name, the host and port
+
+        # Database driver:
+        class: 'Lexik\Bundle\MaintenanceBundle\Drivers\DatabaseDriver'             # class for database driver
+
+        # Option 1 : for doctrine
+        options: {connection: custom}                                            # Optional. You can choice an other connection. Without option it's the doctrine default connection who will be used
+
+        # Option 2 : for dsn, you must have a column ttl type datetime in your table.
+        options: {dsn: "mysql:dbname=maintenance;host:localhost", table: maintenance, user: root, password: root}  # the dsn configuration, name of table, user/password
+
+    #Optional. response code and status of the maintenance page
+    response:
+        code: 503
+        status: "Service Temporarily Unavailable"
