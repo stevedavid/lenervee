@@ -20,7 +20,7 @@ class TacheController extends Controller
     ];
 
     /**
-     * @Route("admin/taches/{command}/", requirements={"command" = "facebook-fetcher|images-cleaner"}, name="admin_tache_index")
+     * @Route("admin/taches/{command}", requirements={"command" = "facebook-fetcher|images-cleaner"}, name="admin_tache_index")
      */
     public function indexAction($command)
     {
@@ -34,7 +34,7 @@ class TacheController extends Controller
     }
 
     /**
-     * @Route("/admin/taches/_do/", name="admin_tache_do")
+     * @Route("/admin/taches/_do", name="admin_tache_do")
      *
      * @return Response
      */

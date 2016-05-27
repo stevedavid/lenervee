@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CategorieController extends Controller
 {
     /**
-     * @Route("/admin/categories/", name="admin_categorie_lister")
+     * @Route("/admin/categories", name="admin_categorie_lister")
      *
      * @return Response
      */
@@ -31,7 +31,7 @@ class CategorieController extends Controller
     }
 
     /**
-     * @Route("/admin/categories/editer/", name="admin_categorie_editer")
+     * @Route("/admin/categories/editer", name="admin_categorie_editer")
      *
      * @param Request $request
      * @return Response

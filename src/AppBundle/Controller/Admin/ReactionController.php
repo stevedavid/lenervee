@@ -37,7 +37,7 @@ class ReactionController extends Controller
     ];
 
     /**
-     * @Route("/admin/reactions/", name="admin_reaction_lister")
+     * @Route("/admin/reactions", name="admin_reaction_lister")
      *
      * @return Response
      */
@@ -73,7 +73,7 @@ class ReactionController extends Controller
     }
 
     /**
-     * @Route("/admin/reactions/moderer/", name="admin_reaction_moderer")
+     * @Route("/admin/reactions/moderer", name="admin_reaction_moderer")
      *
      * @return Response
      */
@@ -97,7 +97,7 @@ class ReactionController extends Controller
     }
 
     /**
-     * @Route("admin/reactions/corbeille/", name="admin_reaction_corbeille")
+     * @Route("admin/reactions/corbeille", name="admin_reaction_corbeille")
      *
      * @return Response
      */
@@ -122,7 +122,7 @@ class ReactionController extends Controller
     }
 
     /**
-     * @Route("/admin/reactions/editer/", name="admin_reaction_editer")
+     * @Route("/admin/reactions/editer", name="admin_reaction_editer")
      *
      * @param Request $request
      * @return Response
@@ -180,7 +180,7 @@ class ReactionController extends Controller
     }
 
     /**
-     * @Route("admin/reaction/supprimer/url/", name="admin_reaction_remove_url")
+     * @Route("admin/reaction/supprimer/url", name="admin_reaction_remove_url")
      *
      * @param Request $request
      * @return Response
@@ -214,7 +214,7 @@ class ReactionController extends Controller
     }
 
     /**
-     * @Route("admin/reactions/supprimer/", name="admin_reaction_supprimer")
+     * @Route("admin/reactions/supprimer", name="admin_reaction_supprimer")
      *
      * @param Request $request
      * @return JsonResponse|Response

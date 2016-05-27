@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminController extends Controller
 {
     /**
-     * @Route("admin/configuration/idle/", name="admin_admin_idle")
+     * @Route("admin/configuration/idle", name="admin_admin_idle")
      *
      */
     public function idleAction()
@@ -23,7 +23,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/_modal/", name="admin_admin_modal")
+     * @Route("/admin/_modal", name="admin_admin_modal")
      *
      * @param Request $request
      * @return Response

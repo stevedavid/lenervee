@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Parser;
 class BlogrollController extends Controller
 {
     /**
-     * @Route("admin/blogroll/", name="admin_blogroll_lister")
+     * @Route("admin/blogroll", name="admin_blogroll_lister")
      */
     public function listerAction()
     {
@@ -24,7 +24,7 @@ class BlogrollController extends Controller
     }
 
     /**
-     * @Route("admin/blogroll/sauvegarder/", name="admin_blogroll_sauvegarder")
+     * @Route("admin/blogroll/sauvegarder", name="admin_blogroll_sauvegarder")
      */
     public function sauvegarderAction(Request $request)
     {
