@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Courrier;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ class BlogController extends Controller
     const MAIL_TITLE = '%s vous conseille un courrier sur http://lenervee.com/ !';
 
     /**
-     * @Route("/blog/page/contactez-nous/", name="blog_contact")
+     * @Route("/contactez-nous/", name="blog_contact")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -24,7 +25,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/page/mentions-legales/", name="blog_mentions")
+     * @Route("/mentions-legales/", name="blog_mentions")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -34,7 +35,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/page/a-propos/", name="blog_about")
+     * @Route("/a-propos/", name="blog_about")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -150,18 +151,5 @@ class BlogController extends Controller
 
         }
         return new Response(null, 405);
-    }
-
-    /**
-     * @Route("/testouille/testouille/testouille/")
-     *
-     * @return Response
-     */
-    public function testEmailAction(Request $request)
-    {
-        return $this->render('blog/partage/email.html.twig', [
-            'courrier' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->find($request->get('id')),
-            'sender_name' => 'Gaston Lagaffe'
-        ]);
     }
 }
