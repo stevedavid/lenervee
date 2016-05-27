@@ -15,7 +15,6 @@ class ReactionType extends AbstractType
                 'placeholder' => 'Votre nom *',
             ),
         ))->add('email', 'text', array(
-            'mapped' => false,
             'attr' => array(
                 'placeholder' => 'Votre email *',
             ),

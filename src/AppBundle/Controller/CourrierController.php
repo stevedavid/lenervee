@@ -70,13 +70,16 @@ class CourrierController extends Controller
             throw new NotFoundHttpException('Courrier non trouvé.');
         }
 
-        $reaction = new Reaction();
+        $reaction = !$isAdmin ? new Reaction() : (new Reaction)
+            ->setName('Administrateur')
+            ->setUrl('http://lenervee.com/')
+            ->setEmail('admin@lenervee.com')
+        ;
         $formReaction = $this->createForm(ReactionType::class, $reaction);
 
         if ($request->isMethod('POST')) {
             $formReaction->handleRequest($request);
             $nickname = $formReaction['name']->getData();
-            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
             if (!$isAdmin && $nickname == 'Administrateur') {
                 $formReaction->addError(new FormError('Vous ne pouvez pas utiliser cette valeur pour pseudo.'));
             }
