@@ -56,7 +56,7 @@ DirectoryIndex app.php
     # Force trailing slash to be added at the end of URL
     RewriteCond %{REQUEST_URI} !\.[^./]+$
     RewriteCond %{REQUEST_URI} !(.*)/$
-    RewriteCond %{REQUEST_URI} !^/log
+    RewriteCond %{REQUEST_URI} !^/(login|logout|admin)
     RewriteRule ^(.*)$ http://%{HTTP_HOST}/$1/ [R=301,L]
 
     # Rewrite all other queries to the front controller.
