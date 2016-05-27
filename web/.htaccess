@@ -53,6 +53,10 @@ DirectoryIndex app.php
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule .? - [L]
 
+    # Remove www. from all URL (uncomment when deploying)
+    # RewriteCond %{HTTP_HOST} !^lenervee.com$ [NC]
+    # RewriteRule ^(.*)$ http://lenervee.com/$1 [L,R=301]
+
     # Force trailing slash to be added at the end of URL
     RewriteCond %{REQUEST_URI} !\.[^./]+$
     RewriteCond %{REQUEST_URI} !(.*)/$
