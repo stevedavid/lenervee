@@ -19,7 +19,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "symfony/assetic-bundle": "^2.7",
         "knplabs/knp-time-bundle": "^1.6",
-        "eko/feedbundle": "^1.2"
+        "eko/feedbundle": "^1.2",
+        "friendsofsymfony/user-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

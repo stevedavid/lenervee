@@ -153,15 +153,14 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/testouille/testouille/testouille")
+     * @Route("/export/pdf")
      *
      * @return Response
      */
-    public function testEmailAction(Request $request)
+    public function exportPdfAction()
     {
-        return $this->render('blog/partage/email.html.twig', [
-            'courrier' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->find($request->get('id')),
-            'sender_name' => 'Gaston Lagaffe'
+        return $this->render('admin/courrier/exporter.html.twig', [
+            'courriers' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->findAll(),
         ]);
     }
 }

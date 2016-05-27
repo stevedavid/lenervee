@@ -1,0 +1,131 @@
+<html>
+<head>
+
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Noto+Serif%7CRoboto+Slab%3A300%2C400%2C700);
+        @import url(http://fonts.googleapis.com/css?family=Montserrat%7CCrimson+Text%7COpen+Sans%7CJosefin+Sans%3A100%2C400%7CAmatic+SC);
+        body {
+            color: #252525;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        @media screen { /* hides this rule from unsupported clients */
+            .roboto-slab {
+            }
+
+            .noto-sans {
+            }
+
+            .noto-serif {
+            }
+
+            .josefin-sans {
+                font-family: "Josefin Sans", arial, sans-serif !important;
+            }
+
+        }
+        table {
+            border: 0;
+            margin: auto;
+            width: 100%;
+        }
+
+        tbody {
+            width: 100%;
+            display: block;
+
+        }
+
+        td, tr {
+            width: 100%;
+            text-align: center;
+        }
+
+        .courrier {
+            border: 1px solid #D4D4D4;
+            text-align: center;
+            font-style: italic;
+            color: #494949;
+            padding: 20px;
+            -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.08);
+        }
+
+        .courrier p:not(:first-child) {
+            text-indent: 20px;
+        }
+
+        .courrier-intro {
+            text-align: center;
+            padding: 40px 0;
+            color: #252525;
+        }
+
+        .courrier a, .courrier a:visited {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .courrier-title {
+            text-align: center;
+            font-size: 3em;
+            min-height: 250px;
+            font-weight: 300;
+        }
+
+
+        .courrier-image {
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .courrier-image > img {
+            max-width: 750px;
+        }
+
+        p {
+            margin-bottom: 50px;
+        }
+
+        hr {
+            border: 2px dashed #D4D4D4;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        #lenervee {
+            text-align: center;
+            font-style: italic;
+            padding: 25px;
+            color: #404040;
+            font-size: 1.25em;
+        }
+    </style>
+</head>
+<body>
+    {% for courrier in courriers %}
+        <table border="0" width="100%">
+            <tr>
+                <td class="roboto-slab courrier-title">{{ courrier.name }}</td>
+            </tr>
+            <tr>
+                <td class="courrier-image">
+                </td>
+            </tr>
+            <tr>
+                <td class="noto-serif courrier-intro">{{ courrier.intro }}</td>
+            </tr>
+        </table>
+        <table border="0" width="100%">
+            <tbody>
+            <tr>
+                <td class="courrier noto-serif">{{ courrier.courrier|striptags  }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr/>
+    {% endfor %}
+</body>
+</html>
