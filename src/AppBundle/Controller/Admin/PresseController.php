@@ -34,7 +34,7 @@ class PresseController extends Controller
     }
 
     /**
-     * @Route("admin/extraits-de-presse/ajouter", name="admin_presse_ajouter")
+     * @Route("admin/extraits-de-presse/ajouter/{id}", name="admin_presse_ajouter")
      *
      * @param Request $request
      * @param null $id
