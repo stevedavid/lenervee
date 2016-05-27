@@ -151,6 +151,13 @@
                             <i class="fa fa-rss"></i>
                         </a>
                     </li>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <li>
+                            <a href="{{ path('admin_index_index') }}" title="Back Office">
+                                <i class="fa fa-lock"></i>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <span class="pad round"></span>
             </div>
