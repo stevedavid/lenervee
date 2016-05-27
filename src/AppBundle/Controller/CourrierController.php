@@ -37,7 +37,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/{slugCategorie}/{slugCourrier}", name="courrier_voir", requirements={"categorie_slug": "[a-zA-Z1-9\-_]+", "courrier_slug", "[a-zA-Z1-9\-_]+"})
+     * @Route("/{slugCategorie}/{slugCourrier}/", name="courrier_voir", requirements={"categorie_slug": "[a-zA-Z1-9\-_]+", "courrier_slug", "[a-zA-Z1-9\-_]+"})
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -118,7 +118,7 @@ class CourrierController extends Controller
 
 
     /**
-     * @Route("/blog/courriers/rechercher", name="courrier_rechercher")
+     * @Route("/blog/courriers/rechercher/", name="courrier_rechercher")
      *
      */
     public function rechercherAction(Request $request)
@@ -144,7 +144,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/blog/courriers/push", name="courrier_apercu")
+     * @Route("/blog/courriers/push/", name="courrier_apercu")
      */
     function apercuAction(Request $request, $id = null)
     {

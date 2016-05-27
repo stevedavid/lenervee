@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PresseController extends Controller
 {
     /**
-     * @Route("/admin/extraits-de-presse", name="admin_presse_lister")
+     * @Route("/admin/extraits-de-presse/", name="admin_presse_lister")
      *
      * @return Response
      */
@@ -34,7 +34,7 @@ class PresseController extends Controller
     }
 
     /**
-     * @Route("admin/extraits-de-presse/ajouter/{id}", name="admin_presse_ajouter")
+     * @Route("admin/extraits-de-presse/ajouter/{id}/", name="admin_presse_ajouter")
      *
      * @param Request $request
      * @param null $id
@@ -78,7 +78,7 @@ class PresseController extends Controller
     }
 
     /**
-     * @Route("admin/extraits-de-presse/supprimer/{id}", name="admin_presse_supprimer")
+     * @Route("admin/extraits-de-presse/supprimer/{id}/", name="admin_presse_supprimer")
      *
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

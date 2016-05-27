@@ -14,7 +14,7 @@ class BlogController extends Controller
     const MAIL_TITLE = '%s vous conseille un courrier sur http://lenervee.com/ !';
 
     /**
-     * @Route("/blog/page/contactez-nous", name="blog_contact")
+     * @Route("/blog/page/contactez-nous/", name="blog_contact")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -24,7 +24,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/page/mentions-legales", name="blog_mentions")
+     * @Route("/blog/page/mentions-legales/", name="blog_mentions")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -34,7 +34,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/page/a-propos", name="blog_about")
+     * @Route("/blog/page/a-propos/", name="blog_about")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -44,7 +44,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/feed", name="blog_feed")
+     * @Route("/feed/", name="blog_feed")
      *
      * @return Response
      */
@@ -88,7 +88,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/email/rediger", name="blog_email")
+     * @Route("/blog/email/rediger/", name="blog_email")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -100,7 +100,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/email/envoyer", name="blog_email_send")
+     * @Route("/blog/email/envoyer/", name="blog_email_send")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -153,7 +153,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/testouille/testouille/testouille")
+     * @Route("/testouille/testouille/testouille/")
      *
      * @return Response
      */

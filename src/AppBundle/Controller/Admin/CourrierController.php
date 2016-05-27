@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CourrierController extends Controller
 {
     /**
-     * @Route("/admin/courriers", name="admin_courrier_lister")
+     * @Route("/admin/courriers/", name="admin_courrier_lister")
      *
      * @return Response
      */
@@ -37,7 +37,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/admin/courriers/supprimer/{id}", name="admin_courrier_supprimer")
+     * @Route("/admin/courriers/supprimer/{id}/", name="admin_courrier_supprimer")
      *
      * @return Response
      */
@@ -58,7 +58,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/admin/courriers/rediger/{id}", name="admin_courrier_rediger")
+     * @Route("/admin/courriers/rediger/{id}/", name="admin_courrier_rediger")
      *
      * @param Request $request
      * @param null $id
@@ -122,7 +122,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("admin/courriers/_upload", name="admin_courrier_upload")
+     * @Route("admin/courriers/_upload/", name="admin_courrier_upload")
      *
      * @param Request $request
      * @return JsonResponse

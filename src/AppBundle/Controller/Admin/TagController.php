@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class TagController extends Controller
 {
     /**
-     * @Route("/admin/tags", name="admin_tag_lister")
+     * @Route("/admin/tags/", name="admin_tag_lister")
      *
      * @return Response
      */
@@ -34,7 +34,7 @@ class TagController extends Controller
     }
 
     /**
-     * @Route("/admin/tags/supprimer", name="admin_tag_supprimer")
+     * @Route("/admin/tags/supprimer/", name="admin_tag_supprimer")
      *
      * @return Response
      */
@@ -66,7 +66,7 @@ class TagController extends Controller
     }
 
     /**
-     * @Route("/admin/tags/ajouter", name="admin_tag_ajouter")
+     * @Route("/admin/tags/ajouter/", name="admin_tag_ajouter")
      *
      * @return Response
      */

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CategorieController extends Controller
 {
     /**
-     * @Route("/{slug}", name="categorie_voir")
+     * @Route("/{slug}/", name="categorie_voir")
      *
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
