@@ -323,29 +323,6 @@
     <!-- .row -->
 </div>
 <!-- #wrapper -->
-<div id="fb-root"></div>
-<script type='text/javascript'>
-    /* <![CDATA[ */
-    var $DGD = {
-        "ajaxurl": "http:\/\/lenervee.com\/wp-admin\/admin-ajax.php",
-        "nonce": "562d46faa0",
-        "debug": "1",
-        "permalink": "http:\/\/lenervee.com\/exceptions\/ondamania-de-buki\/",
-        "title": "Ondamania de Buki",
-        "thumbnail": "http:\/\/lenervee.com\/wp-content\/uploads\/2015\/05\/ondamania.png",
-        "scripthost": "http:\/\/lenervee.com\/wp-content\/plugins\/dreamgrow-scroll-triggered-box\/",
-        "scrollboxes": []
-    };
-    /* ]]> */
-</script>
-<script type='text/javascript'>
-    /* <![CDATA[ */
-    var bw_options = {
-        "themesurl": "",
-        "ismobile": ""
-    };
-    /* ]]> */
-</script>
 {% javascripts
     '@AppBundle/Resources/public/js/jquery.js'
     '@AppBundle/Resources/public/js/jquery-migrate.min.js'
@@ -382,6 +359,17 @@ output='js/compiled.js' %}
 </script>
 
 <script>
+
+    document.onreadystatechange = function() {
+        if($(window).width() < 768) {
+            var width = $('#text-2').width() - 20;
+            $('#text-2').find('.fb-page').attr({
+                'data-width': width,
+                'data-tabs': 'timeline, messages',
+            });
+        }
+    };
+
     jQuery(function($) {
 
         /**
@@ -513,6 +501,7 @@ output='js/compiled.js' %}
         s.parentNode.insertBefore(ga, s);
     })();
 </script>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;

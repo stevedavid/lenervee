@@ -358,6 +358,40 @@ blockquote:not(.reponse) > p:last-child {
     #wrapper {
         margin-top: -46px !important;
     }
+
+    #sidebar .widget,
+    #footer .widget {
+        padding: 0;
+        padding-bottom: 50px;
+        text-align: center;
+    }
+
+    .pagination-counter .current {
+        font-size: 100px !important;
+    }
+
+    .pagination-counter .current:after {
+        font-size: 30px !important;
+    }
+
+    .pagination-counter .total {
+        top: -30px !important;
+    }
+
+    .comment-form input {
+        display: block;
+        min-width: 100%;
+    }
+
+    .post-heading .sub-info .sub-content,
+    .widget_search > *{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #reaction_submit {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
