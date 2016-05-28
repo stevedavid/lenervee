@@ -357,6 +357,7 @@ output='js/compiled.js' %}
 
     jQuery(function($) {
         if(!isMobile()) {
+
             $('body').tooltip({
                 placement: 'top',
                 container: 'body',
@@ -369,7 +370,13 @@ output='js/compiled.js' %}
                 html: true,
                 container: 'body'
             });
+
+        } else {
+
+            $('#cn-accept-cookie, #cn-know-more').css('width', '45%');
+
         }
+
 
     });
 </script>
