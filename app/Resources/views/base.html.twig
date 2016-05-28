@@ -474,8 +474,21 @@ output='js/compiled.js' %}
         });
     });
 </script>
+<script type='text/javascript'>
+    /**
+     * Thèmes options
+    /* <![CDATA[ */
+    var bw_options = {
+        "themesurl": "",
+        "ismobile": ""
+    };
+    /* ]]> */
+</script>
 <script type='text/javascript' src='//connect.facebook.net/fr_FR/all.js?ver=4.2.1#xfbml=1&#038;appId=1443946719181573'></script>
 <script>
+    /**
+     * Twitter social plugin
+     */
     ! function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (!d.getElementById(id)) {
@@ -487,6 +500,9 @@ output='js/compiled.js' %}
     }(document, "script", "twitter-wjs");
 </script>
 <script type="text/javascript">
+    /**
+     * Google Analytics plugin
+     */
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-50184381-1']);
     _gaq.push(['_gat._forceSSL']);
@@ -502,7 +518,11 @@ output='js/compiled.js' %}
     })();
 </script>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+    /**
+     * Facebook social plugin
+     */
+    (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
@@ -540,10 +560,3 @@ output='js/compiled.js' %}
 </body>
 
 </html>
-
-<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
-
-Page Caching using disk: enhanced (User is logged in)
-Database Caching using disk (Request-wide User is logged in)
-
- Served from: lenervee.com @ 2015-05-05 19:36:10 by W3 Total Cache -->
