@@ -453,7 +453,8 @@ blockquote:not(.reponse) > p:last-child {
     background-color:#5F85B0;
 }
 
-.testimonials-widget-testimonials {
-    max-width: 100% !important;
-    width: 100% !important;
+#testimonials_widget-3 blockquote::before {
+    font-size: 15px;
+    left: 10px;
+    top: 10px;
 }

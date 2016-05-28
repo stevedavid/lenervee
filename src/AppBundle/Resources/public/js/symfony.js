@@ -19,7 +19,7 @@ jQuery(function($) {
     });
 
 
-    tw_3 = jQuery('.testimonials-widget-testimonials3').bxSlider({
+    tw_3 = jQuery('.bxslider').bxSlider({
         adaptiveHeight: false,
         auto: true,
 
@@ -29,7 +29,7 @@ jQuery(function($) {
         pager: false,
         pause: 10000,
         video: false,
-        slideMargin: 2,
-        slideWidth: 0
+        slideMargin: 15,
+        slideWidth: 350
     });
 });
