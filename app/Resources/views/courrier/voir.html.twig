@@ -236,7 +236,13 @@
                 $('#dgd_scrollbox-1672').removeClass('shown');
             });
 
-
+            $(window).on('resize', function() {
+                if ($(this).width() < 1120) {
+                    $('#related-articles').hide();
+                } else {
+                    $('#related-articles').show();
+                }
+            });
 
         });
     </script>

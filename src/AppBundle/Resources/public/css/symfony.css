@@ -345,18 +345,24 @@ blockquote:not(.reponse) > p:last-child {
         width: 90% !important;
     }
 
-    .post-featured img {
+    .owl-carousel {
         max-width: 50%;
     }
 
-    .owl-carousel {
-        max-width: 50%;
+    #related-articles {
+        display: none;
     }
 }
 
 @media only screen and (max-width: 782px) {
     #wrapper {
         margin-top: -46px !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .journal-wrap {
+        padding: 0 !important;
     }
 }
 
