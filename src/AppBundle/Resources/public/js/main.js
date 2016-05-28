@@ -600,19 +600,19 @@ var App = {
                     navigationText:     ['',''],
                     video:              true,
                     responsive:         true
-                    
+
                 };
                 
                 if( self.hasClass('related-slider') ) {
                     carouselOptions.responsive = {
                         0 : {
-                            items : 1
+                            items : 4
                         },
                         480 : {
-                            items : 1
+                            items : 4
                         },
                         640 : {
-                            items : 2
+                            items : 4
                         },
                         960 : {
                             items : 3
