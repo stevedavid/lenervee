@@ -350,19 +350,27 @@ output='js/compiled.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
-    jQuery(function($) {
-        $('body').tooltip({
-            placement: 'top',
-            container: 'body',
-            selector: '[rel=tooltip]'
-        });
+    function isMobile() {
+        try{ document.createEvent("TouchEvent"); return true; }
+        catch(e){ return false; }
+    }
 
-        $('[rel=popover]').popover({
-            trigger: 'hover',
-            placement: 'top',
-            html: true,
-            container: 'body'
-        });
+    jQuery(function($) {
+        if(!isMobile()) {
+            $('body').tooltip({
+                placement: 'top',
+                container: 'body',
+                selector: '[rel=tooltip]'
+            });
+
+            $('[rel=popover]').popover({
+                trigger: 'hover',
+                placement: 'top',
+                html: true,
+                container: 'body'
+            });
+        }
+
     });
 </script>
 
