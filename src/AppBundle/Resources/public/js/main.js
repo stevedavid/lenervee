@@ -28,18 +28,10 @@ var App = {
     
     start: function() {
         
-        if( ! isMobile ) {
-            App.setContainers();
-        }
-        
-        if( $('#header.sticky').length && ! isMobile ) {
-            App.stickyHeader();
-        }
-        //
-        //if( $('#sidebar.sticky').length && ! isMobile ) {
-        //    App.stickySidebar();
-        //}
-        
+        App.setContainers();
+
+        App.stickyHeader();
+
         App.onSmartResize();
         
         App.onLoad();
