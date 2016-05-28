@@ -352,6 +352,10 @@ blockquote:not(.reponse) > p:last-child {
     #related-articles {
         display: none;
     }
+
+    .ta-prev, .ta-next {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 782px) {
@@ -391,6 +395,10 @@ blockquote:not(.reponse) > p:last-child {
 
     #reaction_submit {
         width: 100%;
+    }
+
+    .bj-fbpp-list {
+        margin: 0 !important;
     }
 }
 
