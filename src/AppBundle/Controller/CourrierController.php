@@ -62,8 +62,8 @@ class CourrierController extends Controller
 
         $is404 = [
             'notFound' => empty($courrier),
-            'wrongSlug' => $courrier->getCategorie()->getSlug() != $slugCategorie,
-            'denied' => (!$courrier->getPublished() && !$isAdmin),
+            'wrongSlug' => !empty($courrier) && $courrier->getCategorie()->getSlug() != $slugCategorie,
+            'denied' => !empty($courrier) && (!$courrier->getPublished() && !$isAdmin),
         ];
 
         if ($is404['notFound'] || $is404['wrongSlug'] || $is404['denied']) {
