@@ -442,7 +442,7 @@ blockquote:not(.reponse) > p:last-child {
         left:auto!important;
         margin:0!important;
         height:100%!important;
-        background-image: url("http://lenervee.com/wp-content/uploads/2015/04/crumpled-white-paper-texture-melemel-jpeg_260159.jpg");
+        background-image: url("../img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         height:100%;
@@ -452,14 +452,13 @@ blockquote:not(.reponse) > p:last-child {
     }
 
     #header #navigation li a {
-    color: black;
+    color: black;text-align: center;font-size: 3.5em !important;
     }
 
     #header #navigation li a:hover {
     color: #5F85B0;
     }
 
-    #navigation .menu li a {font-family:'Open Sans'!important;}
     #navigation .sub-menu {position:static!important;visibility:visible;opacity:1;left:0;margin-left:0;}
     #navigation .sub-menu:after {content:none;}
     #navigation .sub-menu li a {color:#ccc!important;}
@@ -467,10 +466,24 @@ blockquote:not(.reponse) > p:last-child {
 
     body.mobile-expand-menu #header #navigation {display:block;top:0;right:0;position:fixed;}
 
-    #navigation .menu li {width:100%;display:block;}
+    #navigation .menu li {width:100%;display:block;margin-top: 50px;}
     #navigation .menu li a {width:100%;display:block;color:#fff;padding:5px 10px 5px 0;}
     #navigation .sub-menu {display:block!important;background-color:transparent;position:static!important;padding-left:30px;}
     #navigation .menu .sub-menu li a {padding:10px 20px 10px 0;}
+
+    #header .search-field {
+        background-color: #eee;
+        border: 1px solid #ccc;
+        color: black;
+    }
+
+    #header .search-submit {
+        background-color: #5f85b0;
+    }
+
+    #header .search-submit:hover {
+        background-color: #888;
+    }
 }
 
 @media only screen and (max-width: 768px) {
