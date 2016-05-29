@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AdminController extends Controller
 {
@@ -34,6 +35,37 @@ class AdminController extends Controller
             'type' => $request->query->get('type'),
             'message' => $request->query->get('message'),
         ]);
+    }
+
+    /**
+     * @Route("/admin/logout-users")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function clearSessionsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $session = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Admin\Session')
+            ->findOneBySessionToken('13q6hd6k7mi1kd6b8liqg5lsv6');
+
+        $em->remove($session);
+        $em->flush();
+
+        $session = new Session();
+//        $session->setId('qo1ksb53rc2vigisde66rr0dc5');
+        session_id('13q6hd6k7mi1kd6b8liqg5lsv6');
+        $session->invalidate();
+
+        $response = $this->redirect($this->generateUrl('courrier_index'));
+//        $response->headers->clearCookie('remember_me');
+//        $response->headers->clearCookie('session');
+//        $response->send();
+        exit;
+        return $this->redirect($this->generateUrl('courrier_index'));
     }
 
     /**

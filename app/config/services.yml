@@ -19,3 +19,14 @@ services:
             arguments: ["@session", "@security.context", "@router", %session_max_idle_time%]
             tags:
                 - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    nrv.login_listener:
+        class: AppBundle\Event\Listener\LoginListener
+        arguments:
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: kernel.event_subscriber }
+
+    nrv.logout_listener:
+       class:  AppBundle\Event\Listener\LogoutListener
+       arguments:  [@security.token_storage, @router, @doctrine.orm.entity_manager]

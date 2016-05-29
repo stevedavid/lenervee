@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,8 +20,16 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var Courrier
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Admin\Session", mappedBy="user")
+     */
+    private $sessions;
+
     public function __construct()
     {
         parent::__construct();
+        $this->sessions = new ArrayCollection();
     }
 }
