@@ -13,7 +13,8 @@
         {% endif %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
 
     <meta name="description" content="L&#039;énervée, c&#039;est le blog satirique d&#039;une consommatrice acrimonieuse qui envoie ses lettres de réclamation aux services consommateurs des marques de la grande distribution pour faire connaître son insatisfaction (et un peu pour raconter sa vie)."/>
@@ -375,6 +376,8 @@ output='js/compiled.js' %}
 
             $('#cn-accept-cookie, #cn-know-more').css('width', '45%');
             $('#cn-notice-text').css('font-size', '0.85em');
+            $('html, body').css('overflow-x', 'hidden');
+            $('body').css('position', 'relative');
 
         }
 
