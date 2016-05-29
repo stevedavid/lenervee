@@ -105,7 +105,7 @@ class Courrier implements RoutedItemInterface
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="Reaction", mappedBy="courrier")
+     * @ORM\OneToMany(targetEntity="Reaction", mappedBy="courrier", cascade={"remove"})
      */
     private $reactions;
 
