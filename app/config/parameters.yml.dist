@@ -10,6 +10,7 @@ parameters:
     legacy_db: lenervee
     session_max_idle_time: 1800
     blogroll_yml_path: src/AppBundle/Resources/config/blogroll.yml
+    unlock_key: EnterYouUnlockKeyHere
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 

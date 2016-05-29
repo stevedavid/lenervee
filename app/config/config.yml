@@ -106,7 +106,7 @@ fos_user:
 lexik_maintenance:
     authorized:
         ips: ['127.0.0.1', '78.192.138.227', '192.168.0.50']                                 # Optional. Authorized ip addresses
-        query: { unlock: true }                                                 # Optional. Authorized request query parameter (GET/POST)
+        query: '%unlock_key%'                                                 # Optional. Authorized request query parameter (GET/POST)
     driver:
         ttl: 3600                                                                  # Optional ttl option, can be not set
 
