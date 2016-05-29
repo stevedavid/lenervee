@@ -406,10 +406,6 @@ blockquote:not(.reponse) > p:last-child {
     .journal-wrap {
         padding: 0 !important;
     }
-
-    body {
-        margin-left: 5px !important;
-    }
 }
 
 #cookie-notice {
