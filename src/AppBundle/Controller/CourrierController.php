@@ -208,6 +208,10 @@ class CourrierController extends Controller
 
         unset($courriers[$courrier->getId()]);
 
+        if (empty($courriers)) {
+            return new Response();
+        }
+
         return $this->render('courrier/slider.html.twig', [
             'courriers' => $courriers,
         ]);
