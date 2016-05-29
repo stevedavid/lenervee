@@ -1,4 +1,4 @@
-html, body {
+html, body:not(.bw-search-do) {
     overflow: visible !important;
 }
 
