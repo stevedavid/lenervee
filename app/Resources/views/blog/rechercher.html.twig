@@ -11,7 +11,13 @@
                 {{ courriers|length }} courriers trouvés
             {% endif %}
         </h1>
-        <p class="heading-intro">« {{ query_string }} »</p>
+        <p class="heading-intro">
+            {% if query_string %}
+                « {{ query_string }} »
+            {% else %}
+                Tous les courriers
+            {% endif %}
+        </p>
     </div>
 {% endblock %}
 
