@@ -28,7 +28,7 @@ class CourrierController extends Controller
         $courriers = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Courrier')
-            ->findLast(2, null, $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+            ->findLast(2, null, $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
         ;
 
         return $this->render('courrier/index.html.twig', [
@@ -44,7 +44,7 @@ class CourrierController extends Controller
     public function voirAction(Request $request, $slugCategorie, $slugCourrier)
     {
         $sent = $request->query->get('send', null);
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
 
         $doctrine = $this
             ->getDoctrine()
@@ -165,7 +165,7 @@ class CourrierController extends Controller
             $courrier = $this
                 ->getDoctrine()
                 ->getRepository('AppBundle:Courrier')
-                ->findLast(1, $courrier->getEnvoi(), $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+                ->findLast(1, $courrier->getEnvoi(), $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
             ;
             $courrier = array_shift($courrier);
 

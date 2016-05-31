@@ -34,7 +34,7 @@ class CategorieController extends Controller
             'categorie' => $categorie,
         ];
 
-        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $findBy['published'] = 1;
         }
 
