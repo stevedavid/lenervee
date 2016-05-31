@@ -36,9 +36,4 @@ class ReactionType extends AbstractType
         ));
 
     }
-
-    public function getName()
-    {
-        return 'reaction';
-    }
 }
