@@ -117,16 +117,8 @@
                 <a href="{{ path('tag_voir', {slug: tag.slug}) }}" rel="tag">{{ tag.name|lower }}</a>
             {% endfor %}
         </div>
-        <div id="iframe-share"></div>
-
-
-        {#<div class="addthis-dynamic" data-url="http://lenervee.com/deceptions/biscotte-a-tartiner/">#}
 
         {{ render(controller('AppBundle:Blog:partage', {courrier: courrier})) }}
-
-
-        {#</div>#}
-
 
     </div>
 
@@ -224,6 +216,39 @@
     <script>
         jQuery(function($) {
 
+            /**
+             * Popup sur les liens dans le courrier
+             */
+            $('.post-excerpt blockquote:not(.reponse) a[title]').each(function() {
+                var $link = $(this);
+                var urlParts = $link.attr('href').split('/');
+                if(urlParts.length == 3) {
+                    urlParts.splice(0, 1);
+                    var data = {
+                        'categorie': urlParts[0],
+                        'courrier': urlParts[1],
+                    };
+                    $.ajax({
+                        url: '{{ path('courrier_popup') }}',
+                        method: 'post',
+                        data: data,
+                        success: function(courrier) {
+                            $link.attr('title', courrier.name + '<br/><span>' + courrier.date + '</span>');
+                            $link.popover({
+                                trigger: 'hover',
+                                placement: 'top',
+                                html: true,
+                                container: 'body',
+                                content: '<img src="/' + courrier.image + '"/><br/>' + courrier.intro,
+                            });
+                        },
+                    });
+                }
+            });
+
+            /**
+             * Apparition/disparition de la scrollBox
+             */
             $(window).on('scroll', function() {
                 if ($(document).scrollTop() > $('.bw-share').offset().top && $(window).width() > 1366) {
                     $('#dgd_scrollbox-1672').addClass('shown');
@@ -232,10 +257,16 @@
                 }
             });
 
+            /**
+             * Disparition de la scrollbox au clic sur la croix
+             */
             $('.dgd_stb_box_close').on('click', function() {
                 $('#dgd_scrollbox-1672').removeClass('shown');
             });
 
+            /**
+            * Supprimer les related articles si la largeur est inférieur à 1120px
+            */
             $(window).on('resize', function() {
                 if ($(this).width() < 1120) {
                     $('#related-articles').hide();

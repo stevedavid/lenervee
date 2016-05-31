@@ -9,6 +9,7 @@ use AppBundle\Form\ReactionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
@@ -178,6 +179,43 @@ class CourrierController extends Controller
             'courrier' => $courrier,
             'no_more_courrier' => $noMoreCourrier,
         ]);
+    }
+
+    /**
+     * @Route("/blog/courriers/popup", name="courrier_popup")
+     *
+     * @param Request $request
+     * @return Reponse|JsonResponse
+     */
+    public function popupAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest() && $request->isMethod(Request::METHOD_POST)) {
+            $slugCourrier = $request->request->get('courrier');
+
+            $courrier = $this
+                ->getDoctrine()
+                ->getRepository('AppBundle:Courrier')
+                ->findOneBySlugWithReactionsFiltered(
+                    $slugCourrier,
+                    Reaction::STATUS_ACCEPTED
+                )
+            ;
+
+            if (empty($courrier)) {
+                throw new NotFoundHttpException();
+            }
+
+            $courrier = [
+                'name' => $courrier->getName(),
+                'date' => $courrier->getEnvoi()->format('d/m/Y'),
+                'image' => $courrier->getImage()->getPath(),
+                'intro' => $courrier->getIntro(),
+            ];
+
+            return new JsonResponse($courrier);
+        }
+
+        return new Reponse(null, 405);
     }
 
     /**
