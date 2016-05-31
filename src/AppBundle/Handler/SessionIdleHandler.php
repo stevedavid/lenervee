@@ -7,19 +7,19 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class SessionIdleHandler
 {
     protected $session;
-    protected $securityContext;
+    protected $tokenStorage;
     protected $router;
     protected $maxIdleTime;
 
-    public function __construct(SessionInterface $session, SecurityContextInterface $securityContext, RouterInterface $router, $maxIdleTime = 0)
+    public function __construct(SessionInterface $session, TokenStorage $tokenStorage, RouterInterface $router, $maxIdleTime = 0)
     {
         $this->session = $session;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->router = $router;
         $this->maxIdleTime = $maxIdleTime;
     }
@@ -38,7 +38,7 @@ class SessionIdleHandler
 
             if ($lapse > $this->maxIdleTime && !$event->getRequest()->isXmlHttpRequest()) {
 
-//                $this->securityContext->setToken(null);
+//                $this->tokenStorage->setToken(null);
                 $this->session->getFlashBag()->set('info', 'You have been logged out due to inactivity.');
 
 //                $event->setResponse(new RedirectResponse($this->router->generate('admin_admin_index')));
