@@ -473,6 +473,17 @@ output='js/compiled.js' %}
         });
     });
 </script>
+<script type="text/javascript">
+    /**
+     * Smartlook
+     */
+    window.smartlook||(function(d) {
+        var o=smartlook=function(){ o.api.push(arguments)},s=d.getElementsByTagName('script')[0];
+        var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+        c.charset='utf-8';c.src='//rec.getsmartlook.com/bundle.js';s.parentNode.insertBefore(c,s);
+    })(document);
+    smartlook('init', 'ada831cb3a9b2890e39bc2385e9da94c0e677252');
+</script>
 <script type='text/javascript' src='//connect.facebook.net/fr_FR/all.js?ver=4.2.1#xfbml=1&#038;appId=1443946719181573'></script>
 <script>
     /**
