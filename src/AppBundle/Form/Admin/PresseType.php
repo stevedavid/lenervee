@@ -7,19 +7,19 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxTypace;
+use Symfony\Component\Form\Extension\Core\Type;
 
 
 class PresseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom', 'text', [
+        $builder->add('nom', Type\TextType::class, [
             'label' => 'Journaliste',
             'attr' => [
                 'class' => 'form-control',
             ],
-        ])->add('entreprise', 'text', [
+        ])->add('entreprise', Type\TextType::class, [
             'label' => 'Média',
             'attr' => [
                 'class' => 'form-control',
@@ -32,18 +32,18 @@ class PresseType extends AbstractType
             'attr' => [
                 'class' => 'form-control hidden'
             ],
-        ])->add('titre', 'text', [
+        ])->add('titre', Type\TextType::class, [
             'label' => 'Titre',
             'attr' => [
                 'class' => 'form-control input-lg',
             ],
-        ])->add('texte', 'textarea', [
+        ])->add('texte', Type\TextareaType::class, [
             'label' => 'Soyez créatif !',
             'attr' => [
                 'rows' => 13,
                 'class' => 'form-control',
             ],
-        ])->add('url', 'url', [
+        ])->add('url', Type\UrlType::class, [
             'label' => 'Commence par http://',
             'required' => false,
             'attr' => [
