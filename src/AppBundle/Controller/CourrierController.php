@@ -182,7 +182,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/blog/courriers/popup", name="courrier_popup")
+     * @Route("/blog/courriers/popup/", name="courrier_popup")
      *
      * @param Request $request
      * @return Reponse|JsonResponse
@@ -195,10 +195,7 @@ class CourrierController extends Controller
             $courrier = $this
                 ->getDoctrine()
                 ->getRepository('AppBundle:Courrier')
-                ->findOneBySlugWithReactionsFiltered(
-                    $slugCourrier,
-                    Reaction::STATUS_ACCEPTED
-                )
+                ->findOneBySlug($slugCourrier)
             ;
 
             if (empty($courrier)) {
