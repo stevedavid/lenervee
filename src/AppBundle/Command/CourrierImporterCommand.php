@@ -105,7 +105,7 @@ class CourrierImporterCommand extends ContainerAwareCommand
                             array_pop($urlParts);
                             $slugCourrier = array_pop($urlParts);
                             $slugCategorie = array_pop($urlParts);
-                            $question = str_replace($url, '/'.$slugCategorie.'/'.$slugCourrier, $question);
+                            $question = str_replace($url, '/'.$slugCategorie.'/'.$slugCourrier.'/', $question);
 
                         }
                     } else {
@@ -113,7 +113,7 @@ class CourrierImporterCommand extends ContainerAwareCommand
                         array_pop($urlParts);
                         $slugCourrier = array_pop($urlParts);
                         $slugCategorie = array_pop($urlParts);
-                        $question = str_replace($urls[0], '/'.$slugCategorie.'/'.$slugCourrier, $question);
+                        $question = str_replace($urls[0], '/'.$slugCategorie.'/'.$slugCourrier.'/', $question);
                     }
                     dump($question);
                 }
@@ -236,8 +236,8 @@ class CourrierImporterCommand extends ContainerAwareCommand
         }
         dump('>> Inserting meta information');
         $this->insertMeta($em);
-        dump('>> Randomly comments status setting');
-        $this->statusRandomOnComments();
+//        dump('>> Randomly comments status setting');
+//        $this->statusRandomOnComments();
         dump('/!\ ALL DONE BUDDY /!\\');
     }
 
@@ -245,7 +245,7 @@ class CourrierImporterCommand extends ContainerAwareCommand
     {
         $repo = $em->getRepository('AppBundle:Categorie');
         $incident = $repo->findOneBySlug('incidents');
-        $incident->setDescription("L'énervée s'est retrouvé dans des situations cocasses à cause de certains produits.");
+        $incident->setDescription("L'énervée s'est retrouvée dans des situations cocasses à cause de certains produits.");
         $deception = $repo->findOneBySlug('deceptions');
         $deception->setDescription("Certains produits peuvent décevoir énormément L'énervée.");
         $exception = $repo->findOneBySlug('exceptions');
