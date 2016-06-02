@@ -199,7 +199,7 @@
                         </div>
 
                         {% block sidebar %}
-                        <div id="sidebar" class="sticky">
+                        <div id="sidebar" class="sticky-wrapper">
                             <div class="sidebar-inner">
                                 {{ render(controller('AppBundle:Widget:defaut', {template: 'rechercher'})) }}
                                 {{ render(controller('AppBundle:Widget:reponses')) }}
@@ -316,9 +316,9 @@
     '@AppBundle/Resources/public/js/plugins.js'
     'https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.5/shortcuts/infinite-scroll/waypoints-infinite.js'
     '@AppBundle/Resources/public/js/bootstrap.min.js'
-    '@AppBundle/Resources/public/js/stickyMenu.js'
     '@AppBundle/Resources/public/js/symfony.js'
     '@AppBundle/Resources/public/js/jquery.bxslider.min.js'
+    '@AppBundle/Resources/public/js/hcSticky.min.js'
 output='js/compiled.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -370,6 +370,11 @@ output='js/compiled.js' %}
     };
 
     jQuery(function($) {
+
+        $('#sidebar').hcSticky({
+            bottomEnd: 200,
+            top: 70,
+        });
 
         /**
          * Chargement de la popup de partage par email
