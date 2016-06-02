@@ -158,7 +158,7 @@
                                 </div><!-- .comment-author -->
 
                                 <div class="comment-metadata">
-                                    <a href="#comment-{{ reaction.id }}">
+                                    <a href="#comment-{{ reaction.id }}" rel="tooltip" data-placement="bottom" title="{{ reaction.date|date('d/m/Y à H:i') }}">
                                         <time>
                                             {{ reaction.date|ago }}
                                         </time>
