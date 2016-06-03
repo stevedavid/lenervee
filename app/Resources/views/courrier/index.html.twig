@@ -37,7 +37,7 @@
 
                 var $lastPost = $('[id^=post-]').last()
                 , offset = $lastPost.position().top
-                , scroll = $(document).scrollTop()
+                , scroll = $(document).scrollTop() + $lastPost.height()
                 ;
 
                 if(scroll > offset && window.pending) {
