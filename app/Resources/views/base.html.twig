@@ -344,6 +344,11 @@ output='js/compiled.js' %}
                 container: 'body'
             });
 
+            $('#sidebar').hcSticky({
+                bottomEnd: 200,
+                top: 70,
+            });
+
         } else {
 
             $('#cn-accept-cookie, #cn-know-more').css('width', '45%');
@@ -371,10 +376,7 @@ output='js/compiled.js' %}
 
     jQuery(function($) {
 
-        $('#sidebar').hcSticky({
-            bottomEnd: 200,
-            top: 70,
-        });
+
 
         /**
          * Chargement de la popup de partage par email
