@@ -36,7 +36,7 @@
             $(window).on('scroll', function(e) {
 
                 var $lastPost = $('[id^=post-]').last()
-                , offset = $lastPost.position().top
+                , offset = $lastPost.offset().top
                 , scroll = $(document).scrollTop() + $lastPost.height()
                 ;
 
