@@ -364,13 +364,6 @@ blockquote:not(.reponse) > p:last-child {
 }
 
 @media only screen and (max-width: 450px) {
-    body {
-        zoom: 0.9 !important;
-    }
-
-    #wrapper {
-        width: 100% !important;
-    }
 }
 
 
@@ -491,8 +484,20 @@ blockquote:not(.reponse) > p:last-child {
 }
 
 @media only screen and (max-width: 768px) {
+    #wrapper {
+        width: 100% !important;
+    }
+
     .journal-wrap {
         padding: 0 !important;
+    }
+
+    .post-excerpt {
+        text-align: center;
+    }
+
+    .post-more {
+        width: 100%;
     }
 }
 
