@@ -367,6 +367,10 @@ blockquote:not(.reponse) > p:last-child {
     body {
         zoom: 0.9 !important;
     }
+
+    #wrapper {
+        width: 100% !important;
+    }
 }
 
 
