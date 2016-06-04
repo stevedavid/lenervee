@@ -341,7 +341,7 @@ body.bw-expand-search #peliegro-search {opacity:1;}
 #mixer .infobox span a {text-decoration:none;color:#999;}
 #mixer .infobox span a:hover {color:#333;}
 #mixer .item-featured {float:left;width:100%;position:relative;text-align:center;background-color:#f9f9f9;}
-#mixer .item-featured img {max-width:100%;vertical-align:bottom;}
+#mixer .item-featured img {max-width:100%;}
 #mixer .item-featured blockquote {padding:54px 20px 22px 20px;border:0;font-size:16px;font-weight:300;margin:0;}
 #mixer .item-featured blockquote:before {left:23px;top:13px;font-size:20px;}
 #mixer .item-featured blockquote:after {font-size:20px;content:"\f10e";font-family:'FontAwesome';position:absolute;right:28px;bottom:14px;color:#666;
