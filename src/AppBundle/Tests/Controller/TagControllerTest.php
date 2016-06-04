@@ -23,7 +23,7 @@ class TagControllerTest extends WebTestCase
     {
         return [
             'tag_voir' => [
-                '/blog/tag/minouchette/',
+                '/tag/minouchette/',
                 'minouchette',
                 '.page-title',
             ],
