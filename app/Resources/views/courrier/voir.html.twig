@@ -94,7 +94,7 @@
 
     <div class="post-featured bw-border-bottom">
 
-        <img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="{{ asset(courrier.image) }}" class="lazy lazy-hidden attachment-bw_1100 wp-post-image" alt="Cracotte au froment" /><noscript><img width="350" height="350" src="{{ asset(courrier.image) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /></noscript>
+        <img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="{{ asset(courrier.image) }}" class="lazy lazy-hidden attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /><noscript><img width="350" height="350" src="{{ asset(courrier.image) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /></noscript>
     </div>
 
     <div class="post-excerpt relative bw-border-bottom">
@@ -150,9 +150,9 @@
                             <footer class="comment-meta">
                                 <div class="comment-author vcard">
                                     {% if reaction.name == 'Administrateur' %}
-                                        <img alt="" src="{{ asset('images/lenervee/Logo-Mockup-3D-150x148.png') }}" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                        <img alt="Avatar" src="{{ asset('images/lenervee/Logo-Mockup-3D-150x148.png') }}" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
                                     {% else %}
-                                        <img alt="" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                        <img alt="Avatar" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
                                     {% endif %}
                                     <b class="fn">{{ reaction.name }}</b> <span class="says">dit&nbsp;:</span>
                                 </div><!-- .comment-author -->

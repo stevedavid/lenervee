@@ -37,7 +37,7 @@
         <div class="post-featured">
 
             <a href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}">
-                <img width="960" height="540" src="{{ asset(courrier.image.path) }}" class="attachment-bw_1100 wp-post-image" alt="Ondamania" />
+                <img width="960" height="540" src="{{ asset(courrier.image.path) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" />
 
             </a>
         </div>
