@@ -144,6 +144,10 @@ class CourrierRepository extends EntityRepository
             ->setParameter(':id', $idTag)
         ;
 
+        $qb
+            ->orderBy('c.envoi', 'DESC')
+        ;
+
         return $qb
             ->getQuery()
             ->getResult()
