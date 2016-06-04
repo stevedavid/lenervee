@@ -67,7 +67,9 @@
         <!-- post heading navigation -->
         {% if prev_courrier is not empty %}
             <a href="{{ path('courrier_voir', {slugCategorie: prev_courrier.categorie.slug, slugCourrier: prev_courrier.slug}) }}" class="post-heading-nav nav-prev round">
-                <div class="ph-image"><img src="{{ asset(prev_courrier.image) }}" class="attachment-thumbnail wp-post-image" alt="{{ prev_courrier.name }}" /></div>
+                <div class="ph-image" style="background-image: url('{{ asset(prev_courrier.image) }}');">
+                    &nbsp;
+                </div>
             </a>
         {% else %}
             <span class="post-heading-nav nav-prev round disabled"></span>
@@ -75,7 +77,9 @@
 
         {% if next_courrier is not empty %}
             <a href="{{ path('courrier_voir', {slugCategorie: next_courrier.categorie.slug, slugCourrier: next_courrier.slug}) }}" class="post-heading-nav nav-next round">
-                <div class="ph-image"><img src="{{ asset(next_courrier.image) }}" class="attachment-thumbnail wp-post-image" alt="Panier de Yoplait" /></div>
+                <div class="ph-image" style="background-image: url('{{ asset(next_courrier.image) }}');">
+                    &nbsp;
+                </div>
             </a>
         {% else %}
             <span class="post-heading-nav nav-next round disabled"></span>
@@ -90,7 +94,7 @@
 
     <div class="post-featured bw-border-bottom">
 
-        <img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="{{ asset(courrier.image) }}" class="lazy lazy-hidden attachment-bw_1100 wp-post-image" alt="Cracotte au froment" /><noscript><img width="350" height="350" src="{{ asset(courrier.image) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /></noscript>
+        <img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="{{ asset(courrier.image) }}" class="lazy lazy-hidden attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /><noscript><img width="350" height="350" src="{{ asset(courrier.image) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" /></noscript>
     </div>
 
     <div class="post-excerpt relative bw-border-bottom">
@@ -113,16 +117,8 @@
                 <a href="{{ path('tag_voir', {slug: tag.slug}) }}" rel="tag">{{ tag.name|lower }}</a>
             {% endfor %}
         </div>
-        <div id="iframe-share"></div>
-
-
-        {#<div class="addthis-dynamic" data-url="http://lenervee.com/deceptions/biscotte-a-tartiner/">#}
 
         {{ render(controller('AppBundle:Blog:partage', {courrier: courrier})) }}
-
-
-        {#</div>#}
-
 
     </div>
 
@@ -153,12 +149,16 @@
                         <article id="div-comment-{{ reaction.id }}" class="comment-body">
                             <footer class="comment-meta">
                                 <div class="comment-author vcard">
-                                    <img alt="" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    {% if reaction.name == 'Administrateur' %}
+                                        <img alt="Avatar" src="{{ asset('images/lenervee/Logo-Mockup-3D-150x148.png') }}" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    {% else %}
+                                        <img alt="Avatar" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                    {% endif %}
                                     <b class="fn">{{ reaction.name }}</b> <span class="says">dit&nbsp;:</span>
                                 </div><!-- .comment-author -->
 
                                 <div class="comment-metadata">
-                                    <a href="#comment-{{ reaction.id }}">
+                                    <a href="#comment-{{ reaction.id }}" rel="tooltip" data-placement="bottom" title="{{ reaction.date|date('d/m/Y à H:i') }}">
                                         <time>
                                             {{ reaction.date|ago }}
                                         </time>
@@ -168,12 +168,8 @@
                             </footer><!-- .comment-meta -->
 
                             <div class="comment-content">
-                                <p>{{ reaction.reaction|raw }}</p>
+                                <p>{{ reaction.reaction|raw|nl2br }}</p>
                             </div><!-- .comment-content -->
-
-                            <div class="reply">
-                                <a class="comment-reply-link" href="#" data-comment-id="{{ reaction.id }}">Répondre</a>
-                            </div>
                         </article><!-- .comment-body -->
                     </li><!-- #comment-## -->
                 {% endfor %}
@@ -214,4 +210,71 @@
 
         </div><!-- #comments -->
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            /**
+             * Popup sur les liens dans le courrier
+             */
+            $('.post-excerpt blockquote:not(.reponse) a[title]').each(function() {
+                var $link = $(this);
+                var urlParts = $link.attr('href').split('/');
+                if(urlParts.length == 3) {
+                    urlParts.splice(0, 1);
+                    var data = {
+                        'categorie': urlParts[0],
+                        'courrier': urlParts[1],
+                    };
+                    $.ajax({
+                        url: '{{ path('courrier_popup') }}',
+                        method: 'post',
+                        data: data,
+                        success: function(courrier) {
+                            $link.attr('title', courrier.name + '<br/><span>' + courrier.date + '</span>');
+                            $link.popover({
+                                trigger: 'hover',
+                                placement: 'top',
+                                html: true,
+                                container: 'body',
+                                content: '<img src="/' + courrier.image + '"/><br/>' + courrier.intro,
+                            });
+                        },
+                    });
+                }
+            });
+
+            /**
+             * Apparition/disparition de la scrollBox
+             */
+            $(window).on('scroll', function() {
+                if ($(document).scrollTop() > $('.bw-share').offset().top && $(window).width() > 1366) {
+                    $('#dgd_scrollbox-1672').addClass('shown');
+                } else {
+                    $('#dgd_scrollbox-1672').removeClass('shown');
+                }
+            });
+
+            /**
+             * Disparition de la scrollbox au clic sur la croix
+             */
+            $('.dgd_stb_box_close').on('click', function() {
+                $('#dgd_scrollbox-1672').removeClass('shown');
+            });
+
+            /**
+            * Supprimer les related articles si la largeur est inférieur à 1120px
+            */
+            $(window).on('resize', function() {
+                if ($(this).width() < 1120) {
+                    $('#related-articles').hide();
+                } else {
+                    $('#related-articles').show();
+                }
+            });
+
+        });
+    </script>
 {% endblock %}

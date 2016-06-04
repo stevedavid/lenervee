@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CategorieController extends Controller
 {
     /**
-     * @Route("/{slug}", name="categorie_voir")
+     * @Route("/{slug}/", name="categorie_voir")
      *
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
@@ -34,7 +34,7 @@ class CategorieController extends Controller
             'categorie' => $categorie,
         ];
 
-        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $findBy['published'] = 1;
         }
 

@@ -11,5 +11,6 @@
 /bin/
 /composer.phar
 /.idea
+/.rules
 /web/js
 /web/css

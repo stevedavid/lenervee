@@ -1,6 +1,7 @@
 {% extends ':admin:base.html.twig' %}
 
 {% block css %}
+    <link href="/bundles/app/admin/global/plugins/tinymce/js/tinymce/skins/lightgray/skin.min.css" rel="stylesheet" type="text/css" />
     {% stylesheets
         'bundles/app/admin/global/css/components-md.css'
         'bundles/app/admin/global/css/plugins-md.min.css'
@@ -12,6 +13,7 @@
     %}
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
     {% endstylesheets %}
+
 {% endblock %}
 
 {% block body %}
@@ -31,6 +33,17 @@
                         <div class="caption font-green-haze">
                             <i class="icon-settings font-green-haze"></i>
                             <span class="caption-subject bold uppercase"> Informations principales</span>
+                        </div>
+                        <div class="actions">
+                            {% if courrier_form.vars.value.categorie is not null %}
+                                <a class="btn btn-sm green" href="{{ path('courrier_voir', {slugCategorie: courrier_form.vars.value.categorie.slug, slugCourrier: courrier_form.vars.value.slug}) }}" target="_blank">
+                                    Lire l'article
+                                </a>
+                            {% else %}
+                                <a class="btn btn-sm green disabled" href="javascript:;">
+                                    Lire l'article
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -67,37 +80,19 @@
                 <div class="portlet light bordered" style="min-height: 1271px;">
                     <div class="portlet-title">
                         <div class="caption font-red-sunglo">
-                            <i class="icon-settings font-red-sunglo"></i>
+                            <i class="fa fa-pencil font-red-sunglo"></i>
                             <span class="caption-subject bold uppercase"> Courrier</span>
+                        </div>
+                        <div class="actions">
+
+                            <a class="btn btn-sm red" id="courrier-toggle" href="javascript:;" data-textarea="courrier_courrier">
+                                Source
+                            </a>
+
                         </div>
                     </div>
                     <div class="portlet-body form">
                         <div class="form-group form-md-line-input form-md-floating-label">
-                            <div id="wysihtml5-toolbar">
-                                <!-- User can define the link's href: -->
-                                    <span class="btn-group" >
-                                      <a data-wysihtml5-command="insertHTML" data-wysihtml5-command-value="<p>foobar</p>">&lt;/p&gt;</a>
-                                      <a data-wysihtml5-command="bold" title="Bold" class="btn btn-default" ><span class="icon-darkGray txt18" ><b>B</b></span></a>
-                                      <a data-wysihtml5-command="italic" title="Italics" class="btn" ><span class="icon-darkGray txt18" style="font-style:italic">I</span></a>
-                                      <a data-wysihtml5-command="underline" title="Underline" class="btn" ><span class="icon-darkGray txt18" style="text-decoration:underline">U</span></a>
-                                    </span>
-                                    <div class="bootstrap-wysihtml5-insert-link-modal modal hide fade">
-                                        <div class="modal-header">
-                                            <a class="close" data-dismiss="modal">×</a>
-                                            <h3>Insert Link</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input value="http://" class="bootstrap-wysihtml5-insert-link-url input-xlarge"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
-                                            <a href="#" class="btn btn-primary" data-dismiss="modal">Insert link</a>
-                                        </div>
-                                    </div>
-                                    <a class="btn" data-wysihtml5-command="createLink" title="Link">
-                                        <i class="icon-share"></i>
-                                    </a>
-                            </div>
                             {{ form_widget(courrier_form.courrier) }}
                         </div>
                     </div>
@@ -107,8 +102,8 @@
 
                 <div class="portlet light bordered">
                     <div class="portlet-title">
-                        <div class="caption font-green-haze">
-                            <i class="icon-settings font-green-haze"></i>
+                        <div class="caption font-green">
+                            <i class="fa fa-photo font-green"></i>
                             <span class="caption-subject bold uppercase"> Image</span>
                         </div>
                     </div>
@@ -130,8 +125,8 @@
                 </div>
                 <div class="portlet light bordered">
                     <div class="portlet-title">
-                        <div class="caption font-red-sunglo">
-                            <i class="icon-settings font-red-sunglo"></i>
+                        <div class="caption font-green">
+                            <i class="fa fa-calendar-o font-green"></i>
                             <span class="caption-subject bold uppercase"> Date de publication</span>
                         </div>
                     </div>
@@ -141,8 +136,8 @@
                 </div>
                 <div class="portlet light bordered">
                     <div class="portlet-title">
-                        <div class="caption font-red-sunglo">
-                            <i class="icon-settings font-red-sunglo"></i>
+                        <div class="caption font-green">
+                            <i class="fa fa-calendar-o font-green"></i>
                             <span class="caption-subject bold uppercase"> Date de la réponse</span>
                         </div>
                     </div>
@@ -152,8 +147,8 @@
                 </div>
                 <div class="portlet light bordered">
                     <div class="portlet-title">
-                        <div class="caption font-red-sunglo">
-                            <i class="icon-settings font-red-sunglo"></i>
+                        <div class="caption font-green">
+                            <i class="fa fa-tags font-green"></i>
                             <span class="caption-subject bold uppercase"> Tags associés</span>
                         </div>
                     </div>
@@ -164,8 +159,8 @@
 
                 <div class="portlet light bordered">
                     <div class="portlet-title">
-                        <div class="caption font-red-sunglo">
-                            <i class="icon-settings font-red-sunglo"></i>
+                        <div class="caption font-green">
+                            <i class="fa fa-eye font-green"></i>
                             <span class="caption-subject bold uppercase"> Publier</span>
                         </div>
                     </div>
@@ -189,8 +184,13 @@
                 <div class="portlet light bordered" style="min-height: 1271px;">
                     <div class="portlet-title">
                         <div class="caption font-red-sunglo">
-                            <i class="icon-settings font-red-sunglo"></i>
+                            <i class="fa fa-pencil font-red-sunglo"></i>
                             <span class="caption-subject bold uppercase"> Reponse</span>
+                        </div>
+                        <div class="actions">
+                            <a class="btn btn-sm red" id="reponse-toggle" href="javascript:;" data-textarea="courrier_reponse">
+                                Source
+                            </a>
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -228,11 +228,51 @@
         '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
         '@AppBundle/Resources/public/admin/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
         '@AppBundle/Resources/public/admin/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'
+        '@AppBundle/Resources/public/admin/global/plugins/tinymce/js/tinymce/tinymce.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/tinymce/js/tinymce/jquery.tinymce.min.js'
+        '@AppBundle/Resources/public/admin/global/plugins/tinymce/js/tinymce/themes/modern/theme.min.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
         jQuery(function($) {
+
+            /**
+             * TinyMCE initialization
+             */
+            tinymce.init({
+                selector:'#courrier_courrier',
+                menubar: false,
+                toolbar: 'undo redo | styleselect | bold italic',
+                relative_urls : true
+
+            });
+            tinymce.init({
+                selector:'#courrier_reponse',
+                menubar: false,
+                toolbar: 'undo redo | styleselect | bold italic',
+                relative_urls : true
+
+            });
+            $(document).on('mouseenter, mouseleave', 'iframe', function() {
+                $(this).attr('title', '');
+            });
+
+            /**
+             * Toggle HTML/source
+             */
+            $('#courrier-toggle, #reponse-toggle').on('click', function() {
+                var textarea = $(this).data('textarea');
+                if(!$(this).hasClass('toggled')) {
+                    $(this).addClass('toggled');
+                    $(this).text('HTML');
+                } else {
+                    $(this).removeClass('toggled');
+                    $(this).text('Source');
+                }
+                tinymce.EditorManager.execCommand('mceToggleEditor', true, textarea);
+            });
+
             /**
              * Initialiser le datetime picker
              * http://www.malot.fr/bootstrap-datetimepicker/
@@ -350,40 +390,40 @@
                 }
             });
 
-            $('#courrier_courrier').each(function(){
-                var textareaid = $(this).attr('id');
+            {#$('#courrier_courrier').each(function(){#}
+                {#var textareaid = $(this).attr('id');#}
 
-                var editor = new wysihtml5.Editor(textareaid, {
-                    parserRules: {
-                        "tags": {
-                            "a": {
-                                "check_attributes": {
-                                    "href": "url"
-                                },
-                                "set_attributes": {
-                                    "rel": "nofollow",
-                                    "target": "_blank"
-                                }
-                            },
-                            "b": {},
-                            "br": {},
-                            "div": {},
-                            "em": {},
-                            "i": {},
-                            "li": {},
-                            "ol": {},
-                            "p": {remove: 0},
-                            "span": {},
-                            "strong": {},
-                            "ul": {},
-                            "u": {}
-                        }
-                    },
-                    locale: 'fr-FR',
-                    toolbar: 'wysihtml5-toolbar',
-                    "stylesheets": ["{{ asset('admin/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]
-                });
-            })
+                {#var editor = new wysihtml5.Editor(textareaid, {#}
+                    {#parserRules: {#}
+                        {#"tags": {#}
+                            {#"a": {#}
+                                {#"check_attributes": {#}
+                                    {#"href": "url"#}
+                                {#},#}
+                                {#"set_attributes": {#}
+                                    {#"rel": "nofollow",#}
+                                    {#"target": "_blank"#}
+                                {#}#}
+                            {#},#}
+                            {#"b": {},#}
+                            {#"br": {},#}
+                            {#"div": {},#}
+                            {#"em": {},#}
+                            {#"i": {},#}
+                            {#"li": {},#}
+                            {#"ol": {},#}
+                            {#"p": {remove: 0},#}
+                            {#"span": {},#}
+                            {#"strong": {},#}
+                            {#"ul": {},#}
+                            {#"u": {}#}
+                        {#}#}
+                    {#},#}
+                    {#locale: 'fr-FR',#}
+                    {#toolbar: 'wysihtml5-toolbar',#}
+                    {#"stylesheets": ["{{ asset('admin/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css') }}"]#}
+                {#});#}
+            {#})#}
 
             {#$('#courrier_reponse').wysihtml5({#}
                 {#toolbar: {#}

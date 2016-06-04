@@ -1,5 +1,17 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}{{ tag.name }}{% endblock %}
+
+{% block css %}
+    <style>
+        @media only screen and (max-width: 768px) {
+            .post-heading {
+                border-bottom: none;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block courrier_heading %}
     <div class="alt-heading"><h1 class="page-title">{{ tag.name }}</h1></div>
 {% endblock %}

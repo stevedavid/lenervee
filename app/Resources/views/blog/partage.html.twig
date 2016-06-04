@@ -22,9 +22,16 @@
                         <i class="icn share-gp"></i>
                     </a>
                 </li>
-                <li id="share-email" rel="tooltip" title="Partager ce courrier par email">
+                <li id="share-email" data-courrier="{{ courrier.id }}" rel="tooltip" title="Partager ce courrier par email">
                     <i class="icn share-email"></i>
                 </li>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li  rel="tooltip" title="Modifier ce courrier">
+                    <a href="{{ path('admin_courrier_rediger', {id: courrier.id}) }}">
+                        <i class="icn edit-courrier"></i>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>

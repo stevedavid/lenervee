@@ -12,7 +12,7 @@ class TagController extends Controller
 {
 
     /**
-     * @Route("/blog/tag/{slug}", name="tag_voir", requirements={"slug": "[a-zA-Z1-9\-_]+"})
+     * @Route("/tag/{slug}/", name="tag_voir", requirements={"slug": "[a-zA-Z1-9\-_]+"})
      *
      * @param $slugTag
      * @return \Symfony\Component\HttpFoundation\Response

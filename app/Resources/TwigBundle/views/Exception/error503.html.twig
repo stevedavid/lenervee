@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Maintenance | L'énervée</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat%7CCrimson+Text%7COpen+Sans%7CJosefin+Sans%3A100%2C400%7CAmatic+SC&ver=4.3.1">
+        <link rel="icon" type="image/png" href="{{ asset('images/lenervee/logo-330x330.png') }}" />
+        <link rel='shortcut icon' href='{{ asset('images/lenervee/logo-330x330.png') }}'>
+        <style type="text/css">
+            body {
+                background-image: url('{{ asset('img/crumpled-white-paper-texture-melemel-jpeg_260159.jpg') }}');
+                background-size: cover;
+                background-position: center center;
+                font-family: 'Open Sans';
+                color: #404040;
+                padding: 0;
+                margin: 0;
+                overflow-x: hidden;
+            }
+            hgroup {
+                width: 100%;
+                text-align: center;
+            }
+
+            hgroup div {
+                width: 100%;
+            }
+
+            hgroup a {
+                display: inline-block;
+            }
+
+            hgroup > div > div {
+                text-align: center;
+                display: inline-block; float: left;margin-top: 30px;text-align: center;
+            }
+
+            #nrvLogo {
+                margin-bottom: -50px;
+            }
+
+            p {
+                font-size: 1.25em;
+                width: 100%;
+                padding: 10px;
+                text-align: center;
+            }
+
+            h1, h2 {
+                margin: 0px;
+                font-weight: 300;
+            }
+
+            hr {
+                width: 100%;
+                margin-top: 200px !important;
+                border: 1px solid #d4d4d4;
+            }
+
+            div.social-profiles {
+                width: 100%;
+                text-align: center;
+            }
+
+            div.social-profiles ul {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            div.social-profiles ul li {
+                float: none;
+                display: inline-block;
+            }
+
+            #site-title, #site-description {
+                font-family: 'Amatic SC';
+            }
+
+            i.fa {
+                color: #5f85b0;
+                display: inline-block;
+            }
+
+            i.fa.fa-facebook {
+                margin-right: 20px;
+            }
+
+            i.fa.fa-twitter {
+                margin-left: 20px;
+            }
+        </style>
+    </head>
+    <body>
+    <hgroup id="site-logo">
+        <div>
+            <img src="{{ asset('images/lenervee/logo-crossed.png') }}" id="nrvLogo" width="330" height="330">
+            <div>
+                <h1 id="site-title" style="color: #5f85b0;font-size: 84px; text-decoration: none;">L'énervée</h1>
+                <h2 id="site-description" style="font-size: 64px;color: #888;">Avis d'une consommatrice</h2>
+            </div>
+        </div>
+        <hr>
+        <h1 style="font-size: 2.5em;">En maintenance</h1>
+        <p>
+            Pour des raisons de sécurité, le blog de L'énervée a été mis en maintenance.
+            <br/>
+            Laissez-nous le temps de faire ce qu'on a à faire et on revient rapidement.
+        </p>
+        <p>
+            En attendant, retrouvez-nous sur Facebook ou Twitter.
+            <br/>
+        <div class="social-profiles">
+            <ul>
+                <li class="facebook"><a href="http://www.facebook.com/lenervee" title="L'énervée sur Facebook"><i class="fa fa-facebook fa-4x"></i></a></li>
+                <li class="twitter"><a href="https://twitter.com/lenervee" title="L'énervée sur Twitter"><i class="fa fa-twitter fa-4x"></i></a></li>
+            </ul>
+        </div>
+        </p>
+    </hgroup>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-50184381-1']);
+        _gaq.push(['_gat._forceSSL']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    </body>
+    </html>

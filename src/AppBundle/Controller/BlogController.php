@@ -5,14 +5,49 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Courrier;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BlogController extends Controller
 {
+    const MAIL_TITLE = '%s vous conseille un courrier sur http://lenervee.com/ !';
+
     /**
-     * @Route("/blog/page/contactez-nous", name="blog_contact")
+     * @Route("/blog/cookie/accept/", name="blog_cookie_accept")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function cookieAcceptAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+
+            $response = new Response();
+            $cookie = new Cookie('cookie_notice', '1', new \DateTime('+1 month'), '/');
+            $response->headers->setCookie($cookie);
+            $response->send();
+
+            return new $response;
+        }
+
+        return new Response(null, 405);
+    }
+
+    /**
+     * @Route("/cookies/", name="blog_cookie_know")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function cookieKnowAction(Request $request)
+    {
+        return $this->render('blog/cookie.html.twig');
+    }
+
+    /**
+     * @Route("/contactez-nous/", name="blog_contact")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -22,7 +57,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/page/mentions-legales", name="blog_mentions")
+     * @Route("/mentions-legales/", name="blog_mentions")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -32,7 +67,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/page/a-propos", name="blog_about")
+     * @Route("/a-propos/", name="blog_about")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -42,7 +77,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/feed", name="blog_feed")
+     * @Route("/feed/", name="blog_feed")
      *
      * @return Response
      */
@@ -86,17 +121,19 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/email/rediger", name="blog_email")
+     * @Route("/blog/email/rediger/", name="blog_email")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function emailAction()
+    public function emailAction(Request $request)
     {
-        return $this->render('blog/email.html.twig');
+        return $this->render('blog/partage/form.html.twig', [
+            'courrier' => $request->query->get('courrier'),
+        ]);
     }
 
     /**
-     * @Route("/blog/email/envoyer", name="blog_email_send")
+     * @Route("/blog/email/envoyer/", name="blog_email_send")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -119,11 +156,32 @@ class BlogController extends Controller
             }
 
             if (count($errors)) {
-                return new JsonResponse($errors, 415);
+                return new JsonResponse($errors, 412);
             }
 
+            if ($this->get('kernel')->getEnvironment() == 'prod') {
+                $email = \Swift_Message::newInstance()
+                    ->setSubject(sprintf(self::MAIL_TITLE, $senderName))
+                    ->setFrom([$senderEmail => $senderName])
+                    ->setTo($friendEmail)
+                    ->setBody($this->renderView('blog/partage/email.html.twig', [
+                        'courrier' => $this->getDoctrine()->getRepository('AppBundle:Courrier')->find($request->request->get('id')),
+                        'sender_name' => $senderName,
+                    ]),'text/html')
+                ;
+
+                $deliveredTo = $this->get('mailer')->send($email);
+
+                if ($deliveredTo) {
+                    return new JsonResponse(null, 200);
+
+                }
+                return new JsonResponse(null, 500);
+
+            }
             return new JsonResponse(null, 200);
+
         }
-        exit;
+        return new Response(null, 405);
     }
 }

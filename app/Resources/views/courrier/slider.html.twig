@@ -2,12 +2,12 @@
 
     <h2>Courriers sur le même thème</h2>
 
-    <div class="related-slider bw-slider has-pag" data-number="{{ courriers|length }}">
+    <div class="related-slider bw-slider has-pag" data-number="3">
         {% for courrier in courriers %}
         <div class="related-item">
             <div class="related-image">
                 <a href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}">
-                    <img width="485" height="325" src="{{ asset(courrier.image) }}" data-lazy-type="image" class="attachment-bw_485x325 wp-post-image" alt="{{ courrier.name }}" />
+                    <img width="485" height="325" src="{{ asset(courrier.image) }}" class="attachment-bw_485x325 size-bw_485x325 wp-post-image" alt="{{ courrier.name }}" />
                 </a>
             </div>
             <div class="related-data">

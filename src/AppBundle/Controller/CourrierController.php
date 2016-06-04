@@ -9,6 +9,7 @@ use AppBundle\Form\ReactionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class CourrierController extends Controller
         $courriers = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Courrier')
-            ->findLast(2, null, $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+            ->findLast(2, null, $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
         ;
 
         return $this->render('courrier/index.html.twig', [
@@ -37,14 +38,14 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/{slugCategorie}/{slugCourrier}", name="courrier_voir", requirements={"categorie_slug": "[a-zA-Z1-9\-_]+", "courrier_slug", "[a-zA-Z1-9\-_]+"})
+     * @Route("/{slugCategorie}/{slugCourrier}/", name="courrier_voir", requirements={"categorie_slug": "[a-zA-Z1-9\-_]+", "courrier_slug", "[a-zA-Z1-9\-_]+"})
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function voirAction(Request $request, $slugCategorie, $slugCourrier)
     {
         $sent = $request->query->get('send', null);
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
 
         $doctrine = $this
             ->getDoctrine()
@@ -62,21 +63,24 @@ class CourrierController extends Controller
 
         $is404 = [
             'notFound' => empty($courrier),
-            'wrongSlug' => $courrier->getCategorie()->getSlug() != $slugCategorie,
-            'denied' => (!$courrier->getPublished() && !$isAdmin),
+            'wrongSlug' => !empty($courrier) && $courrier->getCategorie()->getSlug() != $slugCategorie,
+            'denied' => !empty($courrier) && (!$courrier->getPublished() && !$isAdmin),
         ];
 
         if ($is404['notFound'] || $is404['wrongSlug'] || $is404['denied']) {
             throw new NotFoundHttpException('Courrier non trouvé.');
         }
 
-        $reaction = new Reaction();
+        $reaction = !$isAdmin ? new Reaction() : (new Reaction)
+            ->setName('Administrateur')
+            ->setUrl('http://lenervee.com/')
+            ->setEmail('admin@lenervee.com')
+        ;
         $formReaction = $this->createForm(ReactionType::class, $reaction);
 
         if ($request->isMethod('POST')) {
             $formReaction->handleRequest($request);
             $nickname = $formReaction['name']->getData();
-            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
             if (!$isAdmin && $nickname == 'Administrateur') {
                 $formReaction->addError(new FormError('Vous ne pouvez pas utiliser cette valeur pour pseudo.'));
             }
@@ -115,7 +119,7 @@ class CourrierController extends Controller
 
 
     /**
-     * @Route("/blog/courriers/rechercher", name="courrier_rechercher")
+     * @Route("/blog/courriers/rechercher/", name="courrier_rechercher")
      *
      */
     public function rechercherAction(Request $request)
@@ -141,7 +145,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * @Route("/blog/courriers/push", name="courrier_apercu")
+     * @Route("/blog/courriers/push/", name="courrier_apercu")
      */
     function apercuAction(Request $request, $id = null)
     {
@@ -162,7 +166,7 @@ class CourrierController extends Controller
             $courrier = $this
                 ->getDoctrine()
                 ->getRepository('AppBundle:Courrier')
-                ->findLast(1, $courrier->getEnvoi(), $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+                ->findLast(1, $courrier->getEnvoi(), $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
             ;
             $courrier = array_shift($courrier);
 
@@ -175,6 +179,40 @@ class CourrierController extends Controller
             'courrier' => $courrier,
             'no_more_courrier' => $noMoreCourrier,
         ]);
+    }
+
+    /**
+     * @Route("/blog/courriers/popup/", name="courrier_popup")
+     *
+     * @param Request $request
+     * @return Reponse|JsonResponse
+     */
+    public function popupAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest() && $request->isMethod(Request::METHOD_POST)) {
+            $slugCourrier = $request->request->get('courrier');
+
+            $courrier = $this
+                ->getDoctrine()
+                ->getRepository('AppBundle:Courrier')
+                ->findOneBySlug($slugCourrier)
+            ;
+
+            if (empty($courrier)) {
+                throw new NotFoundHttpException();
+            }
+
+            $courrier = [
+                'name' => $courrier->getName(),
+                'date' => $courrier->getEnvoi()->format('d/m/Y'),
+                'image' => $courrier->getImage()->getPath(),
+                'intro' => $courrier->getIntro(),
+            ];
+
+            return new JsonResponse($courrier);
+        }
+
+        return new Reponse(null, 405);
     }
 
     /**
@@ -204,6 +242,10 @@ class CourrierController extends Controller
         }
 
         unset($courriers[$courrier->getId()]);
+
+        if (empty($courriers)) {
+            return new Response();
+        }
 
         return $this->render('courrier/slider.html.twig', [
             'courriers' => $courriers,

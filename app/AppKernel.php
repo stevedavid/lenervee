@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new Eko\FeedBundle\EkoFeedBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
 
         );
 

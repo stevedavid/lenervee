@@ -1,24 +1,20 @@
 {% if no_more_courrier == true %}
-    <article class="post not-single type-post has-post-thumbnail hentry">
-        <div id="no-more-courrier" class="post-heading text-center">
+    <article class="post not-single type-post has-post-thumbnail hentry" style="border-bottom: 0">
+        <div id="no-more-courrier" class="post-heading text-center" style="border-bottom: 0">
             <h3 style="font-family: 'Roboto Slab'; text-align: center; font-size: 2em;">Déjà tout lu ?</h3>
             <div class="sub-info" style="margin-bottom: 25px;">
                 <div class="sub-content">
                     <span>Suivez-nous !</span>
                 </div>
             </div>
-            <div class="fb-page" data-href="https://www.facebook.com/lenervee" data-width="300" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/lenervee">
-                        <a href="https://www.facebook.com/lenervee">L&#039;énervée</a>
-                    </blockquote>
-                </div>
-            </div>
+            <div class="fb-page" data-href="https://www.facebook.com/lenervee/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/lenervee/"><a href="https://www.facebook.com/lenervee/">L&#039;énervée</a></blockquote></div></div>
             <br/><br/>
             <a href="https://twitter.com/lenervee" class="twitter-follow-button" data-size="large" data-show-count="true" data-lang="fr">Suivez @lenervee</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
     </article>
 {% else %}
-    <article id="post-{{ courrier.id }}" class="post not-single post-1951 type-post status-private format-standard has-post-thumbnail hentry category-exceptions">
+    <article id="post-{{ courrier.id }}" class="post not-single post-1951 type-post status-private format-standard has-post-thumbnail hentry category-exceptions" style="margin-bottom: 20px;">
 
         <div class="post-heading text-center">
             <ul class="post-categories">
@@ -41,7 +37,7 @@
         <div class="post-featured">
 
             <a href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}">
-                <img width="960" height="540" src="{{ asset(courrier.image.path) }}" class="attachment-bw_1100 wp-post-image" alt="Ondamania" />
+                <img width="960" height="540" src="{{ asset(courrier.image.path) }}" class="attachment-bw_1100 wp-post-image" alt="{{ courrier.name }}" />
 
             </a>
         </div>

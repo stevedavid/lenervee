@@ -38,7 +38,7 @@ class Tag
     /**
      * @var Courrier
      *
-     * @ORM\ManyToMany(targetEntity="Courrier", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Courrier", inversedBy="tags", cascade={"persist"})
      * @ORM\JoinTable(name="courrier_tag")
      *
      */

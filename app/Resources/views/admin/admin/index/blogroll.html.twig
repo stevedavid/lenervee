@@ -1,0 +1,34 @@
+<div class="col-xs-6">
+
+    <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-dark bold uppercase">Partenaires</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="mt-element-list">
+                <div class="mt-list-container list-default ext-1">
+                    <ul>
+                        {% for lien in liens %}
+                            <li class="mt-list-item done">
+                                <div class="list-icon-container">
+                                    <a href="javascript:;">
+                                        <i class="icon-check"></i>
+                                    </a>
+                                </div>
+                                <div class="list-item-content">
+                                    <h3 class="uppercase">
+                                        <a href="javascript:;">{{ lien.name }}</a>
+                                    </h3>
+                                    <p>{{ lien.href }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
