@@ -35,7 +35,6 @@ body.mobile-expand-menu #wrapper {position:absolute;right:75%;left:auto;width:10
 .section-header h2 {font-size:35px;}
 .section-header .sub-title {font-size:20px;}
 .post-title {font-size:30px;}
-.post-heading .sub-info .sub-content > span:before, .post-heading .sub-info .sub-content > span:after {content:none;}
 .post-excerpt {font-size:14px;}
 .pagination-counter .current {font-size:60px;}
 .pagination-counter .total {top:0;}
