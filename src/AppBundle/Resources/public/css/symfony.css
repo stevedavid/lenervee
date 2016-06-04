@@ -336,6 +336,10 @@ blockquote:not(.reponse) > p:last-child {
     right: 0px !important;
 }
 
+#cookie-notice .cookie-notice-container {
+    padding-top: 15px !important;
+}
+
 @media only screen and (max-width: 1120px) {
     #logo-mobile {
         width: 90% !important;
@@ -364,6 +368,13 @@ blockquote:not(.reponse) > p:last-child {
 }
 
 @media only screen and (max-width: 450px) {
+    #cn-notice-text {
+        font-size: 0.75em;
+    }
+
+    #cookie-notice .cookie-notice-container {
+        padding-top: 0 !important;
+    }
 }
 
 
@@ -513,10 +524,6 @@ blockquote:not(.reponse) > p:last-child {
     display: inline-block;
     z-index: 100001;
     font-size: 1.1em;
-}
-
-#cookie-notice .cookie-notice-container {
-    padding-top: 15px !important;
 }
 
 #cookie-notice .button {
