@@ -15,6 +15,16 @@
     <meta name="twitter:image:src" content="{{ app.request.getSchemeAndHttpHost() ~ asset('images/lenervee/social_network_cover.png') }}" />
 {% endblock %}
 
+{% block css %}
+    <style>
+        @media only screen and (max-width: 768px) {
+            .post-heading {
+                border-bottom: none;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block inner_body %}
     {% for courrier in courriers %}
         {{ render(controller('AppBundle:Courrier:apercu', {id: courrier.id})) }}

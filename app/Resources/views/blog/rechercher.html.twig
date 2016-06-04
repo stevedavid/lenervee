@@ -1,5 +1,13 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    {% if query_string %}
+        « {{ query_string }} »
+    {% else %}
+        Tous les courriers
+    {% endif %}
+{% endblock %}
+
 {% block courrier_heading %}
     <div class="alt-heading">
         <h1 class="page-title">
