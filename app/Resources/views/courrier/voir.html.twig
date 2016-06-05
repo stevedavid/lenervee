@@ -222,7 +222,7 @@
             $('.post-excerpt blockquote:not(.reponse) a[title]').each(function() {
                 var $link = $(this);
                 var urlParts = $link.attr('href').split('/');
-                if(urlParts.length == 3) {
+                if(urlParts.length == 4) {
                     urlParts.splice(0, 1);
                     var data = {
                         'categorie': urlParts[0],
