@@ -154,7 +154,14 @@
                                     {% else %}
                                         <img alt="Avatar" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
                                     {% endif %}
-                                    <b class="fn">{{ reaction.name }}</b> <span class="says">dit&nbsp;:</span>
+                                    <b class="fn">
+                                        {% if reaction.url %}
+                                            <a href="{{ reaction.url }}" target="_blank">{{ reaction.name }}</a>
+                                        {% else %}
+                                            {{ reaction.name }}
+                                        {% endif %}
+                                    </b>
+                                    <span class="says">dit&nbsp;:</span>
                                 </div><!-- .comment-author -->
 
                                 <div class="comment-metadata">
