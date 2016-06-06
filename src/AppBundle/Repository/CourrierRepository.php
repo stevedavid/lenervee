@@ -43,6 +43,7 @@ class CourrierRepository extends EntityRepository
                 'slug' => $slug,
                 'status' => $status,
             ])
+            ->orderBy('r.date', 'ASC')
             ->getQuery()
             ->getOneOrNullResult()
         ;
