@@ -106,7 +106,9 @@ class WidgetController extends Controller
         $reaction = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Reaction')
-            ->findOneBy([], [
+            ->findOneBy([
+                'status' => Reaction::STATUS_ACCEPTED,
+            ], [
                 'id' => 'DESC'
             ]);
 
