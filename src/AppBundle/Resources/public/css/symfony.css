@@ -530,7 +530,7 @@ blockquote:not(.reponse) > p:last-child {
     clear:both;
     margin-bottom:25px;
     text-decoration:none;
-    color:#777;
+    color:white;
     border:3px solid #eee;
     border-radius:12px;
     -moz-border-radius:12px;
@@ -545,11 +545,11 @@ blockquote:not(.reponse) > p:last-child {
     text-decoration:none;
     text-transform:uppercase;
     vertical-align: inherit;
+    background-color:#777;
 }
 
 #cookie-notice .button:hover {
     color:#fff;
-    border-color:#5F85B0;
     background-color:#5F85B0;
 }
 
