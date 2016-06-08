@@ -156,7 +156,7 @@
                                     {% endif %}
                                     <b class="fn">
                                         {% if reaction.url %}
-                                            <a href="{{ reaction.url }}" target="_blank">{{ reaction.name }}</a>
+                                            <a href="{{ reaction.url }}" rel="tooltip" title="Aller sur {{ reaction.url }}" target="_blank">{{ reaction.name }}</a>
                                         {% else %}
                                             {{ reaction.name }}
                                         {% endif %}
