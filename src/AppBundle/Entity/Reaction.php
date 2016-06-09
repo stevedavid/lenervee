@@ -284,4 +284,9 @@ class Reaction
 
         return $this;
     }
+
+    public function getGravatarHash()
+    {
+        return md5(strtolower(trim($this->email)));
+    }
 }

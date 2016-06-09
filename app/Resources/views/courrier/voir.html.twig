@@ -152,7 +152,7 @@
                                     {% if reaction.name == 'Administrateur' %}
                                         <img alt="Avatar" src="{{ asset('images/lenervee/Logo-Mockup-3D-150x148.png') }}" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
                                     {% else %}
-                                        <img alt="Avatar" src="http://0.gravatar.com/avatar/39d69215a5f4956ee8ac28c28e136b91?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
+                                        <img alt="Avatar" src="https://www.gravatar.com/avatar/{{ reaction.gravatarHash }}?s=64&amp;d=mm&amp;r=g" class="lazy avatar avatar-64 photo data-lazy-ready" height="64" width="64" style="display: block;">
                                     {% endif %}
                                     <b class="fn">
                                         {% if reaction.url %}
