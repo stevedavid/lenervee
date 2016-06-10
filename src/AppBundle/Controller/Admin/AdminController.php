@@ -37,6 +37,26 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/_opcachereset", name="admin_admin_opcacheReset")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function resetOpcacheAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest() && $request->isMethod(Request::METHOD_POST)) {
+
+            $state = opcache_reset();
+
+            if (!$state) {
+                return new Response(null, 500);
+            }
+
+            return new Response();
+        }
+    }
+
+    /**
      * Not routable
      */
     function headerAction()
@@ -95,5 +115,13 @@ class AdminController extends Controller
             }),
             'debug' => $request->query->get('debug')
         ]);
+    }
+
+    /**
+     * Not routable
+     */
+    function quickSidebarAction()
+    {
+        return $this->render('admin/admin/quick-sidebar.html.twig');
     }
 }
