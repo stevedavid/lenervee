@@ -52,6 +52,25 @@ class WidgetController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    function commenteesAction()
+    {
+
+        $courriers = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Courrier')
+            ->findMostCommented(20);
+
+        return $this->render('widget/commentees.html.twig', [
+            'courriers' => $courriers,
+        ]);
+
+    }
+
+    /**
+     * Not routable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     function blogrollAction()
     {
         $yamlPath = $this->get('kernel')->getRootDir() . '/../' . $this->getParameter('blogroll_yml_path');

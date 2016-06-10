@@ -108,7 +108,20 @@ class CourrierRepository extends EntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
 
+    public function findMostCommented($limit)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.reactions', 'r')
+            ->select('c, COUNT(r.id) AS HIDDEN nbReactions')
+            ->where('c.published = 1')
+            ->orderBy('nbReactions', 'DESC')
+            ->setMaxResults($limit)
+            ->groupBy('c.id')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     public function findLikeBy(array $parameters = [])
