@@ -117,6 +117,9 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Not routable
+     */
     function quickSidebarAction()
     {
         return $this->render('admin/admin/quick-sidebar.html.twig');
