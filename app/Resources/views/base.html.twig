@@ -213,38 +213,35 @@
                 <div class="footer-widgets">
 
                     <div class="bw-col">
-
                         {{ render(controller('AppBundle:Widget:populaires')) }}
-                    </div>
-                    <div class="bw-col">
-                        {{ render(controller('AppBundle:Widget:blogroll')) }}
-
-
-                        {{ render(controller('AppBundle:Widget:derniereReaction')) }}
                         <aside id="text-12" class="widget widget_text">
-                            <div class="textwidget">
-                                <ul class="footer-social">
-                                    <li><a rel="tooltip" title="Suivez L'énervée sur Facebook" href="http://www.facebook.com/lenervee" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.facebook.com/lenervee', '']);" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a rel="tooltip" title="Suivez L'énervée sur Twitter" href="http://www.twitter.com/lenervee" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.twitter.com/lenervee', '']);" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a rel="tooltip" title="Souscrivez au flux RSS" href="{{ path('blog_feed') }}" target="_blank"><i class="fa fa-rss"></i></a></li>
-                                </ul>
-                            </div>
+                            <div style="margin-bottom: 10px;" class="fb-page" data-href="https://www.facebook.com/lenervee/" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/lenervee/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/lenervee/">L&#039;énervée</a></blockquote></div>
                         </aside>
                     </div>
                     <div class="bw-col">
-                        <aside id="text-8" class="widget widget_text"><h3 class="widget-title">Réseaux sociaux</h3>
+                        {{ render(controller('AppBundle:Widget:blogroll')) }}
+                        {{ render(controller('AppBundle:Widget:presse')) }}
+                        <aside id="text-12" class="widget widget_text">
                             <div class="textwidget">
-                                <div class="fb-page" data-href="https://www.facebook.com/lenervee" data-width="300" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/lenervee"><a href="https://www.facebook.com/lenervee">L&#039;énervée</a></blockquote></div></div>
-                                <br/><br/>
+                                <ul class="footer-social">
+                                    <li><a data-placement="bottom" rel="tooltip" title="Suivez L'énervée sur Facebook" href="http://www.facebook.com/lenervee" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.facebook.com/lenervee', '']);" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a data-placement="bottom" rel="tooltip" title="Suivez L'énervée sur Twitter" href="http://www.twitter.com/lenervee" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.twitter.com/lenervee', '']);" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a data-placement="bottom" rel="tooltip" title="Souscrivez au flux RSS" href="{{ path('blog_feed') }}" target="_blank"><i class="fa fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </aside>
+
+                    </div>
+                    <div class="bw-col">
+                        {{ render(controller('AppBundle:Widget:commentees')) }}
+                        <aside id="text-12" class="widget widget_text">
+                            <div class="text-center" style="margin-bottom: 10px;">
                                 <a href="https://twitter.com/lenervee" class="twitter-follow-button" data-show-count="true" data-lang="fr">Suivre @lenervee</a>
                                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                             </div>
                         </aside>
-
-                        {{ render(controller('AppBundle:Widget:presse')) }}
-
-
                     </div>
+
                 </div>
 
                 <div class="top-bar" style="background-color:#364e6d">
