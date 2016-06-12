@@ -1,10 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block meta %}
+    <meta name="description" content="L&#039;énervée, c&#039;est le blog satirique d&#039;une consommatrice acrimonieuse qui envoie ses lettres de réclamation aux services consommateurs des marques de la grande distribution pour faire connaître son insatisfaction (et un peu pour raconter sa vie)." />
+
     <meta property="og:title" content="L'énervée ‹ Avis d'une consommatrice" />
     <meta property="og:description" content="L&#039;énervée, c&#039;est le blog satirique d&#039;une consommatrice acrimonieuse qui envoie ses lettres de réclamation aux services consommateurs des marques de la grande distribution pour faire connaître son insatisfaction (et un peu pour raconter sa vie)." />
     <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset('images/lenervee/social_network_cover.png') }}" />
     <meta property="og:url" content="{{ url('courrier_index') }}" />
+
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@lenervee" />
     <meta name="twitter:site:id" content="2471711214" />
