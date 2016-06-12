@@ -169,6 +169,14 @@ i.icn.share-email:before {
     content: url('../images/share_email.png')
 }
 
+i.icn.share-more:before {
+    content: url('../images/share_more.png');
+}
+
+i.icn.share-more {
+    cursor: pointer;
+}
+
 i.icn.edit-courrier:before {
     content: url('../images/edit_courrier.png');
     width: 38px;

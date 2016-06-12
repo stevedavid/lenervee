@@ -1,3 +1,4 @@
+{% set share_url = url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) %}
 <div class="fcbk_share" style="position: absolute; bottom: -10px;z-index: 100000;">
     <div class="fcbk_like" style="margin-bottom: -30px;" rel="tooltip" title="Aimer ce courrier sur Facebook">
         <fb:like href="{{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" layout="button_count" width="450" show_faces="false" share="false"></fb:like>
@@ -8,23 +9,63 @@
         <div class="share-buttons">
             <ul>
                 <li rel="tooltip" title="Partager ce courrier sur Facebook">
-                    <a class="fb-sharer" href="https://www.facebook.com/sharer/sharer.php?u={{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" data-width="50%" data-height="20%" target="_blank">
+                    <a class="fb-sharer" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" data-width="50%" data-height="20%" target="_blank">
                         <i class="icn share-fb"></i>
                     </a>
                 </li>
                 <li rel="tooltip" title="Partager ce courrier sur Twitter">
-                    <a class="twitter-sharer" href="https://twitter.com/home?status={{ '<Tapez votre tweet> : '|url_encode ~ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug})|url_encode ~ ' via @lenervee '|url_encode }}" data-width="50%" data-height="20%" target="_blank">
+                    <a class="twitter-sharer" href="https://twitter.com/home?status={{ '<Tapez votre tweet> : '|url_encode ~ share_url|url_encode ~ ' via @lenervee '|url_encode }}" data-width="50%" data-height="20%" target="_blank">
                         <i class="icn share-tw"></i>
                     </a>
                 </li>
                 <li rel="tooltip" title="Partager ce courrier sur Google+">
-                    <a class="gp-sharer" href="https://plus.google.com/share?url={{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" data-width="50%" data-height="20%" target="_blank">
+                    <a class="gp-sharer" href="https://plus.google.com/share?url={{ share_url }}" data-width="50%" data-height="20%" target="_blank">
                         <i class="icn share-gp"></i>
                     </a>
                 </li>
                 <li id="share-email" data-courrier="{{ courrier.id }}" rel="tooltip" title="Partager ce courrier par email">
                     <i class="icn share-email"></i>
                 </li>
+                <li id="share-more" class="dropdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" rel="tooltip" title="Autres réseaux sociaux">
+                    <i class="icn share-more"></i>
+                </li>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="share-more" style="text-align: center; margin: auto;">
+                    <li rel="tooltip" title="Partagez ce courrier sur Digg" data-placement="bottom">
+                        <a href="http://www.digg.com/submit?url={{ share_url }}" target="_blank">
+                            <i class="fa fa-2x fa-digg" style="color: black;"></i>
+                        </a>
+                    </li>
+                    <li rel="tooltip" title="Partagez ce courrier sur Pinterest" data-placement="bottom">
+                        <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
+                            <i class="fa fa-2x fa-pinterest" style="color: #bd071b;"></i>
+                        </a>
+                    </li>
+                    <li rel="tooltip" title="Partagez ce courrier sur Delicious" data-placement="bottom">
+                        <a href="http://delicious.com/save" onclick="window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent('{{ share_url }}')+'&amp;title='+encodeURIComponent('{{ courrier.name }}'),'delicious', 'toolbar=no,width=550,height=550'); return false;">
+                            <i class="fa fa-2x fa-delicious" style="color: #7674fe"></i>
+                        </a>
+                    </li>
+                    <li rel="tooltip" title="Partagez ce courrier sur Reddit" data-placement="bottom">
+                        <a href="http://reddit.com/submit?url={{ share_url }}&amp;title={{ courrier.name ~ ' | L\'&eacute;nervée' }}" target="_blank">
+                            <i class="fa fa-2x fa-reddit-square" style="color: #ff4500;"></i>
+                        </a>
+                    </li>
+                    <li rel="tooltip" title="Partagez ce courrier sur LinkedIn" data-placement="bottom">
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ share_url }}" target="_blank">
+                            <i class="fa fa-2x fa-linkedin-square" style="color: #007bb6;"></i>
+                        </a>
+                    </li>
+                    <li rel="tooltip" title="Partagez ce courrier sur Tumblr" data-placement="bottom">
+                        <a href="http://www.tumblr.com/share/link?url={{ share_url }}&amp;title={{ courrier.name ~' | L\'&eacute;nervée' }}" target="_blank">
+                            <i class="fa fa-2x fa-tumblr-square" style="color: #36465d;"></i>
+                        </a>
+                    </li>
+                    <li rel="tooltip" title="Partagez ce courrier sur Viadeo" data-placement="bottom">
+                        <a href="http://www.viadeo.com/shareit/share/?url={{ share_url }}" target="_blank">
+                            <i class="fa fa-2x fa-viadeo-square" style="color: #f4982a;"></i>
+                        </a>
+                    </li>
+                </ul>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <li  rel="tooltip" title="Modifier ce courrier">
                     <a href="{{ path('admin_courrier_rediger', {id: courrier.id}) }}">
