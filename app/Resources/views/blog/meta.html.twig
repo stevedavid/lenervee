@@ -1,3 +1,5 @@
+<meta name="description" content="{{ courrier.intro }}" />
+
 <meta property="og:title" content="{{ courrier.name }} | L'énervée" />
 <meta property="og:description" content="{{ courrier.intro }}" />
 <meta property="og:type" content="article" />
@@ -5,6 +7,7 @@
 <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset(courrier.image) }}" />
 <meta property="og:url" content="{{ url('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" />
 <meta property="fb:admins" content="771160523" />
+
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@lenervee" />
 <meta name="twitter:site:id" content="2471711214" />
