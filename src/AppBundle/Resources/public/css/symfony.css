@@ -558,3 +558,11 @@ blockquote:not(.reponse) > p:last-child {
     left: 10px;
     top: 10px;
 }
+
+#contact-page .twitter-mention-button {
+    margin-left: 85px;
+}
+
+#contact-page {
+
+}
