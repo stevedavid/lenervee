@@ -16,10 +16,10 @@ class CourrierRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c', 'C')
-            ->where('c.id > :id')
+            ->where('c.envoi > :envoi')
             ->leftJoin('c.categorie', 'C')
-            ->setParameter(':id', $courrier->getId())
-            ->orderBy('c.id', 'ASC')
+            ->setParameter(':envoi', $courrier->getEnvoi())
+            ->orderBy('c.envoi', 'ASC')
             ->setMaxResults(1)
         ;
 
@@ -82,10 +82,10 @@ class CourrierRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c', 'C')
-            ->where('c.id < :id')
+            ->where('c.envoi < :envoi')
             ->leftJoin('c.categorie', 'C')
-            ->setParameter(':id', $courrier->getId())
-            ->orderBy('c.id', 'DESC')
+            ->setParameter(':envoi', $courrier->getEnvoi())
+            ->orderBy('c.envoi', 'DESC')
             ->setMaxResults(1)
         ;
 
