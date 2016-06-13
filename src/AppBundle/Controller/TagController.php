@@ -7,6 +7,7 @@ use AppBundle\Entity\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TagController extends Controller
 {
@@ -26,6 +27,10 @@ class TagController extends Controller
             ->getRepository('AppBundle:Tag')
             ->findOneBySlug($slug)
         ;
+
+        if (empty($tag)) {
+            throw new NotFoundHttpException('Tag non trouvé');
+        }
 
         /** @var Courrier $courriers */
         $courriers = $doctrine
