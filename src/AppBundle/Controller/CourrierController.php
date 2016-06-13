@@ -47,19 +47,14 @@ class CourrierController extends Controller
         $sent = $request->query->get('send', null);
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
 
-        $doctrine = $this
-            ->getDoctrine()
-        ;
-        $em = $doctrine
-            ->getManager()
-        ;
-
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
         $repoCourrier = $doctrine->getRepository('AppBundle:Courrier');
 
-        $courrier = $repoCourrier
-            ->findOneBySlugWithReactionsFiltered($slugCourrier, Reaction::STATUS_ACCEPTED)
-        ;
-
+        $courrier = $repoCourrier->findOneBySlugWithReactionsFiltered(
+            $slugCourrier,
+            Reaction::STATUS_ACCEPTED
+        );
 
         $is404 = [
             'notFound' => empty($courrier),
