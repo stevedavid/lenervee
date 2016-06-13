@@ -500,6 +500,17 @@ blockquote:not(.reponse) > p:last-child {
     #header .search-submit:hover {
         background-color: #888;
     }
+
+    #contact-page .widget {
+        clear: both;
+        width: 100% !important;
+    }
+
+    #contact-page .twitter-mention-button {
+        margin-left: -81.5px !important;
+        position: relative !important;
+        left: 50%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -571,6 +582,3 @@ blockquote:not(.reponse) > p:last-child {
     margin-left: 85px;
 }
 
-#contact-page {
-
-}
