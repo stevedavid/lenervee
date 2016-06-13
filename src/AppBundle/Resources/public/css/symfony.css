@@ -188,6 +188,11 @@ i.icn.edit-courrier:before {
     padding: 0;
 }
 
+.pagination-counter > .label {
+    font-size: 1.25em;
+    color: #444 !important;
+}
+
 #sidebar {
     transform: translateX(0%);
 }
@@ -582,3 +587,6 @@ blockquote:not(.reponse) > p:last-child {
     margin-left: 85px;
 }
 
+.journal-comments {
+    margin-top: 25px;
+}
