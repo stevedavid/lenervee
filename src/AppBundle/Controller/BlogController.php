@@ -86,7 +86,11 @@ class BlogController extends Controller
         $courriers = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Courrier')
-            ->findAll()
+            ->findBy([
+                'published' => 1,
+            ], [
+                'envoi' => 'DESC',
+            ])
         ;
 
         $feed = $this->get('eko_feed.feed.manager')->get('courrier');
