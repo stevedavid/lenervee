@@ -25,4 +25,8 @@ courrier:
     resource: "@AppBundle/Controller/CourrierController.php"
     type:     annotation
 
+newsletter:
+    resource: "@AppBundle/Controller/NewsletterController.php"
+    type:     annotation
+
 
