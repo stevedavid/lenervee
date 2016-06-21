@@ -332,6 +332,27 @@ output='js/compiled.js' %}
                 container: 'body'
             });
 
+            $('#footer [widget-tooltip="tooltip"]').each(function() {
+                var $this = $(this);
+                $(this).tooltip({
+                    placement: 'left',
+                    title: $this.attr('tooltip-title'),
+                });
+            });
+
+            $('#footer [widget-popover="popover"]').each(function() {
+                $this = $(this);
+                $(this).popover({
+                    trigger: 'hover',
+                    placement: 'top',
+                    html: true,
+                    container: 'body',
+                    title: $this.attr('popover-title'),
+                });
+            });
+
+
+
             $('#sidebar').hcSticky({
                 bottomEnd: 200,
                 top: 70,

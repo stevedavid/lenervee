@@ -3,7 +3,7 @@
     <ol class="bj-fbpp-list">
         {% for courrier in courriers %}
             <li class="bj-fbpp-item">
-                <a rel="popover" title="{{ courrier.name}}<br/><span>{{ courrier.envoi|date('d/m/Y') }}</span>" data-content="<img src='{{ asset(courrier.image) }}'/><br/>{{ courrier.intro }}" href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" class="bj-fbpp-link">
+                <a widget-tooltip="tooltip" tooltip-title="{{ courrier.reactions|length }} réactions" widget-popover="popover" popover-title="{{ courrier.name}}<br/><span>{{ courrier.envoi|date('d/m/Y') }}</span>" data-content="<img src='{{ asset(courrier.image) }}'/><br/>{{ courrier.intro }}" href="{{ path('courrier_voir', {slugCategorie: courrier.categorie.slug, slugCourrier: courrier.slug}) }}" class="bj-fbpp-link">
                     <span class="bj-fbpp-title">{{ courrier.name }}</span>
                 </a>
             </li>
