@@ -75,6 +75,20 @@ class Reaction
     private $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="likes", type="integer")
+     */
+    private $like;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="dislikes", type="integer")
+     */
+    private $dislike;
+
+    /**
      * Thread of this comment
      *
      * @var Courrier
@@ -285,6 +299,57 @@ class Reaction
         return $this;
     }
 
+    /**
+     * @return int
+     */
+    public function getLike()
+    {
+        return (int) $this->like;
+    }
+
+    /**
+     * @param $like
+     * @return $this
+     */
+    public function setLike($like)
+    {
+        $this->like = $like;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDislike()
+    {
+        return (int) $this->dislike;
+    }
+
+    /**
+     * @param $dislike
+     * @return $this
+     */
+    public function setDislike($dislike)
+    {
+        $this->dislike = $dislike;
+
+        return $this;
+    }
+
+    public function getTotalVotes()
+    {
+        if (($total = $this->like - $this->dislike) > 0) {
+            dump($total);
+            return sprintf('+%s', $total);
+        }
+
+        return $this->like - $this->dislike;
+    }
+
+    /**
+     * @return string
+     */
     public function getGravatarHash()
     {
         return md5(strtolower(trim($this->email)));
