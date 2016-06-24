@@ -483,6 +483,21 @@ class Courrier implements RoutedItemInterface
         return $this->likeCount;
     }
 
+    public function getFormattedLikes()
+    {
+        $n = $this->likeCount;
+
+        $d = $n < 1000000 ? 1000 : 1000000;
+
+        $f = round($n / $d, 1);
+
+        return
+            $n < 1000 ?
+            number_format($n, 0, ',', ' ') :
+            number_format($f, $f - intval($f) ? 1 : 0, ',', ' ') . ($d == 1000 ? 'k' : 'M')
+        ;
+    }
+
     public function getFeedItemTitle()
     {
         return $this->name;
