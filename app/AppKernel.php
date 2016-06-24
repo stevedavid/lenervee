@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Eko\FeedBundle\EkoFeedBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
         );
 
