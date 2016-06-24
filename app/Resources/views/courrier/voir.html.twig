@@ -176,6 +176,13 @@
 
                             <div class="comment-content">
                                 <p>{{ reaction.reaction|nl2br }}</p>
+                                <div class="comment-vote" rel="tooltip" data-placement="left" title="{{ reaction.totalVotes }}">
+                                    <i class="fa fa-thumbs-up" data-id="{{ reaction.id }}" data-action="like"></i>
+                                    <span class="reaction-like">{{reaction.like }}</span>
+                                    |
+                                    <i class="fa fa-thumbs-down" data-id="{{ reaction.id }}" data-action="dislike"></i>
+                                    <span class="reaction-dislike">{{ reaction.dislike }}</span>
+                                </div>
                             </div><!-- .comment-content -->
                         </article><!-- .comment-body -->
                     </li><!-- #comment-## -->
@@ -222,6 +229,33 @@
 {% block js %}
     <script>
         jQuery(function($) {
+
+            /**
+             * Vote sur les réactions
+             */
+            $('.comment-vote i.fa').on('click', function() {
+                var $this = $(this)
+                var $commentVote = $this.closest('.comment-vote');
+                var $faThumbs = $commentVote.find('i.fa');
+                var $voteCount = $this.next('span');
+                var data = {
+                    id: $(this).data('id'),
+                    action: $(this).data('action')
+                };
+
+                $.ajax({
+                    url: '{{ path('courrier_vote') }}',
+                    method: 'post',
+                    data: data,
+                    success: function(r) {
+                        $voteCount.text(r.vote);
+                        $this.css('color', 'black');
+                        $commentVote
+                            .addClass('already-voted')
+                            .attr('title', r.totalVotes);
+                    }
+                });
+            });
 
             /**
              * Popup sur les liens dans le courrier

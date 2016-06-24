@@ -590,3 +590,35 @@ blockquote:not(.reponse) > p:last-child {
 .journal-comments {
     margin-top: 25px;
 }
+
+.comment-content .reaction-like,
+.comment-content .fa-thumbs-up {
+    color: #5F85B0;
+}
+
+.comment-content .reaction-dislike,
+.comment-content .fa-thumbs-down {
+    color: #888;
+}
+
+.comment-vote:not(.already-voted) .fa {
+    cursor: pointer;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+.comment-vote:not(.already-voted) .fa:hover {
+    color: black;
+}
+
+.comment-vote {
+    font-size: 0.9em;
+
+}
+
+.comment-vote.already-voted i.fa {
+    cursor: not-allowed;
+}

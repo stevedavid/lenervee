@@ -9,10 +9,13 @@ use AppBundle\Form\ReactionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CourrierController extends Controller
@@ -205,6 +208,55 @@ class CourrierController extends Controller
             ];
 
             return new JsonResponse($courrier);
+        }
+
+        return new Response(null, 405);
+    }
+
+    /**
+     * @Route("blog/courrier/vote", name="courrier_vote")
+     */
+    public function voteAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest() && $request->isMethod(Request::METHOD_POST)) {
+
+            $post = $request->request;
+            $idReaction = $post->get('id');
+            $action = ucfirst($post->get('action'));
+            $getter = sprintf('get%s', $action);
+            $setter = sprintf('set%s', $action);
+
+            $reactionAlreadyVoted = json_decode($request->cookies->get('reaction_votes'), true);
+
+            if (in_array($idReaction, $reactionAlreadyVoted)) {
+//                throw new AccessDeniedHttpException('Vous avez déjà voté pour ce commentaire');
+            }
+
+            $em = $this
+                ->getDoctrine()
+                ->getManager()
+            ;
+
+            $reaction = $em
+                ->getRepository('AppBundle:Reaction')
+                ->find($idReaction)
+            ;
+
+            $voteCount = $reaction->$getter() + 1;
+            $reaction->$setter($voteCount);
+
+            $em->persist($reaction);
+            $em->flush();
+
+            $response = new Response();
+            $cookie = new Cookie('reaction_votes', json_encode([$reaction->getId()]), new \DateTime('+1 month'), '/');
+            $response->headers->setCookie($cookie);
+            $response->send();
+
+            return new JsonResponse([
+                'vote' => $voteCount,
+                'totalVotes' => $reaction->getTotalVotes(),
+            ]);
         }
 
         return new Response(null, 405);
