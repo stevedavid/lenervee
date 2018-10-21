@@ -18,6 +18,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CourrierController extends Controller
 {
 
+    const RECAPTCHA_SECRET_KEY = '6LcwDXYUAAAAAJCy0yX4xHtjNsL6gLCmPb3aRHpa';
+
     /**
      * @Route("/", name="courrier_index")
      *
@@ -46,6 +48,7 @@ class CourrierController extends Controller
     {
         $sent = $request->query->get('send', null);
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
+        $captchaReturn['success'] = false;
 
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
@@ -74,20 +77,43 @@ class CourrierController extends Controller
         $formReaction = $this->createForm(ReactionType::class, $reaction);
 
         if ($request->isMethod('POST')) {
+            $request = Request::createFromGlobals();
+            $captchaValue = $request->request->get('g-recaptcha-response');
+
             $formReaction->handleRequest($request);
             $nickname = $formReaction['name']->getData();
             if (!$isAdmin && $nickname == 'Administrateur') {
                 $formReaction->addError(new FormError('Vous ne pouvez pas utiliser cette valeur pour pseudo.'));
             }
             if ($formReaction->isValid()) {
-                /** @var Reaction $reaction */
-                $reaction = $formReaction->getData();
-                if ($isAdmin) {
-                    $reaction->setStatus(Reaction::STATUS_ACCEPTED);
+
+                $curl = curl_init('https://www.google.com/recaptcha/api/siteverify?' . http_build_query([
+                        'secret' => self::RECAPTCHA_SECRET_KEY,
+                        'response' => $captchaValue,
+                    ]));
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+                $captchaCurlResponse = curl_exec($curl);
+
+                if (!empty($captchaCurlResponse)) {
+                    $captchaReturn = json_decode($captchaCurlResponse, true);
                 }
-                $reaction->setCourrier($courrier);
-                $em->persist($reaction);
-                $em->flush();
+
+                /** @var Reaction $reaction */
+                if ($captchaReturn['success']) {
+
+                    $reaction = $formReaction->getData();
+                    if ($isAdmin) {
+                        $reaction->setStatus(Reaction::STATUS_ACCEPTED);
+                    }
+                    $reaction->setCourrier($courrier);
+                    $em->persist($reaction);
+                    $em->flush();
+                }
+
 
 
                 return $this->redirect($this->generateUrl('courrier_voir', [

@@ -8,6 +8,10 @@
     {{ render(controller('AppBundle:Blog:meta', {courrier: courrier})) }}
 {% endblock %}
 
+{% block recaptcha %}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+{% endblock %}
+
 {% block courrier_heading %}
     <div class="post-heading inner text-center">
 
@@ -207,7 +211,8 @@
                         <p class="comment-form-email">{{ form_widget(reaction_form.email) }}</p>
                         <p class="comment-form-url">{{ form_widget(reaction_form.url) }}</p>
                         <p>{{ form_widget(reaction_form.reaction) }}</p>
-                        <p class="form-submit">{{ form_widget(reaction_form.submit) }}
+                        <div class="g-recaptcha" data-sitekey="6LcwDXYUAAAAABXYkuyPTwu9kjnIEZHCGDr0DpS3"></div>
+                        <p class="form-submit" style="margin-top: 210px;">{{ form_widget(reaction_form.submit) }}</p>
                     {{ form_end(reaction_form) }}
                 {% endif %}
             </div><!-- #respond -->
